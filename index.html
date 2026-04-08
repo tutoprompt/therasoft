@@ -1,4 +1,7 @@
-<html lang="pt-BR"><head>
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Therasoft — Gestão para Psicólogos</title>
@@ -36,8 +39,8 @@
 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&amp;family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -131,6 +134,15 @@
     box-shadow: 0 4px 20px rgba(37,101,232,0.42);
     transform: translateY(-1px);
   }
+
+
+  /* ── SECTION VISUAL / CONTENT — sistema de layout 60/40 ────────────
+     .section-visual: oculto no mobile, aparece em tablet/desktop.
+     .section-content: display:contents no mobile = fluxo normal.
+  ─────────────────────────────────────────────────────────────────── */
+  .section-visual { display: none; }
+  .section-svg { width: 100%; height: 100%; display: block; }
+  .section-content { display: contents; }
 
   /* ── HERO ─────────────────────────────────────── */
   .hero {
@@ -271,6 +283,7 @@
   }
 
   .hero-title {
+    max-width: 600px;
     font-family: 'Comfortaa', cursive;
     font-size: 30px;
     font-weight: 700;
@@ -1493,13 +1506,21 @@
     .nav-inner { max-width: 860px; padding: 0; }
     .nav-cta { font-size: 14px; padding: 9px 22px; }
 
-    /* HERO */
-    .hero { padding-bottom: 72px; }
+    /* HERO — Tablet: idêntico à section-features (padding: 72px 40px 80px) */
+    .hero { padding-bottom: 0; }
     .hero-inner {
       max-width: 860px;
-      padding: 48px 40px 24px;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin: 0 auto;
     }
-    .hero-placeholder + .hero-inner { padding-top: 28px; }
+    /* Primeiro hero-inner: recebe o padding-top da section (72px) */
+    .hero > .hero-inner:first-of-type { padding-top: 72px; }
+    /* Segundo hero-inner: recebe o padding-bottom da section (80px) */
+    .hero > .hero-inner:last-of-type  { padding-top: 20px; padding-bottom: 80px; }
+    .hero-placeholder + .hero-inner { padding-top: 20px; }
     .hero-title { font-size: clamp(28px, 4vw, 40px); }
     .hero-desc { font-size: 17px; max-width: 560px; }
     .hero-ctas { flex-direction: row; gap: 14px; }
@@ -1525,35 +1546,73 @@
     .section-title { font-size: clamp(22px, 3vw, 32px); }
     .section-desc { font-size: 15.5px; }
 
-    /* FEATURES — 2 colunas */
-    .section-features .section-inner { display: flex; flex-direction: column; }
-    .section-features .feature-card {
-      margin-bottom: 0;
-    }
-    /* Grid 2x2 para feature cards via CSS grid no pai section-inner */
-    .section-features .section-inner > .feature-card:nth-child(n) {
-      /* fallback: mantém empilhado no tablet */
-    }
+    /* ── TABLET: grid 60/40 para as 4 seções ── */
+    .section-visual { display: flex; align-items: center; justify-content: center; }
+    .section-content { display: flex; flex-direction: column; }
 
-    /* ROTINA — steps lado a lado */
-    .section-rotina .step-card {
+    /* FUNCIONALIDADES — tablet: imagem esq | conteúdo dir */
+    .section-features .section-inner {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      column-gap: 40px;
+      align-items: center;
+    }
+    .section-features .section-visual { order: -1; min-height: 280px; }
+    .section-features .section-content {
+      order: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 12px;
+    }
+    .section-features .section-content > .section-eyebrow { grid-column: 1 / -1; }
+    .section-features .section-content > .section-title   { grid-column: 1 / -1; }
+    .section-features .section-content > .section-desc    { grid-column: 1 / -1; }
+
+    /* ROTINA — tablet: conteúdo esq | imagem dir */
+    .section-rotina .section-inner {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      column-gap: 40px;
+      align-items: center;
+    }
+    .section-rotina .section-content { order: -1; display: flex; flex-direction: column; }
+    .section-rotina .section-visual { order: 1; min-height: 280px; }
+    .section-rotina .section-content .step-card {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: flex-start;
+      gap: 14px;
+      padding: 16px 18px;
     }
 
-    /* DEPOIMENTOS */
-    .section-testimonials .testimonial-card { padding-bottom: 0; }
-
-    /* SECURITY GRID — 2 colunas (já era 2 col no mobile) */
-    .security-grid { gap: 14px; }
-
-    /* PRICING */
+    /* PREÇO — tablet: conteúdo esq | imagem dir */
+    .section-pricing .section-inner {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      column-gap: 40px;
+      align-items: center;
+    }
+    .section-pricing .section-content { order: -1; display: flex; flex-direction: column; }
+    .section-pricing .section-visual { order: 1; min-height: 280px; }
     .pricing-col-price { width: 160px; }
     .pricing-amount { font-size: 64px; }
 
-    /* FAQ */
+    /* FAQ — tablet: imagem esq | conteúdo dir */
+    .section-faq .section-inner {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      column-gap: 40px;
+      align-items: start;
+    }
+    .section-faq .section-visual { order: -1; min-height: 280px; }
+    .section-faq .section-content { order: 1; display: flex; flex-direction: column; }
     .faq-question-text { font-size: 13.5px; }
+
+    /* DEPOIMENTOS (sem alteração) */
+    .section-testimonials .testimonial-card { padding-bottom: 0; }
+
+    /* SECURITY GRID */
+    .security-grid { gap: 14px; }
 
     /* CTA FINAL */
     .cta-final-inner { max-width: 640px; }
@@ -1578,62 +1637,111 @@
     .nav-inner { max-width: 1280px; }
     .nav-cta { font-size: 14px; padding: 10px 26px; }
 
-    /* HERO — 2 colunas: texto | imagem */
+    /* ── HERO DESKTOP — reconstruído com base estrutural da section-features ──
+     *
+     * REGRA: section-features usa padding: 96px 48px 104px na section + 
+     *        section-inner com max-width: 1280px + margin: 0 auto.
+     *        O hero deve espelhar EXATAMENTE esse sistema.
+     *
+     * ESTRUTURA:
+     * .hero (section, full-width, fundo decorativo) — padding: 96px 48px 104px
+     *   .hero-inner (espelha .section-inner: max-width:1280px, margin:0 auto)
+     *     → grid 2 colunas: conteúdo esq | imagem dir
+     *
+     * Resultado: borda esq do H1 == borda esq do H2 de funcionalidades. Match exato.
+     * ──────────────────────────────────────────────────────────────────────── */
+
+    /* Hero: fundo full-width, sem padding lateral — o padding lateral
+       fica no hero-inner, espelhando EXATAMENTE o section-inner.
+       Só padding vertical na section, igual à section-features. */
     .hero {
-      padding-bottom: 0;
-      min-height: 580px;
+      position: relative;
+      overflow: hidden;
+      padding-top: 96px;
+      padding-bottom: 104px;
+      padding-left: 0;
+      padding-right: 0;
     }
-    /* Wrapper visual do hero usando CSS grid no .hero diretamente */
+
+    /* hero-inner espelha EXATAMENTE o section-inner desktop:
+       max-width: 1280px + margin: 0 auto + padding: 0 48px
+       Isso garante borda esq do H1 == borda esq do H2 de funcionalidades. */
     .hero-inner {
       max-width: 1280px;
-      padding: 64px 48px 0;
       margin: 0 auto;
+      padding-left: 48px;
+      padding-right: 48px;
+      position: relative;
+      z-index: 1;
     }
-    /* Primeiro hero-inner: só o título e badge — metade esquerda */
+
+    /* Primeiro hero-inner: layout grid 2 col — texto esq | imagem dir
+       padding-top e padding-bottom zero: herdados do .hero (seção) */
     .hero > .hero-inner:first-of-type {
-      padding-bottom: 0;
-      max-width: 50%;
-      margin-left: auto;
-      margin-right: 0;
-      padding-right: 0;
-      /* Posicionamento relativo ao hero */
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 0;
+      row-gap: 0;
+      align-items: start;
     }
-    /* hero-placeholder: imagem direita */
+
+    /* Eyebrow, H1 e badge: coluna esquerda */
+    .hero > .hero-inner:first-of-type > .hero-eyebrow,
+    .hero > .hero-inner:first-of-type > .hero-title,
+    .hero > .hero-inner:first-of-type > .security-badge {
+      grid-column: 1;
+    }
+
+    /* Segundo hero-inner: desc + ctas + metrics — mesma grade 2 col */
+    .hero > .hero-inner:last-of-type {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 0;
+      align-items: start;
+    }
+
+    .hero > .hero-inner:last-of-type > .hero-desc,
+    .hero > .hero-inner:last-of-type > .hero-ctas,
+    .hero > .hero-inner:last-of-type > .btn-hint,
+    .hero > .hero-inner:last-of-type > .hero-metrics {
+      grid-column: 1;
+    }
+
+    /* hero-metrics: 2 colunas internas */
+    .hero-metrics {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 36px;
+    }
+
+    /* Imagem: absoluta, ocupa metade direita da viewport
+       ancora-se ao .hero (position:relative) */
     .hero-placeholder {
+      transform: translateY(-100px) scale(0.75);
       position: absolute;
       right: 0;
       top: 0;
-      width: 50%;
-      height: 100%;
+      bottom: 0;
       margin: 0;
       padding: 0;
       overflow: hidden;
     }
+
     .hero-placeholder img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: top center;
-    }
-    /* hero relative para conter o absolute */
-    .hero { position: relative; }
-
-    /* Segundo hero-inner: desc + ctas + metrics — metade esquerda também */
-    .hero > .hero-inner:last-of-type {
-      max-width: 50%;
-      margin-left: auto;
-      margin-right: 0;
-      padding-right: 0;
-      padding-top: 24px;
-      padding-bottom: 72px;
+      display: block;
     }
 
-    .hero-title { font-size: clamp(34px, 3vw, 50px); }
-    .hero-desc { font-size: clamp(16px, 1.3vw, 18px); max-width: 480px; }
-    .hero-ctas { flex-direction: row; gap: 14px; }
-    .hero-metrics { grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 40px; }
-    .metric-val { font-size: clamp(22px, 2vw, 28px); }
-    .metric-card { padding: 18px 16px; }
+    /* Tipografia e botões desktop */
+    .hero-title { font-size: clamp(32px, 2.8vw, 48px); }
+    .hero-desc   { font-size: clamp(15px, 1.2vw, 17px); max-width: 100%; }
+    .hero-ctas   { flex-direction: row; gap: 14px; }
+    .metric-val  { font-size: clamp(20px, 1.6vw, 26px); }
+    .metric-card { padding: 16px 14px; }
 
     /* DIVIDERS */
     .section-divider { max-width: 1280px; padding: 0 48px; }
@@ -1653,78 +1761,141 @@
     .section-title { font-size: clamp(26px, 2.5vw, 38px); }
     .section-desc { font-size: 16px; line-height: 1.7; }
 
-    /* FEATURES — grid 2x2 usando CSS puro */
+    /* ── GRID 60/40 — sistema compartilhado pelas 4 seções ──────────────
+     * Cada section-inner vira grid de 2 colunas: visual(40%) + content(60%)
+     * A ordem das colunas varia por seção (alternância visual).
+     * ─────────────────────────────────────────────────────────────────── */
+
+    /* Mostrar o visual e ativar section-content como bloco */
+    .section-visual { display: flex; align-items: center; justify-content: center; }
+    .section-content { display: flex; flex-direction: column; }
+
+    /* ── FUNCIONALIDADES — imagem esq (40%) | conteúdo dir (60%) ── */
     .section-features .section-inner {
       display: grid;
+      grid-template-columns: 2fr 3fr;
+      column-gap: 64px;
+      align-items: center;
+    }
+    .section-features .section-visual {
+      order: -1; /* imagem à esquerda */
+      min-height: 360px;
+    }
+    .section-features .section-content {
+      order: 1;
+    }
+    /* Cards dentro do conteúdo: grid 2 colunas */
+    .section-features .section-content .feature-card {
+      margin-bottom: 12px;
+    }
+    .section-features .section-content .section-title {
+      max-width: 100%;
+      margin-bottom: 12px;
+    }
+    .section-features .section-content .section-desc {
+      max-width: 100%;
+      margin-bottom: 28px;
+    }
+    /* 2 cards por linha dentro da coluna de conteúdo */
+    .section-features .section-content {
+      display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto auto auto auto;
-      column-gap: 24px;
+      column-gap: 16px;
       row-gap: 0;
       align-items: start;
     }
-    /* Eyebrow, title, desc: span 2 colunas */
-    .section-features .section-inner > .section-eyebrow {
-      grid-column: 1 / -1;
-    }
-    .section-features .section-inner > .section-title {
-      grid-column: 1 / -1;
-      max-width: 560px;
-      margin-bottom: 16px;
-    }
-    .section-features .section-inner > .section-desc {
-      grid-column: 1 / -1;
-      max-width: 560px;
-      margin-bottom: 32px;
-    }
-    /* Feature cards: 2 por linha */
-    .section-features .section-inner > .feature-card {
-      margin-bottom: 16px;
-    }
-    .feature-card { padding: 24px 22px; }
-    .feature-icon { width: 52px; height: 52px; border-radius: 16px; flex-shrink: 0; }
-    .feature-icon svg { width: 26px; height: 26px; }
-    .feature-text h3 { font-size: 15.5px; }
-    .feature-text p { font-size: 13.5px; }
+    .section-features .section-content > .section-eyebrow { grid-column: 1 / -1; }
+    .section-features .section-content > .section-title   { grid-column: 1 / -1; }
+    .section-features .section-content > .section-desc    { grid-column: 1 / -1; }
+    .feature-card { padding: 20px 18px; }
+    .feature-icon { width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0; }
+    .feature-icon svg { width: 22px; height: 22px; }
+    .feature-text h3 { font-size: 14.5px; }
+    .feature-text p { font-size: 13px; }
 
-    /* ROTINA — steps 3 colunas */
+    /* ── COMO FUNCIONA — conteúdo esq (60%) | imagem dir (40%) ── */
     .section-rotina .section-inner {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto auto;
-      column-gap: 20px;
-      row-gap: 0;
+      grid-template-columns: 3fr 2fr;
+      column-gap: 64px;
+      align-items: center;
+    }
+    .section-rotina .section-content {
+      order: -1; /* conteúdo à esquerda */
+      display: flex;
+      flex-direction: column;
+    }
+    .section-rotina .section-visual {
+      order: 1;
+      min-height: 360px;
+    }
+    .section-rotina .section-content .step-card {
+      flex-direction: row;
+      gap: 16px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+    .step-num { width: 40px; height: 40px; font-size: 15px; flex-shrink: 0; }
+    .step-text h3 { font-size: 15px; }
+    .step-text p { font-size: 13px; }
+    .section-rotina .section-content .btn-cta-white {
+      margin-top: 28px;
+      max-width: 280px;
+    }
+    .section-rotina .section-content .cta-hint-white {
+      text-align: left;
+    }
+
+    /* ── PREÇO — conteúdo+preço esq (60%) | imagem dir (40%) ── */
+    .section-pricing .section-inner {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      column-gap: 64px;
+      align-items: center;
+    }
+    .section-pricing .section-content {
+      order: -1;
+      display: flex;
+      flex-direction: column;
+    }
+    .section-pricing .section-visual {
+      order: 1;
+      min-height: 340px;
+    }
+    .section-pricing .section-content .pricing-card {
+      width: 100%;
+    }
+    .pricing-col-price { width: 190px; }
+    .pricing-amount { font-size: clamp(58px, 5vw, 80px); }
+    .pricing-features { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
+    .pricing-features li { font-size: 13.5px; }
+    .pricing-col-info { padding: 32px 28px 30px; }
+    .pricing-bottom { padding: 22px 26px 28px; }
+
+    /* ── FAQ — imagem esq (40%) | conteúdo dir (60%) ── */
+    .section-faq .section-inner {
+      display: grid;
+      grid-template-columns: 2fr 3fr;
+      column-gap: 64px;
       align-items: start;
     }
-    .section-rotina .section-inner > .section-eyebrow {
-      grid-column: 1 / -1;
+    .section-faq .section-visual {
+      order: -1; /* imagem à esquerda */
+      min-height: 340px;
+      position: sticky;
+      top: 80px;
+      align-self: start;
     }
-    .section-rotina .section-inner > .section-title {
-      grid-column: 1 / -1;
-    }
-    .section-rotina .section-inner > .section-desc {
-      grid-column: 1 / -1;
-      margin-bottom: 32px;
-    }
-    /* Step cards: 1 por coluna */
-    .section-rotina .section-inner > .step-card {
+    .section-faq .section-content {
+      order: 1;
+      display: flex;
       flex-direction: column;
-      gap: 14px;
-      padding: 28px 24px 32px;
-      margin-bottom: 0;
     }
-    .step-num { width: 44px; height: 44px; font-size: 16px; }
-    .step-text h3 { font-size: 16px; }
-    .step-text p { font-size: 14px; }
-    /* CTA do rotina: span full */
-    .section-rotina .section-inner > .btn-cta-white {
-      grid-column: 1 / -1;
-      max-width: 360px;
-      margin: 40px auto 0;
-    }
-    .section-rotina .section-inner > .cta-hint-white {
-      grid-column: 1 / -1;
-      text-align: center;
-    }
+    .faq-question { padding: 16px 18px; }
+    .faq-item.open .faq-answer { max-height: 300px; padding: 12px 18px 16px; }
+    .faq-item { transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s; }
+    .faq-item:hover { transform: translateX(2px); }
 
     /* DEPOIMENTOS — 3 colunas */
     .section-testimonials .section-inner {
@@ -1772,41 +1943,6 @@
     .security-badge-full { margin-top: 14px; }
     .security-item h4 { font-size: 13px; }
     .security-item p { font-size: 12px; }
-
-    /* PREÇO — 2 colunas: header | card */
-    .section-pricing .section-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.3fr;
-      column-gap: 72px;
-      row-gap: 0;
-      align-items: start;
-    }
-    .section-pricing .section-inner > .section-eyebrow { grid-column: 1; grid-row: 1; }
-    .section-pricing .section-inner > .section-title   { grid-column: 1; grid-row: 2; }
-    .section-pricing .section-inner > .section-desc    { grid-column: 1; grid-row: 3; }
-    .section-pricing .section-inner > .pricing-card    { grid-column: 2; grid-row: 1 / 5; }
-    .pricing-col-price { width: 190px; }
-    .pricing-amount { font-size: clamp(58px, 5vw, 80px); }
-    .pricing-features { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
-    .pricing-features li { font-size: 13.5px; }
-    .pricing-col-info { padding: 36px 32px 34px; }
-    .pricing-bottom { padding: 24px 28px 32px; }
-
-    /* FAQ — 2 colunas: header | accordion */
-    .section-faq .section-inner {
-      display: grid;
-      grid-template-columns: 1fr 1.4fr;
-      column-gap: 72px;
-      row-gap: 0;
-      align-items: start;
-    }
-    .section-faq .section-inner > .section-eyebrow { grid-column: 1; grid-row: 1; }
-    .section-faq .section-inner > .section-title   { grid-column: 1; grid-row: 2; }
-    .section-faq .section-inner > .faq-list        { grid-column: 2; grid-row: 1 / 3; margin-top: 0; }
-    .faq-question { padding: 17px 20px; }
-    .faq-item.open .faq-answer { max-height: 300px; padding: 14px 20px 18px; }
-    .faq-item { transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s; }
-    .faq-item:hover { transform: translateX(2px); }
 
     /* CTA FINAL */
     .section-cta-final { padding: 96px 48px; }
@@ -1856,6 +1992,13 @@
     .footer-divider { margin: 0 80px; }
     .hero-title { font-size: clamp(40px, 3.5vw, 58px); }
     .section-title { font-size: clamp(30px, 2.5vw, 42px); }
+
+    /* Hero 1440px: padding lateral 80px no hero-inner — IDÊNTICO ao section-inner neste breakpoint */
+    .hero-inner {
+      max-width: 1440px;
+      padding-left: 80px;
+      padding-right: 80px;
+    }
   }
 
   /* ═══════════════════════════════════════════════
@@ -1866,17 +2009,19 @@
     .section-inner { max-width: 1640px; }
     .section-divider { max-width: 1640px; }
     .footer-top, .footer-bottom { max-width: 1640px; }
+    /* Hero acompanha exatamente o section-inner em 1920px — sem padding extra */
+    .hero-inner { max-width: 1640px; padding-left: 80px; padding-right: 80px; }
   }
 
 </style>
-<style id="_goober"> .go1475592160{height:0;}.go1671063245{height:auto;}.go1888806478{display:flex;flex-wrap:wrap;flex-grow:1;}@media (min-width:600px){.go1888806478{flex-grow:initial;min-width:288px;}}.go167266335{background-color:#313131;font-size:0.875rem;line-height:1.43;letter-spacing:0.01071em;color:#fff;align-items:center;padding:6px 16px;border-radius:4px;box-shadow:0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);}.go3162094071{padding-left:20px;}.go3844575157{background-color:#313131;}.go1725278324{background-color:#43a047;}.go3651055292{background-color:#d32f2f;}.go4215275574{background-color:#ff9800;}.go1930647212{background-color:#2196f3;}.go946087465{display:flex;align-items:center;padding:8px 0;}.go703367398{display:flex;align-items:center;margin-left:auto;padding-left:16px;margin-right:-8px;}.go3963613292{width:100%;position:relative;transform:translateX(0);top:0;right:0;bottom:0;left:0;min-width:288px;}.go1141946668{box-sizing:border-box;display:flex;max-height:100%;position:fixed;z-index:1400;height:auto;width:auto;transition:top 300ms ease 0ms,right 300ms ease 0ms,bottom 300ms ease 0ms,left 300ms ease 0ms,max-width 300ms ease 0ms;pointer-events:none;max-width:calc(100% - 40px);}.go1141946668 .notistack-CollapseWrapper{padding:6px 0px;transition:padding 300ms ease 0ms;}@media (max-width:599.95px){.go1141946668{width:100%;max-width:calc(100% - 32px);}}.go3868796639 .notistack-CollapseWrapper{padding:2px 0px;}.go3118922589{top:14px;flex-direction:column;}.go1453831412{bottom:14px;flex-direction:column-reverse;}.go4027089540{left:20px;}@media (min-width:600px){.go4027089540{align-items:flex-start;}}@media (max-width:599.95px){.go4027089540{left:16px;}}.go2989568495{right:20px;}@media (min-width:600px){.go2989568495{align-items:flex-end;}}@media (max-width:599.95px){.go2989568495{right:16px;}}.go4034260886{left:50%;transform:translateX(-50%);}@media (min-width:600px){.go4034260886{align-items:center;}}</style><style type="text/css">[data-sonner-toaster][dir=ltr],html[dir=ltr]{--toast-icon-margin-start:-3px;--toast-icon-margin-end:4px;--toast-svg-margin-start:-1px;--toast-svg-margin-end:0px;--toast-button-margin-start:auto;--toast-button-margin-end:0;--toast-close-button-start:0;--toast-close-button-end:unset;--toast-close-button-transform:translate(-35%, -35%)}[data-sonner-toaster][dir=rtl],html[dir=rtl]{--toast-icon-margin-start:4px;--toast-icon-margin-end:-3px;--toast-svg-margin-start:0px;--toast-svg-margin-end:-1px;--toast-button-margin-start:0;--toast-button-margin-end:auto;--toast-close-button-start:unset;--toast-close-button-end:0;--toast-close-button-transform:translate(35%, -35%)}[data-sonner-toaster]{position:fixed;width:var(--width);font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;--gray1:hsl(0, 0%, 99%);--gray2:hsl(0, 0%, 97.3%);--gray3:hsl(0, 0%, 95.1%);--gray4:hsl(0, 0%, 93%);--gray5:hsl(0, 0%, 90.9%);--gray6:hsl(0, 0%, 88.7%);--gray7:hsl(0, 0%, 85.8%);--gray8:hsl(0, 0%, 78%);--gray9:hsl(0, 0%, 56.1%);--gray10:hsl(0, 0%, 52.3%);--gray11:hsl(0, 0%, 43.5%);--gray12:hsl(0, 0%, 9%);--border-radius:8px;box-sizing:border-box;padding:0;margin:0;list-style:none;outline:0;z-index:999999999;transition:transform .4s ease}@media (hover:none) and (pointer:coarse){[data-sonner-toaster][data-lifted=true]{transform:none}}[data-sonner-toaster][data-x-position=right]{right:var(--offset-right)}[data-sonner-toaster][data-x-position=left]{left:var(--offset-left)}[data-sonner-toaster][data-x-position=center]{left:50%;transform:translateX(-50%)}[data-sonner-toaster][data-y-position=top]{top:var(--offset-top)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--offset-bottom)}[data-sonner-toast]{--y:translateY(100%);--lift-amount:calc(var(--lift) * var(--gap));z-index:var(--z-index);position:absolute;opacity:0;transform:var(--y);touch-action:none;transition:transform .4s,opacity .4s,height .4s,box-shadow .2s;box-sizing:border-box;outline:0;overflow-wrap:anywhere}[data-sonner-toast][data-styled=true]{padding:16px;background:var(--normal-bg);border:1px solid var(--normal-border);color:var(--normal-text);border-radius:var(--border-radius);box-shadow:0 4px 12px rgba(0,0,0,.1);width:var(--width);font-size:13px;display:flex;align-items:center;gap:6px}[data-sonner-toast]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}[data-sonner-toast][data-y-position=top]{top:0;--y:translateY(-100%);--lift:1;--lift-amount:calc(1 * var(--gap))}[data-sonner-toast][data-y-position=bottom]{bottom:0;--y:translateY(100%);--lift:-1;--lift-amount:calc(var(--lift) * var(--gap))}[data-sonner-toast][data-styled=true] [data-description]{font-weight:400;line-height:1.4;color:#3f3f3f}[data-rich-colors=true][data-sonner-toast][data-styled=true] [data-description]{color:inherit}[data-sonner-toaster][data-sonner-theme=dark] [data-description]{color:#e8e8e8}[data-sonner-toast][data-styled=true] [data-title]{font-weight:500;line-height:1.5;color:inherit}[data-sonner-toast][data-styled=true] [data-icon]{display:flex;height:16px;width:16px;position:relative;justify-content:flex-start;align-items:center;flex-shrink:0;margin-left:var(--toast-icon-margin-start);margin-right:var(--toast-icon-margin-end)}[data-sonner-toast][data-promise=true] [data-icon]>svg{opacity:0;transform:scale(.8);transform-origin:center;animation:sonner-fade-in .3s ease forwards}[data-sonner-toast][data-styled=true] [data-icon]>*{flex-shrink:0}[data-sonner-toast][data-styled=true] [data-icon] svg{margin-left:var(--toast-svg-margin-start);margin-right:var(--toast-svg-margin-end)}[data-sonner-toast][data-styled=true] [data-content]{display:flex;flex-direction:column;gap:2px}[data-sonner-toast][data-styled=true] [data-button]{border-radius:4px;padding-left:8px;padding-right:8px;height:24px;font-size:12px;color:var(--normal-bg);background:var(--normal-text);margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end);border:none;font-weight:500;cursor:pointer;outline:0;display:flex;align-items:center;flex-shrink:0;transition:opacity .4s,box-shadow .2s}[data-sonner-toast][data-styled=true] [data-button]:focus-visible{box-shadow:0 0 0 2px rgba(0,0,0,.4)}[data-sonner-toast][data-styled=true] [data-button]:first-of-type{margin-left:var(--toast-button-margin-start);margin-right:var(--toast-button-margin-end)}[data-sonner-toast][data-styled=true] [data-cancel]{color:var(--normal-text);background:rgba(0,0,0,.08)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast][data-styled=true] [data-cancel]{background:rgba(255,255,255,.3)}[data-sonner-toast][data-styled=true] [data-close-button]{position:absolute;left:var(--toast-close-button-start);right:var(--toast-close-button-end);top:0;height:20px;width:20px;display:flex;justify-content:center;align-items:center;padding:0;color:var(--gray12);background:var(--normal-bg);border:1px solid var(--gray4);transform:var(--toast-close-button-transform);border-radius:50%;cursor:pointer;z-index:1;transition:opacity .1s,background .2s,border-color .2s}[data-sonner-toast][data-styled=true] [data-close-button]:focus-visible{box-shadow:0 4px 12px rgba(0,0,0,.1),0 0 0 2px rgba(0,0,0,.2)}[data-sonner-toast][data-styled=true] [data-disabled=true]{cursor:not-allowed}[data-sonner-toast][data-styled=true]:hover [data-close-button]:hover{background:var(--gray2);border-color:var(--gray5)}[data-sonner-toast][data-swiping=true]::before{content:'';position:absolute;left:-100%;right:-100%;height:100%;z-index:-1}[data-sonner-toast][data-y-position=top][data-swiping=true]::before{bottom:50%;transform:scaleY(3) translateY(50%)}[data-sonner-toast][data-y-position=bottom][data-swiping=true]::before{top:50%;transform:scaleY(3) translateY(-50%)}[data-sonner-toast][data-swiping=false][data-removed=true]::before{content:'';position:absolute;inset:0;transform:scaleY(2)}[data-sonner-toast][data-expanded=true]::after{content:'';position:absolute;left:0;height:calc(var(--gap) + 1px);bottom:100%;width:100%}[data-sonner-toast][data-mounted=true]{--y:translateY(0);opacity:1}[data-sonner-toast][data-expanded=false][data-front=false]{--scale:var(--toasts-before) * 0.05 + 1;--y:translateY(calc(var(--lift-amount) * var(--toasts-before))) scale(calc(-1 * var(--scale)));height:var(--front-toast-height)}[data-sonner-toast]>*{transition:opacity .4s}[data-sonner-toast][data-x-position=right]{right:0}[data-sonner-toast][data-x-position=left]{left:0}[data-sonner-toast][data-expanded=false][data-front=false][data-styled=true]>*{opacity:0}[data-sonner-toast][data-visible=false]{opacity:0;pointer-events:none}[data-sonner-toast][data-mounted=true][data-expanded=true]{--y:translateY(calc(var(--lift) * var(--offset)));height:var(--initial-height)}[data-sonner-toast][data-removed=true][data-front=true][data-swipe-out=false]{--y:translateY(calc(var(--lift) * -100%));opacity:0}[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=true]{--y:translateY(calc(var(--lift) * var(--offset) + var(--lift) * -100%));opacity:0}[data-sonner-toast][data-removed=true][data-front=false][data-swipe-out=false][data-expanded=false]{--y:translateY(40%);opacity:0;transition:transform .5s,opacity .2s}[data-sonner-toast][data-removed=true][data-front=false]::before{height:calc(var(--initial-height) + 20%)}[data-sonner-toast][data-swiping=true]{transform:var(--y) translateY(var(--swipe-amount-y,0)) translateX(var(--swipe-amount-x,0));transition:none}[data-sonner-toast][data-swiped=true]{user-select:none}[data-sonner-toast][data-swipe-out=true][data-y-position=bottom],[data-sonner-toast][data-swipe-out=true][data-y-position=top]{animation-duration:.2s;animation-timing-function:ease-out;animation-fill-mode:forwards}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=left]{animation-name:swipe-out-left}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=right]{animation-name:swipe-out-right}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=up]{animation-name:swipe-out-up}[data-sonner-toast][data-swipe-out=true][data-swipe-direction=down]{animation-name:swipe-out-down}@keyframes swipe-out-left{from{transform:var(--y) translateX(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translateX(calc(var(--swipe-amount-x) - 100%));opacity:0}}@keyframes swipe-out-right{from{transform:var(--y) translateX(var(--swipe-amount-x));opacity:1}to{transform:var(--y) translateX(calc(var(--swipe-amount-x) + 100%));opacity:0}}@keyframes swipe-out-up{from{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) - 100%));opacity:0}}@keyframes swipe-out-down{from{transform:var(--y) translateY(var(--swipe-amount-y));opacity:1}to{transform:var(--y) translateY(calc(var(--swipe-amount-y) + 100%));opacity:0}}@media (max-width:600px){[data-sonner-toaster]{position:fixed;right:var(--mobile-offset-right);left:var(--mobile-offset-left);width:100%}[data-sonner-toaster][dir=rtl]{left:calc(var(--mobile-offset-left) * -1)}[data-sonner-toaster] [data-sonner-toast]{left:0;right:0;width:calc(100% - var(--mobile-offset-left) * 2)}[data-sonner-toaster][data-x-position=left]{left:var(--mobile-offset-left)}[data-sonner-toaster][data-y-position=bottom]{bottom:var(--mobile-offset-bottom)}[data-sonner-toaster][data-y-position=top]{top:var(--mobile-offset-top)}[data-sonner-toaster][data-x-position=center]{left:var(--mobile-offset-left);right:var(--mobile-offset-right);transform:none}}[data-sonner-toaster][data-sonner-theme=light]{--normal-bg:#fff;--normal-border:var(--gray4);--normal-text:var(--gray12);--success-bg:hsl(143, 85%, 96%);--success-border:hsl(145, 92%, 87%);--success-text:hsl(140, 100%, 27%);--info-bg:hsl(208, 100%, 97%);--info-border:hsl(221, 91%, 93%);--info-text:hsl(210, 92%, 45%);--warning-bg:hsl(49, 100%, 97%);--warning-border:hsl(49, 91%, 84%);--warning-text:hsl(31, 92%, 45%);--error-bg:hsl(359, 100%, 97%);--error-border:hsl(359, 100%, 94%);--error-text:hsl(360, 100%, 45%)}[data-sonner-toaster][data-sonner-theme=light] [data-sonner-toast][data-invert=true]{--normal-bg:#000;--normal-border:hsl(0, 0%, 20%);--normal-text:var(--gray1)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast][data-invert=true]{--normal-bg:#fff;--normal-border:var(--gray3);--normal-text:var(--gray12)}[data-sonner-toaster][data-sonner-theme=dark]{--normal-bg:#000;--normal-bg-hover:hsl(0, 0%, 12%);--normal-border:hsl(0, 0%, 20%);--normal-border-hover:hsl(0, 0%, 25%);--normal-text:var(--gray1);--success-bg:hsl(150, 100%, 6%);--success-border:hsl(147, 100%, 12%);--success-text:hsl(150, 86%, 65%);--info-bg:hsl(215, 100%, 6%);--info-border:hsl(223, 43%, 17%);--info-text:hsl(216, 87%, 65%);--warning-bg:hsl(64, 100%, 6%);--warning-border:hsl(60, 100%, 9%);--warning-text:hsl(46, 87%, 65%);--error-bg:hsl(358, 76%, 10%);--error-border:hsl(357, 89%, 16%);--error-text:hsl(358, 100%, 81%)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast] [data-close-button]{background:var(--normal-bg);border-color:var(--normal-border);color:var(--normal-text)}[data-sonner-toaster][data-sonner-theme=dark] [data-sonner-toast] [data-close-button]:hover{background:var(--normal-bg-hover);border-color:var(--normal-border-hover)}[data-rich-colors=true][data-sonner-toast][data-type=success]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=success] [data-close-button]{background:var(--success-bg);border-color:var(--success-border);color:var(--success-text)}[data-rich-colors=true][data-sonner-toast][data-type=info]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=info] [data-close-button]{background:var(--info-bg);border-color:var(--info-border);color:var(--info-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=warning] [data-close-button]{background:var(--warning-bg);border-color:var(--warning-border);color:var(--warning-text)}[data-rich-colors=true][data-sonner-toast][data-type=error]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}[data-rich-colors=true][data-sonner-toast][data-type=error] [data-close-button]{background:var(--error-bg);border-color:var(--error-border);color:var(--error-text)}.sonner-loading-wrapper{--size:16px;height:var(--size);width:var(--size);position:absolute;inset:0;z-index:10}.sonner-loading-wrapper[data-visible=false]{transform-origin:center;animation:sonner-fade-out .2s ease forwards}.sonner-spinner{position:relative;top:50%;left:50%;height:var(--size);width:var(--size)}.sonner-loading-bar{animation:sonner-spin 1.2s linear infinite;background:var(--gray11);border-radius:6px;height:8%;left:-10%;position:absolute;top:-3.9%;width:24%}.sonner-loading-bar:first-child{animation-delay:-1.2s;transform:rotate(.0001deg) translate(146%)}.sonner-loading-bar:nth-child(2){animation-delay:-1.1s;transform:rotate(30deg) translate(146%)}.sonner-loading-bar:nth-child(3){animation-delay:-1s;transform:rotate(60deg) translate(146%)}.sonner-loading-bar:nth-child(4){animation-delay:-.9s;transform:rotate(90deg) translate(146%)}.sonner-loading-bar:nth-child(5){animation-delay:-.8s;transform:rotate(120deg) translate(146%)}.sonner-loading-bar:nth-child(6){animation-delay:-.7s;transform:rotate(150deg) translate(146%)}.sonner-loading-bar:nth-child(7){animation-delay:-.6s;transform:rotate(180deg) translate(146%)}.sonner-loading-bar:nth-child(8){animation-delay:-.5s;transform:rotate(210deg) translate(146%)}.sonner-loading-bar:nth-child(9){animation-delay:-.4s;transform:rotate(240deg) translate(146%)}.sonner-loading-bar:nth-child(10){animation-delay:-.3s;transform:rotate(270deg) translate(146%)}.sonner-loading-bar:nth-child(11){animation-delay:-.2s;transform:rotate(300deg) translate(146%)}.sonner-loading-bar:nth-child(12){animation-delay:-.1s;transform:rotate(330deg) translate(146%)}@keyframes sonner-fade-in{0%{opacity:0;transform:scale(.8)}100%{opacity:1;transform:scale(1)}}@keyframes sonner-fade-out{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(.8)}}@keyframes sonner-spin{0%{opacity:1}100%{opacity:.15}}@media (prefers-reduced-motion){.sonner-loading-bar,[data-sonner-toast],[data-sonner-toast]>*{transition:none!important;animation:none!important}}.sonner-loader{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transform-origin:center;transition:opacity .2s,transform .2s}.sonner-loader[data-visible=false]{opacity:0;transform:scale(.8) translate(-50%,-50%)}</style></head>
+</head>
 <body>
 
 <!-- NAV -->
 <nav class="header-nav">
   <div class="nav-inner">
     <div class="logo-wrap">
-      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQ3IiB2aWV3Qm94PSIwIDAgMjAwIDQ3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfODdfMzI0KSI+CjxwYXRoIGQ9Ik0zMi43MzY4IDBDMzIuNzM2OCAwIDMzLjA5MjMgMTQuNzQ0OCAyNC42MTIxIDE1Ljg1NDRDMjAuOTg1MyAxNi4zMzA4IDE1LjkyMTkgMTcuMTEzNCAxMS4zNzYgMTguNDUxOEM5LjA0NDEzIDE5LjEzOTkgOC4zMzQ5OSAxOS41Mzg4IDguMzM0OTkgMTkuNTM4OEM4LjMzNDk5IDE5LjUzODggOC4yMzkyMSA2LjU1NTc3IDE5LjIzIDUuMzYxMDZDMzEuNzM4NSAzLjk5MDU1IDMyLjczNjggMCAzMi43MzY4IDBaIiBmaWxsPSIjRDQ0NkY3Ii8+CjxwYXRoIGQ9Ik00My40MzY2IDE5Ljg3NzFDNDMuMjM1MyAxOS44NzcxIDQzLjA0MjMgMTkuNzk1MSA0Mi45IDE5LjY0OUM0Mi43NTc3IDE5LjUwMyA0Mi42Nzc3IDE5LjMwNDkgNDIuNjc3NyAxOS4wOTgzQzQyLjY3NzcgMTguODkxNyA0Mi43NTc3IDE4LjY5MzYgNDIuOSAxOC41NDc2QzQzLjA0MjMgMTguNDAxNSA0My4yMzUzIDE4LjMxOTUgNDMuNDM2NiAxOC4zMTk1SDUxLjA1M0M1MS4yNTQyIDE4LjMxOTUgNTEuNDQ3MyAxOC40MDE1IDUxLjU4OTYgMTguNTQ3NkM1MS43MzE5IDE4LjY5MzYgNTEuODExOCAxOC44OTE3IDUxLjgxMTggMTkuMDk4M0M1MS44MTE4IDE5LjMwNDkgNTEuNzMxOSAxOS41MDMgNTEuNTg5NiAxOS42NDlDNTEuNDQ3MyAxOS43OTUxIDUxLjI1NDIgMTkuODc3MSA1MS4wNTMgMTkuODc3MUg0My40MzY2Wk01MC45NDA2IDMzLjUxOTlDNDkuOTczNyAzMy41MTk4IDQ5LjAyMjggMzMuMjY2NyA0OC4xNzc3IDMyLjc4NDVDNDcuMzgzMSAzMi4zMjQ5IDQ2LjczMDcgMzEuNjQ0OSA0Ni4yOTUzIDMwLjgyMjNDNDUuODM3OSAyOS45NTE5IDQ1LjYwNTggMjguOTc1NiA0NS42MjExIDI3Ljk4NjhWMTMuNjEwNkM0NS42MTU3IDEzLjQ5MTQgNDUuNjM0MSAxMy4zNzI0IDQ1LjY3NTMgMTMuMjYwOUM0NS43MTY1IDEzLjE0OTQgNDUuNzc5NiAxMy4wNDc3IDQ1Ljg2MDYgMTIuOTYyMkM0NS45Mzk0IDEyLjg4MDggNDYuMDMzNyAxMi44MTY5IDQ2LjEzNzcgMTIuNzc0NkM0Ni4yNDE2IDEyLjczMjMgNDYuMzUzIDEyLjcxMjUgNDYuNDY0NyAxMi43MTY0QzQ2LjU4MTEgMTIuNzA5IDQ2LjY5NzcgMTIuNzI3IDQ2LjgwNjggMTIuNzY5M0M0Ni45MTU5IDEyLjgxMTYgNDcuMDE1IDEyLjg3NzEgNDcuMDk3NSAxMi45NjE3QzQ3LjE4MDEgMTMuMDQ2MiA0Ny4yNDQyIDEzLjE0NzggNDcuMjg1NiAxMy4yNTk2QzQ3LjMyNyAxMy4zNzE1IDQ3LjM0NDggMTMuNDkxMSA0Ny4zMzc4IDEzLjYxMDZWMjcuOTc3M0M0Ny4zMzc4IDI5LjA5MzkgNDcuNjc0OSAzMC4wMDI1IDQ4LjM0OSAzMC43MDMyQzQ5LjAyMzIgMzEuNDAzOSA0OS44OTYyIDMxLjc1NTUgNTAuOTY4MiAzMS43NThINTEuNTg3MUM1MS43MDM0IDMxLjc1MDkgNTEuODE5OCAzMS43NjkxIDUxLjkyODYgMzEuODExNUM1Mi4wMzc1IDMxLjg1MzkgNTIuMTM2NCAzMS45MTk1IDUyLjIxODcgMzIuMDA0QzUyLjMwMSAzMi4wODg1IDUyLjM2NSAzMi4xOSA1Mi40MDYzIDMyLjMwMTdDNTIuNDQ3NiAzMi40MTM0IDUyLjQ2NTMgMzIuNTMyOSA1Mi40NTg0IDMyLjY1MjJDNTIuNDYxNyAzMi43NjY4IDUyLjQ0MjIgMzIuODgxIDUyLjQwMTEgMzIuOTg3NkM1Mi4zNTk5IDMzLjA5NDIgNTIuMjk3OSAzMy4xOTExIDUyLjIxODkgMzMuMjcyMkM1Mi4xMzU1IDMzLjM1NTIgNTIuMDM2NCAzMy40MTk4IDUxLjkyNzcgMzMuNDYyQzUxLjgxOTEgMzMuNTA0MyA1MS43MDMyIDMzLjUyMzMgNTEuNTg3MSAzMy41MThMNTAuOTQwNiAzMy41MTk5WiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNNTguOTIzIDI2LjU5NzNDNTguODExNCAyNi42MDEgNTguNzAwMiAyNi41ODEyIDU4LjU5NjMgMjYuNTM4OUM1OC40OTI0IDI2LjQ5NjcgNTguMzk4MSAyNi40MzMgNTguMzE5MiAyNi4zNTE5QzU4LjI0MDMgMjYuMjcwNyA1OC4xNzg0IDI2LjE3MzcgNTguMTM3NSAyNi4wNjdDNTguMDk2NiAyNS45NjAzIDU4LjA3NzQgMjUuODQ2MiA1OC4wODEzIDI1LjczMTZWMTEuODU4MkM1OC4wNzUxIDExLjc0MTQgNTguMDkzIDExLjYyNDYgNTguMTM0IDExLjUxNTVDNTguMTc0OSAxMS40MDYzIDU4LjIzOCAxMS4zMDczIDU4LjMxODkgMTEuMjI0OUM1OC40ODI2IDExLjA2OSA1OC42OTk5IDEwLjk4NjEgNTguOTIzIDEwLjk5NDNDNTkuMDM2MiAxMC45ODM5IDU5LjE1MDIgMTAuOTk5MSA1OS4yNTcgMTEuMDM4OEM1OS4zNjM5IDExLjA3ODYgNTkuNDYwOSAxMS4xNDE4IDU5LjU0MTMgMTEuMjI0MkM1OS42MjE3IDExLjMwNjUgNTkuNjgzNiAxMS40MDYgNTkuNzIyNSAxMS41MTU1QzU5Ljc2MTUgMTEuNjI1MSA1OS43NzY1IDExLjc0MjEgNTkuNzY2NiAxMS44NTgyVjI1LjczMTZDNTkuNzc0NSAyNS45NjA2IDU5LjY5MzcgMjYuMTgzNSA1OS41NDE5IDI2LjM1MTZDNTkuNDYxOCAyNi40MzU1IDU5LjM2NTEgMjYuNTAwOCA1OS4yNTg0IDI2LjU0MzFDNTkuMTUxNiAyNi41ODU1IDU5LjAzNzMgMjYuNjA0IDU4LjkyMyAyNi41OTczWk01OC45MjMgMzMuNTE5OEM1OC44MTE0IDMzLjUyMzUgNTguNzAwMiAzMy41MDM2IDU4LjU5NjMgMzMuNDYxNEM1OC40OTI0IDMzLjQxOTIgNTguMzk4MSAzMy4zNTU1IDU4LjMxOTIgMzMuMjc0M0M1OC4yNDAzIDMzLjE5MzIgNTguMTc4NCAzMy4wOTYyIDU4LjEzNzUgMzIuOTg5NUM1OC4wOTY2IDMyLjg4MjggNTguMDc3NCAzMi43Njg3IDU4LjA4MTMgMzIuNjU0MVYxOC42MDg3QzU4LjA3NTEgMTguNDkxNiA1OC4wOTMxIDE4LjM3NDUgNTguMTM0MSAxOC4yNjUxQzU4LjE3NSAxOC4xNTU3IDU4LjIzOCAxOC4wNTYzIDU4LjMxODkgMTcuOTczNUM1OC40ODMgMTcuODE4MyA1OC43IDE3LjczNTUgNTguOTIzIDE3Ljc0MjlDNTkuMDM2NCAxNy43MzI1IDU5LjE1MDYgMTcuNzQ3NyA1OS4yNTc1IDE3Ljc4NzVDNTkuMzY0NSAxNy44Mjc0IDU5LjQ2MTYgMTcuODkwOCA1OS41NDIxIDE3Ljk3MzRDNTkuNjIyNiAxOC4wNTU5IDU5LjY4NDQgMTguMTU1NiA1OS43MjMyIDE4LjI2NTRDNTkuNzYyIDE4LjM3NTIgNTkuNzc2OCAxOC40OTI0IDU5Ljc2NjYgMTguNjA4N1YzMi42NTQxQzU5Ljc3NDUgMzIuODgzMSA1OS42OTM3IDMzLjEwNiA1OS41NDE5IDMzLjI3NDFDNTkuNDYxOCAzMy4zNTc5IDU5LjM2NTEgMzMuNDIzMyA1OS4yNTg0IDMzLjQ2NTZDNTkuMTUxNiAzMy41MDggNTkuMDM3MyAzMy41MjY1IDU4LjkyMyAzMy41MTk4Wk03MS4zNzQ1IDMzLjUxOThDNzEuMjYyOCAzMy41MjMyIDcxLjE1MTYgMzMuNTAzMiA3MS4wNDc4IDMzLjQ2MDlDNzAuOTQzOSAzMy40MTg2IDcwLjg0OTYgMzMuMzU0OSA3MC43NzA2IDMzLjI3MzhDNzAuNjkxNiAzMy4xOTI3IDcwLjYyOTYgMzMuMDk1OSA3MC41ODgzIDMyLjk4OTRDNzAuNTQ3MSAzMi44ODI4IDcwLjUyNzYgMzIuNzY4NyA3MC41MzA5IDMyLjY1NDFWMjQuOTAzNkM3MC41MzA5IDIzLjYzMzMgNzAuMjkyIDIyLjU4NTQgNjkuODE0NCAyMS43NTk5QzY5LjM2MjMgMjAuOTU1OSA2OC42ODcxIDIwLjMwODMgNjcuODc0OCAxOS44OTk4QzY3LjAxMzIgMTkuNDc1OSA2Ni4wNjczIDE5LjI2MzYgNjUuMTExOSAxOS4yNzk4QzY0LjE3MTYgMTkuMjYzOCA2My4yMzk5IDE5LjQ2NTQgNjIuMzg1OSAxOS44Njk2QzYxLjYyMDMgMjAuMjMwMyA2MC45NjEzIDIwLjc5MjUgNjAuNDc1OCAyMS40OTlDNjAuMDA5MiAyMi4xODMzIDU5Ljc2MzIgMjMuMDAwNCA1OS43NzIyIDIzLjgzNTVINTguMzY2OEM1OC40MjgzIDIyLjY4ODMgNTguNzg3NiAyMS41Nzg4IDU5LjQwNzUgMjAuNjIxOUM2MC4wMTc5IDE5LjY3NzIgNjAuODQ4NiAxOC45MDQgNjEuODI0MSAxOC4zNzI0QzYyLjgzNTQgMTcuODE5NSA2My45NjYxIDE3LjUzNjcgNjUuMTExOSAxNy41NTAxQzY2LjM3NDEgMTcuNTI5NCA2Ny42MjI2IDE3LjgyMTIgNjguNzUxNiAxOC40MDA3QzY5LjgxMDIgMTguOTU1OCA3MC42ODkzIDE5LjgxNCA3MS4yODI0IDIwLjg3MTRDNzEuODk2MyAyMS45NTkgNzIuMjAzMyAyMy4zMDA2IDcyLjIwMzMgMjQuODk2VjMyLjY0NjVDNzIuMjA3MiAzMi43NjExIDcyLjE4OCAzMi44NzUzIDcyLjE0NzEgMzIuOTgyQzcyLjEwNjIgMzMuMDg4NyA3Mi4wNDQ0IDMzLjE4NTYgNzEuOTY1NSAzMy4yNjY4QzcxLjg4NjUgMzMuMzQ4IDcxLjc5MjIgMzMuNDExNiA3MS42ODgzIDMzLjQ1MzlDNzEuNTg0NSAzMy40OTYxIDcxLjQ3MzIgMzMuNTE2IDcxLjM2MTYgMzMuNTEyM0w3MS4zNzQ1IDMzLjUxOThaIiBmaWxsPSIjRDQ0NkY3Ii8+CjxwYXRoIGQ9Ik04Ni4wODYzIDMzLjY2MzVDODQuNzA0NyAzMy42ODk1IDgzLjM0MTQgMzMuMzM2NCA4Mi4xMzcyIDMyLjY0MDhDODAuOTk2MSAzMS45NzAxIDgwLjA1NzggMzAuOTg4OCA3OS40MjU5IDI5LjgwNTNDNzguNzU0MiAyOC41MjkyIDc4LjQxNTMgMjcuMDk2NiA3OC40NDIzIDI1LjY0NjVDNzguNDEzIDI0LjIwMzggNzguNzI5MiAyMi43NzU3IDc5LjM2MzMgMjEuNDg3N0M3OS45NTExIDIwLjMyMjggODAuODM1MSAxOS4zNDMgODEuOTIxNyAxOC42NTIyQzgzLjA0NjcgMTcuOTc5OCA4NC4zMjM4IDE3LjYyMiA4NS42MjU3IDE3LjYxNDRDODYuOTI3NSAxNy42MDY3IDg4LjIwODYgMTcuOTQ5NiA4OS4zNDEgMTguNjA4N0M5MC40MDUyIDE5LjI2ODEgOTEuMjcwOSAyMC4yMTY3IDkxLjg0MjMgMjEuMzQ5N0M5Mi40NTk5IDIyLjU5NDMgOTIuNzY4NyAyMy45NzYgOTIuNzQxMiAyNS4zNzI0QzkyLjc0NjggMjUuNDgxNyA5Mi43Mjk2IDI1LjU5MTEgOTIuNjkwOSAyNS42OTMxQzkyLjY1MjIgMjUuNzk1MSA5Mi41OTI3IDI1Ljg4NzUgOTIuNTE2NSAyNS45NjQxQzkyLjM1NTEgMjYuMTEyNCA5Mi4xNDM0IDI2LjE4OTcgOTEuOTI3IDI2LjE3OTZINzkuNTcxNFYyNC42ODA1SDkyLjM4NzVMOTEuMTUxNiAyNS42MjU3QzkxLjIwODIgMjQuNDgzNyA5MC45OTQgMjMuMzQ0NiA5MC41MjcyIDIyLjMwNjJDOTAuMTA2MyAyMS4zNzc1IDg5LjQzNjkgMjAuNTkwOCA4OC41OTY4IDIwLjAzNzhDODcuNzE2NCAxOS40NzYxIDg2LjY5NTQgMTkuMTkwNCA4NS42NTkgMTkuMjE1NUM4NC42NTI1IDE5LjE5ODcgODMuNjYzMyAxOS40ODQ2IDgyLjgxMzIgMjAuMDM3OEM4MS45NjkzIDIwLjU5NyA4MS4yODkzIDIxLjM4MTEgODAuODQ2IDIyLjMwNjJDODAuMzQ5NCAyMy4zNDY2IDgwLjEwMzEgMjQuNDk0IDgwLjEyNzcgMjUuNjUyMkM4MC4xMDU0IDI2LjgwNTUgODAuMzY3MSAyNy45NDU5IDgwLjg4ODQgMjguOTY3OUM4MS4zNzI5IDI5LjkwOTQgODIuMTAyMyAzMC42OTQ2IDgyLjk5NTUgMzEuMjM2M0M4My45MzMyIDMxLjc5NTEgODUuMDAyMiAzMi4wNzk1IDg2LjA4NjMgMzIuMDU4NkM4Ni44MzkgMzIuMDU0OSA4Ny41ODU4IDMxLjkyMzQgODguMjk2NiAzMS42NjkyQzg4Ljk0NzcgMzEuNDYyMyA4OS41NDczIDMxLjExMjcgOTAuMDUzOCAzMC42NDQ2QzkwLjE5OTggMzAuNDkyMiA5MC4zOTgyIDMwLjQwNDcgOTAuNjA2NCAzMC40MDA3QzkwLjcwNjEgMzAuMzkyNyA5MC44MDY0IDMwLjQwNTMgOTAuOTAxMyAzMC40Mzc4QzkwLjk5NjMgMzAuNDcwMyA5MS4wODM5IDMwLjUyMTkgOTEuMTU5IDMwLjU4OThDOTEuMjUwMSAzMC42NTYzIDkxLjMyNjEgMzAuNzQyMiA5MS4zODE4IDMwLjg0MThDOTEuNDM3NCAzMC45NDEzIDkxLjQ3MTQgMzEuMDUyIDkxLjQ4MTMgMzEuMTY2M0M5MS40ODMxIDMxLjI3NzEgOTEuNDU5OSAzMS4zODY3IDkxLjQxMzYgMzEuNDg2N0M5MS4zNjczIDMxLjU4NjggOTEuMjk5IDMxLjY3NDQgOTEuMjE0MiAzMS43NDI5QzkwLjUyNTQgMzIuMzUzOCA4OS43Mjg4IDMyLjgyMzYgODguODY3NiAzMy4xMjY2Qzg3Ljk3OTIgMzMuNDc0NiA4Ny4wMzcyIDMzLjY1NjQgODYuMDg2MyAzMy42NjM1WiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNOTkuNzYyOCAzMy41MTk5Qzk5LjY1MTEgMzMuNTIzMyA5OS41Mzk5IDMzLjUwMzIgOTkuNDM2MSAzMy40NjA5Qzk5LjMzMjIgMzMuNDE4NiA5OS4yMzc5IDMzLjM1NDkgOTkuMTU4OSAzMy4yNzM5Qzk5LjA3OTkgMzMuMTkyOCA5OS4wMTc5IDMzLjA5NiA5OC45NzY2IDMyLjk4OTRDOTguOTM1NCAzMi44ODI4IDk4LjkxNTkgMzIuNzY4NyA5OC45MTkyIDMyLjY1NDFWMTguNjA4N0M5OC45MTI5IDE4LjQ5MTUgOTguOTMxIDE4LjM3NDIgOTguOTcyMyAxOC4yNjQ3Qzk5LjAxMzYgMTguMTU1MiA5OS4wNzcxIDE4LjA1NTkgOTkuMTU4NiAxNy45NzM2Qzk5LjMyMjQgMTcuODE3OCA5OS41Mzk2IDE3LjczNDkgOTkuNzYyOCAxNy43NDI5Qzk5Ljg3NiAxNy43MzI4IDk5Ljk4OTkgMTcuNzQ4MiAxMDAuMDk3IDE3Ljc4ODJDMTAwLjIwMyAxNy44MjgyIDEwMC4zIDE3Ljg5MTYgMTAwLjM4MSAxNy45NzQyQzEwMC40NjEgMTguMDU2NyAxMDAuNTIyIDE4LjE1NjMgMTAwLjU2MSAxOC4yNjU5QzEwMC42IDE4LjM3NTYgMTAwLjYxNSAxOC40OTI2IDEwMC42MDUgMTguNjA4N1YzMi42NTQxQzEwMC42MTQgMzIuODgxMiAxMDAuNTM1IDMzLjEwMjcgMTAwLjM4NSAzMy4yNzAzQzEwMC4zMDUgMzMuMzU1NSAxMDAuMjA4IDMzLjQyMTggMTAwLjEwMSAzMy40NjQ5Qzk5Ljk5MzIgMzMuNTA4IDk5Ljg3NzkgMzMuNTI2NyA5OS43NjI4IDMzLjUxOTlaTTk5LjQ4MSAyMy44NzlDOTkuNTY5NyAyMi43MjY2IDk5LjkwNTYgMjEuNjA4NiAxMDAuNDY1IDIwLjYwNDlDMTAwLjk3MyAxOS42OTAxIDEwMS42OTcgMTguOTIxNiAxMDIuNTcyIDE4LjM3MDVDMTAzLjQzNSAxNy44MzEgMTA0LjQyOSAxNy41NTA3IDEwNS40NCAxNy41NjE1QzEwNi4wMDMgMTcuNTM2NCAxMDYuNTY3IDE3LjYyNSAxMDcuMDk3IDE3LjgyMjNDMTA3LjI3NiAxNy44ODQgMTA3LjQyMyAxOC4wMTU2IDEwNy41MDcgMTguMTg4NUMxMDcuNTkyIDE4LjM2MTMgMTA3LjYwNiAxOC41NjEzIDEwNy41NDcgMTguNzQ0OEMxMDcuNTM4IDE4Ljg2MTcgMTA3LjQ5NiAxOC45NzMzIDEwNy40MjYgMTkuMDY1OEMxMDcuMzU2IDE5LjE1ODIgMTA3LjI2MSAxOS4yMjc0IDEwNy4xNTMgMTkuMjY0N0MxMDYuOTExIDE5LjMyMiAxMDYuNjYgMTkuMzI2NSAxMDYuNDE2IDE5LjI3NzlDMTA2LjA5NSAxOS4yMjgxIDEwNS43NzEgMTkuMjA0IDEwNS40NDcgMTkuMjA2MUMxMDQuNTc3IDE5LjE4OTcgMTAzLjcxNyAxOS4zOTc3IDEwMi45NDYgMTkuODExQzEwMi4yMzcgMjAuMTkzNyAxMDEuNjQ1IDIwLjc2NzYgMTAxLjIzMSAyMS40NzA3QzEwMC44MTEgMjIuMTk5MiAxMDAuNTk3IDIzLjAzMjkgMTAwLjYxMiAyMy44NzlIOTkuNDgxWiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNMTE5LjYwOSAzMy42OTM4QzExOC4xOTcgMzMuNzE2NSAxMTYuODA1IDMzLjM1MzEgMTE1LjU3NSAzMi42NDA4QzExNC40MDIgMzEuOTU2MiAxMTMuNDMxIDMwLjk1OTYgMTEyLjc2NCAyOS43NTYxQzExMi4wOTEgMjguNDkxMSAxMTEuNzM4IDI3LjA3MjggMTExLjczOCAyNS42MzE0QzExMS43MzggMjQuMTkgMTEyLjA5MSAyMi43NzE2IDExMi43NjQgMjEuNTA2NkMxMTMuNDMxIDIwLjMwMzEgMTE0LjQwMiAxOS4zMDY1IDExNS41NzUgMTguNjIxOUMxMTYuODEgMTcuOTMxIDExOC4xOTUgMTcuNTY5IDExOS42MDIgMTcuNTY5QzEyMS4wMDggMTcuNTY5IDEyMi4zOTMgMTcuOTMxIDEyMy42MjggMTguNjIxOUMxMjQuNzk0IDE5LjMxMDggMTI1Ljc1OSAyMC4zMDY2IDEyNi40MjQgMjEuNTA2NkMxMjcuMTE4IDIyLjc2ODYgMTI3LjQ3MiAyNC4xOTc1IDEyNy40NSAyNS42NDY1TDEyNi43NDYgMjYuNzk5NkMxMjYuNzY0IDI4LjA0MDQgMTI2LjQzNyAyOS4yNjA4IDEyNS44MDMgMzAuMzE3NkMxMjUuMTggMzEuMzUzNCAxMjQuMzAzIDMyLjIwMzkgMTIzLjI2IDMyLjc4NDVDMTIyLjEzOSAzMy40MDMzIDEyMC44ODIgMzMuNzE2MyAxMTkuNjA5IDMzLjY5MzhaTTExOS42MDkgMzIuMDc3NUMxMjAuNjk2IDMyLjEwMDIgMTIxLjc2OSAzMS44MTg1IDEyMi43MTIgMzEuMjYyNkMxMjMuNjU1IDMwLjcwNjggMTI0LjQzMyAyOS44OTc4IDEyNC45NjIgMjguOTIyNUMxMjUuNDg4IDI3LjkxMDkgMTI1Ljc2MyAyNi43ODE4IDEyNS43NjMgMjUuNjM1MkMxMjUuNzYzIDI0LjQ4ODUgMTI1LjQ4OCAyMy4zNTk0IDEyNC45NjIgMjIuMzQ3OEMxMjQuNDMzIDIxLjM3MTggMTIzLjY1NiAyMC41NjIxIDEyMi43MTMgMjAuMDA1NUMxMjEuNzcgMTkuNDQ5IDEyMC42OTcgMTkuMTY2NyAxMTkuNjA5IDE5LjE4OUMxMTguNTIgMTkuMTczOCAxMTcuNDQ4IDE5LjQ1ODkgMTE2LjUwMyAyMC4wMTQ2QzExNS41NTkgMjAuNTcwMyAxMTQuNzc3IDIxLjM3NjEgMTE0LjI0IDIyLjM0NzhDMTEzLjcwNSAyMy4zNTY4IDExMy40MjYgMjQuNDg2OCAxMTMuNDI2IDI1LjYzNTJDMTEzLjQyNiAyNi43ODM1IDExMy43MDUgMjcuOTEzNSAxMTQuMjQgMjguOTIyNUMxMTQuNzc3IDI5Ljg5NDIgMTE1LjU1OSAzMC43IDExNi41MDMgMzEuMjU1N0MxMTcuNDQ4IDMxLjgxMTQgMTE4LjUyIDMyLjA5NjUgMTE5LjYwOSAzMi4wODEzVjMyLjA3NzVaTTEyNi42MDggMzMuNTE5OEMxMjYuNDk3IDMzLjUyMzIgMTI2LjM4NSAzMy41MDMyIDEyNi4yODIgMzMuNDYwOUMxMjYuMTc4IDMzLjQxODYgMTI2LjA4MyAzMy4zNTQ5IDEyNi4wMDQgMzMuMjczOEMxMjUuOTI1IDMzLjE5MjcgMTI1Ljg2MyAzMy4wOTU5IDEyNS44MjIgMzIuOTg5NEMxMjUuNzgxIDMyLjg4MjggMTI1Ljc2MSAzMi43Njg3IDEyNS43NjUgMzIuNjU0MVYyNy4zNzYyTDEyNi4yOTkgMjUuNjQ2NUgxMjcuNDUyVjMyLjY1NDFDMTI3LjQ2IDMyLjg4MzEgMTI3LjM3OSAzMy4xMDYgMTI3LjIyNyAzMy4yNzQxQzEyNy4xNDcgMzMuMzU3OSAxMjcuMDUgMzMuNDIzMiAxMjYuOTQzIDMzLjQ2NTVDMTI2LjgzNiAzMy41MDc5IDEyNi43MjEgMzMuNTI2NCAxMjYuNjA2IDMzLjUxOThIMTI2LjYwOFoiIGZpbGw9IiNENDQ2RjciLz4KPHBhdGggZD0iTTMwLjM3MzQgMjIuMTYyNkMzMC40NTA4IDMxLjkwMzYgMjkuMTg1NCAzOC4wNzU2IDE1LjIyMTcgNDIuMjAwNEM5LjY2NDYzIDQzLjgzOTMgMi43MzUzMSA0Ny4wMDM4IDIuNzM1MzEgNDcuMDAzOEMyLjczNTMxIDQ3LjAwMzggNS4zNTYzNyA0Mi4yODkyIDUuODI0MjIgNDAuMDMyMUM2LjI5MjA3IDM3Ljc3NSA2LjMzMjU5IDM3LjM0MDMgNi4zMzI1OSAzNy4zNDAzQzYuMzMyNTkgMzcuMzQwMyAtMy4zODM1NyAzOC42NTAzIDEuMjU0NCAyOC42MjU3QzQuNjcxMTcgMjEuMjQwMSAxNy4xNjEzIDE5LjE0NzQgMjQuNzI2MSAyMC4xMTkxQzI5LjgzOTMgMjAuNzc1IDMwLjM2MDUgMjAuNjE4MSAzMC4zNzM0IDIyLjE2MjZaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNDEuMTYgMzMuNzk5NkMxMzkuODU1IDMzLjgwNDQgMTM4LjU1NSAzMy42Mzc0IDEzNy4yOTIgMzMuMzAyNUMxMzYuMDY0IDMyLjk2OTggMTM1LjA3NiAzMi41NTMyIDEzNC4zMjggMzIuMDUyOUwxMzUuODI0IDI4LjcwODlDMTM2LjY0MiAyOS4xODMxIDEzNy41MTUgMjkuNTUyNiAxMzguNDIxIDI5LjgwOTFDMTM5LjM2OCAzMC4wOTM4IDE0MC4zNDggMzAuMjQwOCAxNDEuMzM1IDMwLjI0NThDMTQyLjM5MiAzMC4yNDU4IDE0My4xNDEgMzAuMTE1MyAxNDMuNTggMjkuODU0NEMxNDMuNzc4IDI5Ljc1NTYgMTQzLjk0NSAyOS42MDEzIDE0NC4wNjIgMjkuNDA5NEMxNDQuMTc5IDI5LjIxNzQgMTQ0LjI0IDI4Ljk5NTYgMTQ0LjI0IDI4Ljc2OTRDMTQ0LjI0NCAyOC41OTA5IDE0NC4xOTggMjguNDE0OCAxNDQuMTA3IDI4LjI2MjVDMTQ0LjAxNiAyOC4xMTAyIDE0My44ODQgMjcuOTg4MiAxNDMuNzI3IDI3LjkxMTJDMTQzLjMwMyAyNy42OTMyIDE0Mi44NDcgMjcuNTQ1OCAxNDIuMzc3IDI3LjQ3NDVDMTQxLjgyIDI3LjM3NDkgMTQxLjE5OSAyNy4yNzQ3IDE0MC41MTMgMjcuMTczOUMxMzkuODI2IDI3LjA3MjggMTM5LjE0NiAyNi45MzIgMTM4LjQ3NCAyNi43NTI0QzEzNy44MTkgMjYuNTc5MyAxMzcuMTg5IDI2LjMyMTQgMTM2LjU5NyAyNS45ODQ5QzEzNi4wMjggMjUuNjYxMiAxMzUuNTUyIDI1LjE4ODMgMTM1LjIxOCAyNC42MTQ0QzEzNC44NzUgMjQuMDMyMSAxMzQuNzA0IDIzLjI3NiAxMzQuNzA0IDIyLjM0NTlDMTM0LjY5MSAyMS4zNjE2IDEzNS4wMDEgMjAuNDAxNCAxMzUuNTg0IDE5LjYyQzEzNi4yMzQgMTguNzc5NSAxMzcuMDk3IDE4LjEzOTIgMTM4LjA3OCAxNy43Njk0QzEzOS4xNTQgMTcuMzI3IDE0MC40NTUgMTcuMTA1OSAxNDEuOTgxIDE3LjEwNTlDMTQzLjA5MiAxNy4xMDg5IDE0NC4xOTggMTcuMjM1NiAxNDUuMjgyIDE3LjQ4MzlDMTQ2LjI2MyAxNy42ODczIDE0Ny4yMSAxOC4wMzgyIDE0OC4wOTEgMTguNTI1NUwxNDYuNTM2IDIxLjg2NzdDMTQ1LjgyOCAyMS40NDEzIDE0NS4wNjEgMjEuMTI2NSAxNDQuMjYyIDIwLjkzMzhDMTQzLjUzNyAyMC43NTk4IDE0Mi43OTYgMjAuNjY5MSAxNDIuMDUxIDIwLjY2MzVDMTQwLjk5NCAyMC42NjM1IDE0MC4yMzEgMjAuODA0IDEzOS43NjIgMjEuMDg1MUMxMzkuMjkzIDIxLjM2NjEgMTM5LjA1OCAyMS43MjcyIDEzOS4wNTggMjIuMTY4MkMxMzkuMDUzIDIyLjM1NjcgMTM5LjA5OSAyMi41NDMgMTM5LjE5MyAyMi43MDU1QzEzOS4yODYgMjIuODY4IDEzOS40MjIgMjMuMDAwMiAxMzkuNTg1IDIzLjA4N0MxNDAuMDE0IDIzLjMyNDkgMTQwLjQ4MSAyMy40ODMgMTQwLjk2NSAyMy41NTM5QzE0MS41MzIgMjMuNjU2IDE0Mi4xNTggMjMuNzU2OCAxNDIuODQzIDIzLjg1NjNDMTQzLjUyNiAyMy45NTU4IDE0NC4yMDMgMjQuMDk2NSAxNDQuODY5IDI0LjI3NzlDMTQ1LjUxOSAyNC40NTE5IDE0Ni4xNDUgMjQuNzA5OCAxNDYuNzMyIDI1LjA0NTRDMTQ3LjMwMSAyNS4zNjkgMTQ3Ljc3OCAyNS44NDE5IDE0OC4xMTEgMjYuNDE1OUMxNDguNDU0IDI2Ljk5ODEgMTQ4LjYyNSAyNy43NTA1IDE0OC42MjUgMjguNjczQzE0OC42MzYgMjkuNjI5MSAxNDguMzI1IDMwLjU1OTcgMTQ3Ljc0NSAzMS4zMDgxQzE0Ny4xNTggMzIuMDgxOSAxNDYuMzEyIDMyLjY4OTQgMTQ1LjIwNyAzMy4xMzA0QzE0NC4xMDEgMzMuNTcxNSAxNDIuNzUyIDMzLjc5NDYgMTQxLjE2IDMzLjc5OTZaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNjEuMjc1IDMzLjc5OTZDMTU5LjcyOCAzMy44Mjc1IDE1OC4yIDMzLjQ1NDMgMTU2LjgzMSAzMi43MTQ2QzE1NS44ODMgMzIuMTY2OSAxNTUuMDUgMzEuNDMxMyAxNTQuMzgyIDMwLjU1MDVDMTUzLjcxMyAyOS42Njk3IDE1My4yMjIgMjguNjYxMyAxNTIuOTM3IDI3LjU4MzlDMTUyLjY1MSAyNi41MDY1IDE1Mi41NzggMjUuMzgxNyAxNTIuNzIgMjQuMjc0OEMxNTIuODYyIDIzLjE2NzkgMTUzLjIxNyAyMi4xMDEgMTUzLjc2NCAyMS4xMzYxQzE1NC41MDUgMTkuODg0MSAxNTUuNTY2IDE4Ljg2MzcgMTU2LjgzMSAxOC4xODUzQzE1OC4yMDMgMTcuNDU0OSAxNTkuNzMgMTcuMDg3MSAxNjEuMjc1IDE3LjExNTNDMTYyLjgzOCAxNy4wODQ3IDE2NC4zODMgMTcuNDUyMyAxNjUuNzczIDE4LjE4NTNDMTY3LjA0NSAxOC44NjA2IDE2OC4xMTEgMTkuODgxMyAxNjguODU1IDIxLjEzNjFDMTY5LjYwOCAyMi40NDMxIDE2OS45OSAyMy45Mzk2IDE2OS45NiAyNS40NTc1QzE2OS45OTcgMjYuOTQ4NiAxNjkuNjI0IDI4LjQyMDIgMTY4Ljg4MyAyOS43MDM3QzE2OC4xNDMgMzAuOTg3MiAxNjcuMDY1IDMyLjAzMDcgMTY1Ljc3MyAzMi43MTQ2QzE2NC4zODYgMzMuNDU2OSAxNjIuODQgMzMuODMgMTYxLjI3NSAzMy43OTk2Wk0xNjEuMjc1IDI5Ljk0MzNDMTYxLjk5OSAyOS45NTkyIDE2Mi43MTMgMjkuNzc3OCAxNjMuMzQ2IDI5LjQxNzhDMTYzLjk1NyAyOS4wNDg3IDE2NC40NTQgMjguNTExIDE2NC43ODIgMjcuODY1OEMxNjUuMTYyIDI3LjEyMzkgMTY1LjM1MiAyNi4yOTUzIDE2NS4zMzUgMjUuNDU3NUMxNjUuMzU3IDI0LjYxODYgMTY1LjE2NiAyMy43ODgyIDE2NC43ODIgMjMuMDQ3M0MxNjQuNDQ3IDIyLjQxODIgMTYzLjk1IDIxLjg5NTMgMTYzLjM0NiAyMS41MzVDMTYyLjcyMyAyMS4xNzY3IDE2Mi4wMTkgMjAuOTk0NyAxNjEuMzA1IDIxLjAwNzZDMTYwLjU4NyAyMC45OTU5IDE1OS44NzkgMjEuMTc3OCAxNTkuMjUxIDIxLjUzNUMxNTguNjQgMjEuODkwOSAxNTguMTM3IDIyLjQxNDUgMTU3LjggMjMuMDQ3M0MxNTcuNDE2IDIzLjc4ODIgMTU3LjIyNSAyNC42MTg2IDE1Ny4yNDcgMjUuNDU3NUMxNTcuMjMgMjYuMjk1MyAxNTcuNDIgMjcuMTIzOSAxNTcuOCAyNy44NjU4QzE1OC4xMjkgMjguNTE0NyAxNTguNjMzIDI5LjA1MzIgMTU5LjI1MSAyOS40MTc4QzE1OS44NyAyOS43NzE0IDE2MC41NjcgMjkuOTUyNiAxNjEuMjc1IDI5Ljk0MzNaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNzIuNzk5IDIxLjMzMDhWMTcuNzE4M0gxODMuNzQ0VjIxLjMzMDhIMTcyLjc5OVpNMTc1LjIzNCAzMy41NTc3VjE2Ljk5NDNDMTc1LjIzNCAxNS4xNDY4IDE3NS43NjIgMTMuNjgxOCAxNzYuODIgMTIuNTk5MkMxNzcuODc3IDExLjUxNjcgMTc5LjM4MyAxMC45NzE2IDE4MS4zMzggMTAuOTY0MUMxODEuOTc5IDEwLjk2NDIgMTgyLjYxOCAxMS4wMzUyIDE4My4yNDQgMTEuMTc1OEMxODMuODA1IDExLjI4OTggMTg0LjM0MiAxMS41MDM0IDE4NC44MyAxMS44MDcyTDE4My42MjggMTUuMjQwMUMxODMuMzY1IDE1LjA1NzggMTgzLjA3OSAxNC45MTU4IDE4Mi43NzcgMTQuODE4NUMxODIuNDUzIDE0LjcxNzEgMTgyLjExNiAxNC42NjY4IDE4MS43NzggMTQuNjY5MkMxODEuMTEzIDE0LjY2OTIgMTgwLjU5OSAxNC44NTgyIDE4MC4yMzggMTUuMjM2M0MxNzkuODc3IDE1LjYxNDQgMTc5LjY5NiAxNi4yMTY4IDE3OS42OTUgMTcuMDQzNVYxOC41NTU4TDE3OS44NDIgMjAuNTQyNVYzMy41NTJMMTc1LjIzNCAzMy41NTc3WiIgZmlsbD0iIzAwMkFERCIvPgo8cGF0aCBkPSJNMTg3Ljk2OSAyMS4zMzA4VjE3LjcxODNIMTk4LjkxM1YyMS4zMzA4SDE4Ny45NjlaTTE5Ni4zMDIgMzMuODA3MkMxOTQuNDQ0IDMzLjgwNzIgMTkyLjk5NyAzMy4zMjAxIDE5MS45NiAzMi4zNDU5QzE5MC45MjQgMzEuMzcxOCAxOTAuNDA1IDI5LjkyMjUgMTkwLjQwNCAyNy45OTgxVjEzLjc3MzJIMTk1LjAwOVYyNy44OTZDMTk1LjAwOSAyOC41NzkxIDE5NS4xOCAyOS4xMTE1IDE5NS41MjIgMjkuNDkzNEMxOTUuNzAyIDI5LjY4NDkgMTk1LjkxOSAyOS44MzQ2IDE5Ni4xNiAyOS45MzI0QzE5Ni40IDMwLjAzMDMgMTk2LjY1OCAzMC4wNzM5IDE5Ni45MTcgMzAuMDYwNUMxOTcuNTkxIDMwLjA4MjYgMTk4LjI1MyAyOS44NzA4IDE5OC43OTYgMjkuNDU5NEwxOTkuOTk4IDMyLjc3MTNDMTk5LjUgMzMuMTM1NCAxOTguOTM3IDMzLjM5NjEgMTk4LjM0MSAzMy41Mzg4QzE5Ny42NzQgMzMuNzEyMiAxOTYuOTg5IDMzLjc5OTggMTk2LjMwMiAzMy43OTk2VjMzLjgwNzJaIiBmaWxsPSIjMDAyQUREIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfODdfMzI0Ij4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSI0NyIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Therasoft">
+      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQ3IiB2aWV3Qm94PSIwIDAgMjAwIDQ3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfODdfMzI0KSI+CjxwYXRoIGQ9Ik0zMi43MzY4IDBDMzIuNzM2OCAwIDMzLjA5MjMgMTQuNzQ0OCAyNC42MTIxIDE1Ljg1NDRDMjAuOTg1MyAxNi4zMzA4IDE1LjkyMTkgMTcuMTEzNCAxMS4zNzYgMTguNDUxOEM5LjA0NDEzIDE5LjEzOTkgOC4zMzQ5OSAxOS41Mzg4IDguMzM0OTkgMTkuNTM4OEM4LjMzNDk5IDE5LjUzODggOC4yMzkyMSA2LjU1NTc3IDE5LjIzIDUuMzYxMDZDMzEuNzM4NSAzLjk5MDU1IDMyLjczNjggMCAzMi43MzY4IDBaIiBmaWxsPSIjRDQ0NkY3Ii8+CjxwYXRoIGQ9Ik00My40MzY2IDE5Ljg3NzFDNDMuMjM1MyAxOS44NzcxIDQzLjA0MjMgMTkuNzk1MSA0Mi45IDE5LjY0OUM0Mi43NTc3IDE5LjUwMyA0Mi42Nzc3IDE5LjMwNDkgNDIuNjc3NyAxOS4wOTgzQzQyLjY3NzcgMTguODkxNyA0Mi43NTc3IDE4LjY5MzYgNDIuOSAxOC41NDc2QzQzLjA0MjMgMTguNDAxNSA0My4yMzUzIDE4LjMxOTUgNDMuNDM2NiAxOC4zMTk1SDUxLjA1M0M1MS4yNTQyIDE4LjMxOTUgNTEuNDQ3MyAxOC40MDE1IDUxLjU4OTYgMTguNTQ3NkM1MS43MzE5IDE4LjY5MzYgNTEuODExOCAxOC44OTE3IDUxLjgxMTggMTkuMDk4M0M1MS44MTE4IDE5LjMwNDkgNTEuNzMxOSAxOS41MDMgNTEuNTg5NiAxOS42NDlDNTEuNDQ3MyAxOS43OTUxIDUxLjI1NDIgMTkuODc3MSA1MS4wNTMgMTkuODc3MUg0My40MzY2Wk01MC45NDA2IDMzLjUxOTlDNDkuOTczNyAzMy41MTk4IDQ5LjAyMjggMzMuMjY2NyA0OC4xNzc3IDMyLjc4NDVDNDcuMzgzMSAzMi4zMjQ5IDQ2LjczMDcgMzEuNjQ0OSA0Ni4yOTUzIDMwLjgyMjNDNDUuODM3OSAyOS45NTE5IDQ1LjYwNTggMjguOTc1NiA0NS42MjExIDI3Ljk4NjhWMTMuNjEwNkM0NS42MTU3IDEzLjQ5MTQgNDUuNjM0MSAxMy4zNzI0IDQ1LjY3NTMgMTMuMjYwOUM0NS43MTY1IDEzLjE0OTQgNDUuNzc5NiAxMy4wNDc3IDQ1Ljg2MDYgMTIuOTYyMkM0NS45Mzk0IDEyLjg4MDggNDYuMDMzNyAxMi44MTY5IDQ2LjEzNzcgMTIuNzc0NkM0Ni4yNDE2IDEyLjczMjMgNDYuMzUzIDEyLjcxMjUgNDYuNDY0NyAxMi43MTY0QzQ2LjU4MTEgMTIuNzA5IDQ2LjY5NzcgMTIuNzI3IDQ2LjgwNjggMTIuNzY5M0M0Ni45MTU5IDEyLjgxMTYgNDcuMDE1IDEyLjg3NzEgNDcuMDk3NSAxMi45NjE3QzQ3LjE4MDEgMTMuMDQ2MiA0Ny4yNDQyIDEzLjE0NzggNDcuMjg1NiAxMy4yNTk2QzQ3LjMyNyAxMy4zNzE1IDQ3LjM0NDggMTMuNDkxMSA0Ny4zMzc4IDEzLjYxMDZWMjcuOTc3M0M0Ny4zMzc4IDI5LjA5MzkgNDcuNjc0OSAzMC4wMDI1IDQ4LjM0OSAzMC43MDMyQzQ5LjAyMzIgMzEuNDAzOSA0OS44OTYyIDMxLjc1NTUgNTAuOTY4MiAzMS43NThINTEuNTg3MUM1MS43MDM0IDMxLjc1MDkgNTEuODE5OCAzMS43NjkxIDUxLjkyODYgMzEuODExNUM1Mi4wMzc1IDMxLjg1MzkgNTIuMTM2NCAzMS45MTk1IDUyLjIxODcgMzIuMDA0QzUyLjMwMSAzMi4wODg1IDUyLjM2NSAzMi4xOSA1Mi40MDYzIDMyLjMwMTdDNTIuNDQ3NiAzMi40MTM0IDUyLjQ2NTMgMzIuNTMyOSA1Mi40NTg0IDMyLjY1MjJDNTIuNDYxNyAzMi43NjY4IDUyLjQ0MjIgMzIuODgxIDUyLjQwMTEgMzIuOTg3NkM1Mi4zNTk5IDMzLjA5NDIgNTIuMjk3OSAzMy4xOTExIDUyLjIxODkgMzMuMjcyMkM1Mi4xMzU1IDMzLjM1NTIgNTIuMDM2NCAzMy40MTk4IDUxLjkyNzcgMzMuNDYyQzUxLjgxOTEgMzMuNTA0MyA1MS43MDMyIDMzLjUyMzMgNTEuNTg3MSAzMy41MThMNTAuOTQwNiAzMy41MTk5WiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNNTguOTIzIDI2LjU5NzNDNTguODExNCAyNi42MDEgNTguNzAwMiAyNi41ODEyIDU4LjU5NjMgMjYuNTM4OUM1OC40OTI0IDI2LjQ5NjcgNTguMzk4MSAyNi40MzMgNTguMzE5MiAyNi4zNTE5QzU4LjI0MDMgMjYuMjcwNyA1OC4xNzg0IDI2LjE3MzcgNTguMTM3NSAyNi4wNjdDNTguMDk2NiAyNS45NjAzIDU4LjA3NzQgMjUuODQ2MiA1OC4wODEzIDI1LjczMTZWMTEuODU4MkM1OC4wNzUxIDExLjc0MTQgNTguMDkzIDExLjYyNDYgNTguMTM0IDExLjUxNTVDNTguMTc0OSAxMS40MDYzIDU4LjIzOCAxMS4zMDczIDU4LjMxODkgMTEuMjI0OUM1OC40ODI2IDExLjA2OSA1OC42OTk5IDEwLjk4NjEgNTguOTIzIDEwLjk5NDNDNTkuMDM2MiAxMC45ODM5IDU5LjE1MDIgMTAuOTk5MSA1OS4yNTcgMTEuMDM4OEM1OS4zNjM5IDExLjA3ODYgNTkuNDYwOSAxMS4xNDE4IDU5LjU0MTMgMTEuMjI0MkM1OS42MjE3IDExLjMwNjUgNTkuNjgzNiAxMS40MDYgNTkuNzIyNSAxMS41MTU1QzU5Ljc2MTUgMTEuNjI1MSA1OS43NzY1IDExLjc0MjEgNTkuNzY2NiAxMS44NTgyVjI1LjczMTZDNTkuNzc0NSAyNS45NjA2IDU5LjY5MzcgMjYuMTgzNSA1OS41NDE5IDI2LjM1MTZDNTkuNDYxOCAyNi40MzU1IDU5LjM2NTEgMjYuNTAwOCA1OS4yNTg0IDI2LjU0MzFDNTkuMTUxNiAyNi41ODU1IDU5LjAzNzMgMjYuNjA0IDU4LjkyMyAyNi41OTczWk01OC45MjMgMzMuNTE5OEM1OC44MTE0IDMzLjUyMzUgNTguNzAwMiAzMy41MDM2IDU4LjU5NjMgMzMuNDYxNEM1OC40OTI0IDMzLjQxOTIgNTguMzk4MSAzMy4zNTU1IDU4LjMxOTIgMzMuMjc0M0M1OC4yNDAzIDMzLjE5MzIgNTguMTc4NCAzMy4wOTYyIDU4LjEzNzUgMzIuOTg5NUM1OC4wOTY2IDMyLjg4MjggNTguMDc3NCAzMi43Njg3IDU4LjA4MTMgMzIuNjU0MVYxOC42MDg3QzU4LjA3NTEgMTguNDkxNiA1OC4wOTMxIDE4LjM3NDUgNTguMTM0MSAxOC4yNjUxQzU4LjE3NSAxOC4xNTU3IDU4LjIzOCAxOC4wNTYzIDU4LjMxODkgMTcuOTczNUM1OC40ODMgMTcuODE4MyA1OC43IDE3LjczNTUgNTguOTIzIDE3Ljc0MjlDNTkuMDM2NCAxNy43MzI1IDU5LjE1MDYgMTcuNzQ3NyA1OS4yNTc1IDE3Ljc4NzVDNTkuMzY0NSAxNy44Mjc0IDU5LjQ2MTYgMTcuODkwOCA1OS41NDIxIDE3Ljk3MzRDNTkuNjIyNiAxOC4wNTU5IDU5LjY4NDQgMTguMTU1NiA1OS43MjMyIDE4LjI2NTRDNTkuNzYyIDE4LjM3NTIgNTkuNzc2OCAxOC40OTI0IDU5Ljc2NjYgMTguNjA4N1YzMi42NTQxQzU5Ljc3NDUgMzIuODgzMSA1OS42OTM3IDMzLjEwNiA1OS41NDE5IDMzLjI3NDFDNTkuNDYxOCAzMy4zNTc5IDU5LjM2NTEgMzMuNDIzMyA1OS4yNTg0IDMzLjQ2NTZDNTkuMTUxNiAzMy41MDggNTkuMDM3MyAzMy41MjY1IDU4LjkyMyAzMy41MTk4Wk03MS4zNzQ1IDMzLjUxOThDNzEuMjYyOCAzMy41MjMyIDcxLjE1MTYgMzMuNTAzMiA3MS4wNDc4IDMzLjQ2MDlDNzAuOTQzOSAzMy40MTg2IDcwLjg0OTYgMzMuMzU0OSA3MC43NzA2IDMzLjI3MzhDNzAuNjkxNiAzMy4xOTI3IDcwLjYyOTYgMzMuMDk1OSA3MC41ODgzIDMyLjk4OTRDNzAuNTQ3MSAzMi44ODI4IDcwLjUyNzYgMzIuNzY4NyA3MC41MzA5IDMyLjY1NDFWMjQuOTAzNkM3MC41MzA5IDIzLjYzMzMgNzAuMjkyIDIyLjU4NTQgNjkuODE0NCAyMS43NTk5QzY5LjM2MjMgMjAuOTU1OSA2OC42ODcxIDIwLjMwODMgNjcuODc0OCAxOS44OTk4QzY3LjAxMzIgMTkuNDc1OSA2Ni4wNjczIDE5LjI2MzYgNjUuMTExOSAxOS4yNzk4QzY0LjE3MTYgMTkuMjYzOCA2My4yMzk5IDE5LjQ2NTQgNjIuMzg1OSAxOS44Njk2QzYxLjYyMDMgMjAuMjMwMyA2MC45NjEzIDIwLjc5MjUgNjAuNDc1OCAyMS40OTlDNjAuMDA5MiAyMi4xODMzIDU5Ljc2MzIgMjMuMDAwNCA1OS43NzIyIDIzLjgzNTVINTguMzY2OEM1OC40MjgzIDIyLjY4ODMgNTguNzg3NiAyMS41Nzg4IDU5LjQwNzUgMjAuNjIxOUM2MC4wMTc5IDE5LjY3NzIgNjAuODQ4NiAxOC45MDQgNjEuODI0MSAxOC4zNzI0QzYyLjgzNTQgMTcuODE5NSA2My45NjYxIDE3LjUzNjcgNjUuMTExOSAxNy41NTAxQzY2LjM3NDEgMTcuNTI5NCA2Ny42MjI2IDE3LjgyMTIgNjguNzUxNiAxOC40MDA3QzY5LjgxMDIgMTguOTU1OCA3MC42ODkzIDE5LjgxNCA3MS4yODI0IDIwLjg3MTRDNzEuODk2MyAyMS45NTkgNzIuMjAzMyAyMy4zMDA2IDcyLjIwMzMgMjQuODk2VjMyLjY0NjVDNzIuMjA3MiAzMi43NjExIDcyLjE4OCAzMi44NzUzIDcyLjE0NzEgMzIuOTgyQzcyLjEwNjIgMzMuMDg4NyA3Mi4wNDQ0IDMzLjE4NTYgNzEuOTY1NSAzMy4yNjY4QzcxLjg4NjUgMzMuMzQ4IDcxLjc5MjIgMzMuNDExNiA3MS42ODgzIDMzLjQ1MzlDNzEuNTg0NSAzMy40OTYxIDcxLjQ3MzIgMzMuNTE2IDcxLjM2MTYgMzMuNTEyM0w3MS4zNzQ1IDMzLjUxOThaIiBmaWxsPSIjRDQ0NkY3Ii8+CjxwYXRoIGQ9Ik04Ni4wODYzIDMzLjY2MzVDODQuNzA0NyAzMy42ODk1IDgzLjM0MTQgMzMuMzM2NCA4Mi4xMzcyIDMyLjY0MDhDODAuOTk2MSAzMS45NzAxIDgwLjA1NzggMzAuOTg4OCA3OS40MjU5IDI5LjgwNTNDNzguNzU0MiAyOC41MjkyIDc4LjQxNTMgMjcuMDk2NiA3OC40NDIzIDI1LjY0NjVDNzguNDEzIDI0LjIwMzggNzguNzI5MiAyMi43NzU3IDc5LjM2MzMgMjEuNDg3N0M3OS45NTExIDIwLjMyMjggODAuODM1MSAxOS4zNDMgODEuOTIxNyAxOC42NTIyQzgzLjA0NjcgMTcuOTc5OCA4NC4zMjM4IDE3LjYyMiA4NS42MjU3IDE3LjYxNDRDODYuOTI3NSAxNy42MDY3IDg4LjIwODYgMTcuOTQ5NiA4OS4zNDEgMTguNjA4N0M5MC40MDUyIDE5LjI2ODEgOTEuMjcwOSAyMC4yMTY3IDkxLjg0MjMgMjEuMzQ5N0M5Mi40NTk5IDIyLjU5NDMgOTIuNzY4NyAyMy45NzYgOTIuNzQxMiAyNS4zNzI0QzkyLjc0NjggMjUuNDgxNyA5Mi43Mjk2IDI1LjU5MTEgOTIuNjkwOSAyNS42OTMxQzkyLjY1MjIgMjUuNzk1MSA5Mi41OTI3IDI1Ljg4NzUgOTIuNTE2NSAyNS45NjQxQzkyLjM1NTEgMjYuMTEyNCA5Mi4xNDM0IDI2LjE4OTcgOTEuOTI3IDI2LjE3OTZINzkuNTcxNFYyNC42ODA1SDkyLjM4NzVMOTEuMTUxNiAyNS42MjU3QzkxLjIwODIgMjQuNDgzNyA5MC45OTQgMjMuMzQ0NiA5MC41MjcyIDIyLjMwNjJDOTAuMTA2MyAyMS4zNzc1IDg5LjQzNjkgMjAuNTkwOCA4OC41OTY4IDIwLjAzNzhDODcuNzE2NCAxOS40NzYxIDg2LjY5NTQgMTkuMTkwNCA4NS42NTkgMTkuMjE1NUM4NC42NTI1IDE5LjE5ODcgODMuNjYzMyAxOS40ODQ2IDgyLjgxMzIgMjAuMDM3OEM4MS45NjkzIDIwLjU5NyA4MS4yODkzIDIxLjM4MTEgODAuODQ2IDIyLjMwNjJDODAuMzQ5NCAyMy4zNDY2IDgwLjEwMzEgMjQuNDk0IDgwLjEyNzcgMjUuNjUyMkM4MC4xMDU0IDI2LjgwNTUgODAuMzY3MSAyNy45NDU5IDgwLjg4ODQgMjguOTY3OUM4MS4zNzI5IDI5LjkwOTQgODIuMTAyMyAzMC42OTQ2IDgyLjk5NTUgMzEuMjM2M0M4My45MzMyIDMxLjc5NTEgODUuMDAyMiAzMi4wNzk1IDg2LjA4NjMgMzIuMDU4NkM4Ni44MzkgMzIuMDU0OSA4Ny41ODU4IDMxLjkyMzQgODguMjk2NiAzMS42NjkyQzg4Ljk0NzcgMzEuNDYyMyA4OS41NDczIDMxLjExMjcgOTAuMDUzOCAzMC42NDQ2QzkwLjE5OTggMzAuNDkyMiA5MC4zOTgyIDMwLjQwNDcgOTAuNjA2NCAzMC40MDA3QzkwLjcwNjEgMzAuMzkyNyA5MC44MDY0IDMwLjQwNTMgOTAuOTAxMyAzMC40Mzc4QzkwLjk5NjMgMzAuNDcwMyA5MS4wODM5IDMwLjUyMTkgOTEuMTU5IDMwLjU4OThDOTEuMjUwMSAzMC42NTYzIDkxLjMyNjEgMzAuNzQyMiA5MS4zODE4IDMwLjg0MThDOTEuNDM3NCAzMC45NDEzIDkxLjQ3MTQgMzEuMDUyIDkxLjQ4MTMgMzEuMTY2M0M5MS40ODMxIDMxLjI3NzEgOTEuNDU5OSAzMS4zODY3IDkxLjQxMzYgMzEuNDg2N0M5MS4zNjczIDMxLjU4NjggOTEuMjk5IDMxLjY3NDQgOTEuMjE0MiAzMS43NDI5QzkwLjUyNTQgMzIuMzUzOCA4OS43Mjg4IDMyLjgyMzYgODguODY3NiAzMy4xMjY2Qzg3Ljk3OTIgMzMuNDc0NiA4Ny4wMzcyIDMzLjY1NjQgODYuMDg2MyAzMy42NjM1WiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNOTkuNzYyOCAzMy41MTk5Qzk5LjY1MTEgMzMuNTIzMyA5OS41Mzk5IDMzLjUwMzIgOTkuNDM2MSAzMy40NjA5Qzk5LjMzMjIgMzMuNDE4NiA5OS4yMzc5IDMzLjM1NDkgOTkuMTU4OSAzMy4yNzM5Qzk5LjA3OTkgMzMuMTkyOCA5OS4wMTc5IDMzLjA5NiA5OC45NzY2IDMyLjk4OTRDOTguOTM1NCAzMi44ODI4IDk4LjkxNTkgMzIuNzY4NyA5OC45MTkyIDMyLjY1NDFWMTguNjA4N0M5OC45MTI5IDE4LjQ5MTUgOTguOTMxIDE4LjM3NDIgOTguOTcyMyAxOC4yNjQ3Qzk5LjAxMzYgMTguMTU1MiA5OS4wNzcxIDE4LjA1NTkgOTkuMTU4NiAxNy45NzM2Qzk5LjMyMjQgMTcuODE3OCA5OS41Mzk2IDE3LjczNDkgOTkuNzYyOCAxNy43NDI5Qzk5Ljg3NiAxNy43MzI4IDk5Ljk4OTkgMTcuNzQ4MiAxMDAuMDk3IDE3Ljc4ODJDMTAwLjIwMyAxNy44MjgyIDEwMC4zIDE3Ljg5MTYgMTAwLjM4MSAxNy45NzQyQzEwMC40NjEgMTguMDU2NyAxMDAuNTIyIDE4LjE1NjMgMTAwLjU2MSAxOC4yNjU5QzEwMC42IDE4LjM3NTYgMTAwLjYxNSAxOC40OTI2IDEwMC42MDUgMTguNjA4N1YzMi42NTQxQzEwMC42MTQgMzIuODgxMiAxMDAuNTM1IDMzLjEwMjcgMTAwLjM4NSAzMy4yNzAzQzEwMC4zMDUgMzMuMzU1NSAxMDAuMjA4IDMzLjQyMTggMTAwLjEwMSAzMy40NjQ5Qzk5Ljk5MzIgMzMuNTA4IDk5Ljg3NzkgMzMuNTI2NyA5OS43NjI4IDMzLjUxOTlaTTk5LjQ4MSAyMy44NzlDOTkuNTY5NyAyMi43MjY2IDk5LjkwNTYgMjEuNjA4NiAxMDAuNDY1IDIwLjYwNDlDMTAwLjk3MyAxOS42OTAxIDEwMS42OTcgMTguOTIxNiAxMDIuNTcyIDE4LjM3MDVDMTAzLjQzNSAxNy44MzEgMTA0LjQyOSAxNy41NTA3IDEwNS40NCAxNy41NjE1QzEwNi4wMDMgMTcuNTM2NCAxMDYuNTY3IDE3LjYyNSAxMDcuMDk3IDE3LjgyMjNDMTA3LjI3NiAxNy44ODQgMTA3LjQyMyAxOC4wMTU2IDEwNy41MDcgMTguMTg4NUMxMDcuNTkyIDE4LjM2MTMgMTA3LjYwNiAxOC41NjEzIDEwNy41NDcgMTguNzQ0OEMxMDcuNTM4IDE4Ljg2MTcgMTA3LjQ5NiAxOC45NzMzIDEwNy40MjYgMTkuMDY1OEMxMDcuMzU2IDE5LjE1ODIgMTA3LjI2MSAxOS4yMjc0IDEwNy4xNTMgMTkuMjY0N0MxMDYuOTExIDE5LjMyMiAxMDYuNjYgMTkuMzI2NSAxMDYuNDE2IDE5LjI3NzlDMTA2LjA5NSAxOS4yMjgxIDEwNS43NzEgMTkuMjA0IDEwNS40NDcgMTkuMjA2MUMxMDQuNTc3IDE5LjE4OTcgMTAzLjcxNyAxOS4zOTc3IDEwMi45NDYgMTkuODExQzEwMi4yMzcgMjAuMTkzNyAxMDEuNjQ1IDIwLjc2NzYgMTAxLjIzMSAyMS40NzA3QzEwMC44MTEgMjIuMTk5MiAxMDAuNTk3IDIzLjAzMjkgMTAwLjYxMiAyMy44NzlIOTkuNDgxWiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNMTE5LjYwOSAzMy42OTM4QzExOC4xOTcgMzMuNzE2NSAxMTYuODA1IDMzLjM1MzEgMTE1LjU3NSAzMi42NDA4QzExNC40MDIgMzEuOTU2MiAxMTMuNDMxIDMwLjk1OTYgMTEyLjc2NCAyOS43NTYxQzExMi4wOTEgMjguNDkxMSAxMTEuNzM4IDI3LjA3MjggMTExLjczOCAyNS42MzE0QzExMS43MzggMjQuMTkgMTEyLjA5MSAyMi43NzE2IDExMi43NjQgMjEuNTA2NkMxMTMuNDMxIDIwLjMwMzEgMTE0LjQwMiAxOS4zMDY1IDExNS41NzUgMTguNjIxOUMxMTYuODEgMTcuOTMxIDExOC4xOTUgMTcuNTY5IDExOS42MDIgMTcuNTY5QzEyMS4wMDggMTcuNTY5IDEyMi4zOTMgMTcuOTMxIDEyMy42MjggMTguNjIxOUMxMjQuNzk0IDE5LjMxMDggMTI1Ljc1OSAyMC4zMDY2IDEyNi40MjQgMjEuNTA2NkMxMjcuMTE4IDIyLjc2ODYgMTI3LjQ3MiAyNC4xOTc1IDEyNy40NSAyNS42NDY1TDEyNi43NDYgMjYuNzk5NkMxMjYuNzY0IDI4LjA0MDQgMTI2LjQzNyAyOS4yNjA4IDEyNS44MDMgMzAuMzE3NkMxMjUuMTggMzEuMzUzNCAxMjQuMzAzIDMyLjIwMzkgMTIzLjI2IDMyLjc4NDVDMTIyLjEzOSAzMy40MDMzIDEyMC44ODIgMzMuNzE2MyAxMTkuNjA5IDMzLjY5MzhaTTExOS42MDkgMzIuMDc3NUMxMjAuNjk2IDMyLjEwMDIgMTIxLjc2OSAzMS44MTg1IDEyMi43MTIgMzEuMjYyNkMxMjMuNjU1IDMwLjcwNjggMTI0LjQzMyAyOS44OTc4IDEyNC45NjIgMjguOTIyNUMxMjUuNDg4IDI3LjkxMDkgMTI1Ljc2MyAyNi43ODE4IDEyNS43NjMgMjUuNjM1MkMxMjUuNzYzIDI0LjQ4ODUgMTI1LjQ4OCAyMy4zNTk0IDEyNC45NjIgMjIuMzQ3OEMxMjQuNDMzIDIxLjM3MTggMTIzLjY1NiAyMC41NjIxIDEyMi43MTMgMjAuMDA1NUMxMjEuNzcgMTkuNDQ5IDEyMC42OTcgMTkuMTY2NyAxMTkuNjA5IDE5LjE4OUMxMTguNTIgMTkuMTczOCAxMTcuNDQ4IDE5LjQ1ODkgMTE2LjUwMyAyMC4wMTQ2QzExNS41NTkgMjAuNTcwMyAxMTQuNzc3IDIxLjM3NjEgMTE0LjI0IDIyLjM0NzhDMTEzLjcwNSAyMy4zNTY4IDExMy40MjYgMjQuNDg2OCAxMTMuNDI2IDI1LjYzNTJDMTEzLjQyNiAyNi43ODM1IDExMy43MDUgMjcuOTEzNSAxMTQuMjQgMjguOTIyNUMxMTQuNzc3IDI5Ljg5NDIgMTE1LjU1OSAzMC43IDExNi41MDMgMzEuMjU1N0MxMTcuNDQ4IDMxLjgxMTQgMTE4LjUyIDMyLjA5NjUgMTE5LjYwOSAzMi4wODEzVjMyLjA3NzVaTTEyNi42MDggMzMuNTE5OEMxMjYuNDk3IDMzLjUyMzIgMTI2LjM4NSAzMy41MDMyIDEyNi4yODIgMzMuNDYwOUMxMjYuMTc4IDMzLjQxODYgMTI2LjA4MyAzMy4zNTQ5IDEyNi4wMDQgMzMuMjczOEMxMjUuOTI1IDMzLjE5MjcgMTI1Ljg2MyAzMy4wOTU5IDEyNS44MjIgMzIuOTg5NEMxMjUuNzgxIDMyLjg4MjggMTI1Ljc2MSAzMi43Njg3IDEyNS43NjUgMzIuNjU0MVYyNy4zNzYyTDEyNi4yOTkgMjUuNjQ2NUgxMjcuNDUyVjMyLjY1NDFDMTI3LjQ2IDMyLjg4MzEgMTI3LjM3OSAzMy4xMDYgMTI3LjIyNyAzMy4yNzQxQzEyNy4xNDcgMzMuMzU3OSAxMjcuMDUgMzMuNDIzMiAxMjYuOTQzIDMzLjQ2NTVDMTI2LjgzNiAzMy41MDc5IDEyNi43MjEgMzMuNTI2NCAxMjYuNjA2IDMzLjUxOThIMTI2LjYwOFoiIGZpbGw9IiNENDQ2RjciLz4KPHBhdGggZD0iTTMwLjM3MzQgMjIuMTYyNkMzMC40NTA4IDMxLjkwMzYgMjkuMTg1NCAzOC4wNzU2IDE1LjIyMTcgNDIuMjAwNEM5LjY2NDYzIDQzLjgzOTMgMi43MzUzMSA0Ny4wMDM4IDIuNzM1MzEgNDcuMDAzOEMyLjczNTMxIDQ3LjAwMzggNS4zNTYzNyA0Mi4yODkyIDUuODI0MjIgNDAuMDMyMUM2LjI5MjA3IDM3Ljc3NSA2LjMzMjU5IDM3LjM0MDMgNi4zMzI1OSAzNy4zNDAzQzYuMzMyNTkgMzcuMzQwMyAtMy4zODM1NyAzOC42NTAzIDEuMjU0NCAyOC42MjU3QzQuNjcxMTcgMjEuMjQwMSAxNy4xNjEzIDE5LjE0NzQgMjQuNzI2MSAyMC4xMTkxQzI5LjgzOTMgMjAuNzc1IDMwLjM2MDUgMjAuNjE4MSAzMC4zNzM0IDIyLjE2MjZaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNDEuMTYgMzMuNzk5NkMxMzkuODU1IDMzLjgwNDQgMTM4LjU1NSAzMy42Mzc0IDEzNy4yOTIgMzMuMzAyNUMxMzYuMDY0IDMyLjk2OTggMTM1LjA3NiAzMi41NTMyIDEzNC4zMjggMzIuMDUyOUwxMzUuODI0IDI4LjcwODlDMTM2LjY0MiAyOS4xODMxIDEzNy41MTUgMjkuNTUyNiAxMzguNDIxIDI5LjgwOTFDMTM5LjM2OCAzMC4wOTM4IDE0MC4zNDggMzAuMjQwOCAxNDEuMzM1IDMwLjI0NThDMTQyLjM5MiAzMC4yNDU4IDE0My4xNDEgMzAuMTE1MyAxNDMuNTggMjkuODU0NEMxNDMuNzc4IDI5Ljc1NTYgMTQzLjk0NSAyOS42MDEzIDE0NC4wNjIgMjkuNDA5NEMxNDQuMTc5IDI5LjIxNzQgMTQ0LjI0IDI4Ljk5NTYgMTQ0LjI0IDI4Ljc2OTRDMTQ0LjI0NCAyOC41OTA5IDE0NC4xOTggMjguNDE0OCAxNDQuMTA3IDI4LjI2MjVDMTQ0LjAxNiAyOC4xMTAyIDE0My44ODQgMjcuOTg4MiAxNDMuNzI3IDI3LjkxMTJDMTQzLjMwMyAyNy42OTMyIDE0Mi44NDcgMjcuNTQ1OCAxNDIuMzc3IDI3LjQ3NDVDMTQxLjgyIDI3LjM3NDkgMTQxLjE5OSAyNy4yNzQ3IDE0MC41MTMgMjcuMTczOUMxMzkuODI2IDI3LjA3MjggMTM5LjE0NiAyNi45MzIgMTM4LjQ3NCAyNi43NTI0QzEzNy44MTkgMjYuNTc5MyAxMzcuMTg5IDI2LjMyMTQgMTM2LjU5NyAyNS45ODQ5QzEzNi4wMjggMjUuNjYxMiAxMzUuNTUyIDI1LjE4ODMgMTM1LjIxOCAyNC42MTQ0QzEzNC44NzUgMjQuMDMyMSAxMzQuNzA0IDIzLjI3NiAxMzQuNzA0IDIyLjM0NTlDMTM0LjY5MSAyMS4zNjE2IDEzNS4wMDEgMjAuNDAxNCAxMzUuNTg0IDE5LjYyQzEzNi4yMzQgMTguNzc5NSAxMzcuMDk3IDE4LjEzOTIgMTM4LjA3OCAxNy43Njk0QzEzOS4xNTQgMTcuMzI3IDE0MC40NTUgMTcuMTA1OSAxNDEuOTgxIDE3LjEwNTlDMTQzLjA5MiAxNy4xMDg5IDE0NC4xOTggMTcuMjM1NiAxNDUuMjgyIDE3LjQ4MzlDMTQ2LjI2MyAxNy42ODczIDE0Ny4yMSAxOC4wMzgyIDE0OC4wOTEgMTguNTI1NUwxNDYuNTM2IDIxLjg2NzdDMTQ1LjgyOCAyMS40NDEzIDE0NS4wNjEgMjEuMTI2NSAxNDQuMjYyIDIwLjkzMzhDMTQzLjUzNyAyMC43NTk4IDE0Mi43OTYgMjAuNjY5MSAxNDIuMDUxIDIwLjY2MzVDMTQwLjk5NCAyMC42NjM1IDE0MC4yMzEgMjAuODA0IDEzOS43NjIgMjEuMDg1MUMxMzkuMjkzIDIxLjM2NjEgMTM5LjA1OCAyMS43MjcyIDEzOS4wNTggMjIuMTY4MkMxMzkuMDUzIDIyLjM1NjcgMTM5LjA5OSAyMi41NDMgMTM5LjE5MyAyMi43MDU1QzEzOS4yODYgMjIuODY4IDEzOS40MjIgMjMuMDAwMiAxMzkuNTg1IDIzLjA4N0MxNDAuMDE0IDIzLjMyNDkgMTQwLjQ4MSAyMy40ODMgMTQwLjk2NSAyMy41NTM5QzE0MS41MzIgMjMuNjU2IDE0Mi4xNTggMjMuNzU2OCAxNDIuODQzIDIzLjg1NjNDMTQzLjUyNiAyMy45NTU4IDE0NC4yMDMgMjQuMDk2NSAxNDQuODY5IDI0LjI3NzlDMTQ1LjUxOSAyNC40NTE5IDE0Ni4xNDUgMjQuNzA5OCAxNDYuNzMyIDI1LjA0NTRDMTQ3LjMwMSAyNS4zNjkgMTQ3Ljc3OCAyNS44NDE5IDE0OC4xMTEgMjYuNDE1OUMxNDguNDU0IDI2Ljk5ODEgMTQ4LjYyNSAyNy43NTA1IDE0OC42MjUgMjguNjczQzE0OC42MzYgMjkuNjI5MSAxNDguMzI1IDMwLjU1OTcgMTQ3Ljc0NSAzMS4zMDgxQzE0Ny4xNTggMzIuMDgxOSAxNDYuMzEyIDMyLjY4OTQgMTQ1LjIwNyAzMy4xMzA0QzE0NC4xMDEgMzMuNTcxNSAxNDIuNzUyIDMzLjc5NDYgMTQxLjE2IDMzLjc5OTZaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNjEuMjc1IDMzLjc5OTZDMTU5LjcyOCAzMy44Mjc1IDE1OC4yIDMzLjQ1NDMgMTU2LjgzMSAzMi43MTQ2QzE1NS44ODMgMzIuMTY2OSAxNTUuMDUgMzEuNDMxMyAxNTQuMzgyIDMwLjU1MDVDMTUzLjcxMyAyOS42Njk3IDE1My4yMjIgMjguNjYxMyAxNTIuOTM3IDI3LjU4MzlDMTUyLjY1MSAyNi41MDY1IDE1Mi41NzggMjUuMzgxNyAxNTIuNzIgMjQuMjc0OEMxNTIuODYyIDIzLjE2NzkgMTUzLjIxNyAyMi4xMDEgMTUzLjc2NCAyMS4xMzYxQzE1NC41MDUgMTkuODg0MSAxNTUuNTY2IDE4Ljg2MzcgMTU2LjgzMSAxOC4xODUzQzE1OC4yMDMgMTcuNDU0OSAxNTkuNzMgMTcuMDg3MSAxNjEuMjc1IDE3LjExNTNDMTYyLjgzOCAxNy4wODQ3IDE2NC4zODMgMTcuNDUyMyAxNjUuNzczIDE4LjE4NTNDMTY3LjA0NSAxOC44NjA2IDE2OC4xMTEgMTkuODgxMyAxNjguODU1IDIxLjEzNjFDMTY5LjYwOCAyMi40NDMxIDE2OS45OSAyMy45Mzk2IDE2OS45NiAyNS40NTc1QzE2OS45OTcgMjYuOTQ4NiAxNjkuNjI0IDI4LjQyMDIgMTY4Ljg4MyAyOS43MDM3QzE2OC4xNDMgMzAuOTg3MiAxNjcuMDY1IDMyLjAzMDcgMTY1Ljc3MyAzMi43MTQ2QzE2NC4zODYgMzMuNDU2OSAxNjIuODQgMzMuODMgMTYxLjI3NSAzMy43OTk2Wk0xNjEuMjc1IDI5Ljk0MzNDMTYxLjk5OSAyOS45NTkyIDE2Mi43MTMgMjkuNzc3OCAxNjMuMzQ2IDI5LjQxNzhDMTYzLjk1NyAyOS4wNDg3IDE2NC40NTQgMjguNTExIDE2NC43ODIgMjcuODY1OEMxNjUuMTYyIDI3LjEyMzkgMTY1LjM1MiAyNi4yOTUzIDE2NS4zMzUgMjUuNDU3NUMxNjUuMzU3IDI0LjYxODYgMTY1LjE2NiAyMy43ODgyIDE2NC43ODIgMjMuMDQ3M0MxNjQuNDQ3IDIyLjQxODIgMTYzLjk1IDIxLjg5NTMgMTYzLjM0NiAyMS41MzVDMTYyLjcyMyAyMS4xNzY3IDE2Mi4wMTkgMjAuOTk0NyAxNjEuMzA1IDIxLjAwNzZDMTYwLjU4NyAyMC45OTU5IDE1OS44NzkgMjEuMTc3OCAxNTkuMjUxIDIxLjUzNUMxNTguNjQgMjEuODkwOSAxNTguMTM3IDIyLjQxNDUgMTU3LjggMjMuMDQ3M0MxNTcuNDE2IDIzLjc4ODIgMTU3LjIyNSAyNC42MTg2IDE1Ny4yNDcgMjUuNDU3NUMxNTcuMjMgMjYuMjk1MyAxNTcuNDIgMjcuMTIzOSAxNTcuOCAyNy44NjU4QzE1OC4xMjkgMjguNTE0NyAxNTguNjMzIDI5LjA1MzIgMTU5LjI1MSAyOS40MTc4QzE1OS44NyAyOS43NzE0IDE2MC41NjcgMjkuOTUyNiAxNjEuMjc1IDI5Ljk0MzNaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNzIuNzk5IDIxLjMzMDhWMTcuNzE4M0gxODMuNzQ0VjIxLjMzMDhIMTcyLjc5OVpNMTc1LjIzNCAzMy41NTc3VjE2Ljk5NDNDMTc1LjIzNCAxNS4xNDY4IDE3NS43NjIgMTMuNjgxOCAxNzYuODIgMTIuNTk5MkMxNzcuODc3IDExLjUxNjcgMTc5LjM4MyAxMC45NzE2IDE4MS4zMzggMTAuOTY0MUMxODEuOTc5IDEwLjk2NDIgMTgyLjYxOCAxMS4wMzUyIDE4My4yNDQgMTEuMTc1OEMxODMuODA1IDExLjI4OTggMTg0LjM0MiAxMS41MDM0IDE4NC44MyAxMS44MDcyTDE4My42MjggMTUuMjQwMUMxODMuMzY1IDE1LjA1NzggMTgzLjA3OSAxNC45MTU4IDE4Mi43NzcgMTQuODE4NUMxODIuNDUzIDE0LjcxNzEgMTgyLjExNiAxNC42NjY4IDE4MS43NzggMTQuNjY5MkMxODEuMTEzIDE0LjY2OTIgMTgwLjU5OSAxNC44NTgyIDE4MC4yMzggMTUuMjM2M0MxNzkuODc3IDE1LjYxNDQgMTc5LjY5NiAxNi4yMTY4IDE3OS42OTUgMTcuMDQzNVYxOC41NTU4TDE3OS44NDIgMjAuNTQyNVYzMy41NTJMMTc1LjIzNCAzMy41NTc3WiIgZmlsbD0iIzAwMkFERCIvPgo8cGF0aCBkPSJNMTg3Ljk2OSAyMS4zMzA4VjE3LjcxODNIMTk4LjkxM1YyMS4zMzA4SDE4Ny45NjlaTTE5Ni4zMDIgMzMuODA3MkMxOTQuNDQ0IDMzLjgwNzIgMTkyLjk5NyAzMy4zMjAxIDE5MS45NiAzMi4zNDU5QzE5MC45MjQgMzEuMzcxOCAxOTAuNDA1IDI5LjkyMjUgMTkwLjQwNCAyNy45OTgxVjEzLjc3MzJIMTk1LjAwOVYyNy44OTZDMTk1LjAwOSAyOC41NzkxIDE5NS4xOCAyOS4xMTE1IDE5NS41MjIgMjkuNDkzNEMxOTUuNzAyIDI5LjY4NDkgMTk1LjkxOSAyOS44MzQ2IDE5Ni4xNiAyOS45MzI0QzE5Ni40IDMwLjAzMDMgMTk2LjY1OCAzMC4wNzM5IDE5Ni45MTcgMzAuMDYwNUMxOTcuNTkxIDMwLjA4MjYgMTk4LjI1MyAyOS44NzA4IDE5OC43OTYgMjkuNDU5NEwxOTkuOTk4IDMyLjc3MTNDMTk5LjUgMzMuMTM1NCAxOTguOTM3IDMzLjM5NjEgMTk4LjM0MSAzMy41Mzg4QzE5Ny42NzQgMzMuNzEyMiAxOTYuOTg5IDMzLjc5OTggMTk2LjMwMiAzMy43OTk2VjMzLjgwNzJaIiBmaWxsPSIjMDAyQUREIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfODdfMzI0Ij4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSI0NyIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Therasoft" />
     </div>
     <a href="#" class="nav-cta">Começar grátis</a>
   </div>
@@ -1891,19 +2036,26 @@
     <span class="hero-eyebrow">Para psicólogos</span>
 
     <h1 class="hero-title">
-      Sua rotina clínica,<br>
+      Rotina de consultório,<br>
       <em>sem planilhas</em>, sem papel e sem bagunça.
     </h1>
 
     <div class="security-badge">
       <span class="badge-icon">
         <svg width="12" height="13" viewBox="0 0 12 13" fill="none">
-          <path d="M6 1L10.5 2.8V6.5C10.5 9 8.5 11.1 6 12C3.5 11.1 1.5 9 1.5 6.5V2.8L6 1Z" stroke="#D446F7" stroke-width="1.2" stroke-linejoin="round" fill="rgba(212,70,247,0.10)"></path>
-          <path d="M4 6.5L5.3 7.8L8 5" stroke="#D446F7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M6 1L10.5 2.8V6.5C10.5 9 8.5 11.1 6 12C3.5 11.1 1.5 9 1.5 6.5V2.8L6 1Z" stroke="#D446F7" stroke-width="1.2" stroke-linejoin="round" fill="rgba(212,70,247,0.10)"/>
+          <path d="M4 6.5L5.3 7.8L8 5" stroke="#D446F7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </span>
       Seus prontuários ficam protegidos. Só você acessa.
     </div>
+  </div>
+
+  <!-- Hero Image -->
+  <div class="hero-placeholder">
+    <img src="https://agora.facilresultado.com.br/meet/head.webp" alt="" />
+  </div>
+
   <div class="hero-inner">
     <p class="hero-desc">
       Prontuários, agenda e confirmações via WhatsApp. Tudo em um só lugar, seguro e simples.
@@ -1921,34 +2073,27 @@
 
     <div class="hero-metrics">
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
         <div class="metric-val">97%</div>
         <div class="metric-label">satisfação nos primeiros 30 dias</div>
       </div>
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
         <div class="metric-val">35%</div>
         <div class="metric-label">menos faltas com confirmação automática</div>
       </div>
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
         <div class="metric-val">2 min</div>
         <div class="metric-label">para o primeiro agendamento</div>
       </div>
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon><line x1="8" y1="2" x2="8" y2="18"></line><line x1="16" y1="6" x2="16" y2="22"></line></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
         <div class="metric-val">8+</div>
         <div class="metric-label">estados com profissionais ativos</div>
       </div>
     </div>
-  </div></div>
-
-  <!-- Hero Image -->
-  <div class="hero-placeholder">
-    <img src="https://agora.facilresultado.com.br/meet/head.webp" alt="">
   </div>
-
-  
 </section>
 
 <!-- DIVIDER -->
@@ -1961,60 +2106,143 @@
 <!-- FEATURES -->
 <section class="section-features" id="funcionalidades">
   <div class="section-inner">
-    <p class="section-eyebrow">
-      <span class="eyebrow-dot"></span>
-      Funcionalidades
-    </p>
-    <h2 class="section-title">Tudo para atender com foco total</h2>
-    <p class="section-desc">Menos tempo administrando, mais tempo para o que importa.</p>
 
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"></path><polyline points="14,2 14,8 20,8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10,9 9,9 8,9"></polyline>
-        </svg>
+    <!-- Imagem: lado esquerdo (40%) -->
+    <div class="section-visual section-visual--features">
+      <svg viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
+        <!-- Interface clínica abstrata: prontuário + agenda + métricas -->
+        <!-- Janela principal -->
+        <rect x="20" y="24" width="220" height="280" rx="14" stroke="#2B7FFF" stroke-width="1.5" fill="none"/>
+        <!-- Barra de título -->
+        <rect x="20" y="24" width="220" height="36" rx="14" fill="rgba(43,127,255,0.06)" stroke="none"/>
+        <rect x="20" y="44" width="220" height="16" rx="0" fill="rgba(43,127,255,0.06)" stroke="none"/>
+        <!-- Dots da janela -->
+        <circle cx="38" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+        <circle cx="52" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+        <circle cx="66" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+        <!-- Título da janela -->
+        <rect x="88" y="38" width="60" height="8" rx="4" fill="#2B7FFF" opacity="0.18"/>
+        <!-- Sidebar -->
+        <rect x="20" y="60" width="52" height="244" rx="0" stroke="none" fill="rgba(43,127,255,0.04)"/>
+        <rect x="19" y="60" width="1.5" height="244" rx="0" fill="rgba(43,127,255,0.0)" stroke="none"/>
+        <!-- Ícones sidebar -->
+        <rect x="32" y="76" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
+        <rect x="32" y="90" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+        <rect x="32" y="110" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+        <rect x="32" y="124" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+        <rect x="32" y="144" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+        <rect x="32" y="158" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+        <!-- Divisor sidebar -->
+        <line x1="72" y1="60" x2="72" y2="304" stroke="#2B7FFF" stroke-width="1" opacity="0.12"/>
+        <!-- Área de conteúdo: linhas de prontuário -->
+        <rect x="84" y="76" width="80" height="7" rx="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <rect x="84" y="91" width="120" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+        <rect x="84" y="103" width="100" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+        <rect x="84" y="115" width="110" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+        <!-- Divider -->
+        <line x1="84" y1="130" x2="228" y2="130" stroke="#2B7FFF" stroke-width="1" opacity="0.10"/>
+        <!-- Mini calendário -->
+        <rect x="84" y="140" width="64" height="56" rx="8" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+        <rect x="84" y="140" width="64" height="16" rx="8" fill="rgba(43,127,255,0.07)" stroke="none"/>
+        <rect x="84" y="148" width="64" height="8" rx="0" fill="rgba(43,127,255,0.07)" stroke="none"/>
+        <!-- Células do calendário -->
+        <circle cx="99" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <circle cx="112" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <circle cx="125" cy="170" r="3.5" fill="#D446F7" opacity="0.55"/>
+        <circle cx="138" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <circle cx="99" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <circle cx="112" cy="183" r="3.5" fill="#2B7FFF" opacity="0.40"/>
+        <circle cx="125" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <circle cx="138" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+        <!-- Barra de métricas -->
+        <rect x="160" y="140" width="76" height="56" rx="8" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+        <rect x="168" y="152" width="12" height="32" rx="3" fill="#2B7FFF" opacity="0.15"/>
+        <rect x="184" y="162" width="12" height="22" rx="3" fill="#2B7FFF" opacity="0.15"/>
+        <rect x="200" y="148" width="12" height="36" rx="3" fill="#D446F7" opacity="0.40"/>
+        <rect x="216" y="158" width="12" height="26" rx="3" fill="#2B7FFF" opacity="0.15"/>
+        <!-- Tag de status -->
+        <rect x="84" y="208" width="50" height="18" rx="9" stroke="#D446F7" stroke-width="1.2" fill="rgba(212,70,247,0.06)"/>
+        <rect x="92" y="214" width="34" height="6" rx="3" fill="#D446F7" opacity="0.35"/>
+        <!-- Mais linhas de texto -->
+        <rect x="84" y="238" width="90" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+        <rect x="84" y="250" width="110" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+        <rect x="84" y="262" width="70" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+        <!-- Janela flutuante de confirmação -->
+        <rect x="160" y="230" width="108" height="72" rx="12" stroke="#D446F7" stroke-width="1.4" fill="white" fill-opacity="0.7"/>
+        <rect x="160" y="230" width="108" height="20" rx="12" fill="rgba(212,70,247,0.08)" stroke="none"/>
+        <rect x="160" y="242" width="108" height="8" rx="0" fill="rgba(212,70,247,0.08)" stroke="none"/>
+        <rect x="172" y="236" width="50" height="6" rx="3" fill="#D446F7" opacity="0.30"/>
+        <rect x="172" y="258" width="84" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+        <rect x="172" y="269" width="64" height="5" rx="2.5" fill="#2B7FFF" opacity="0.12"/>
+        <!-- Check badge -->
+        <circle cx="249" cy="230" r="11" fill="#D446F7" opacity="0.85"/>
+        <path d="M244 230l3 3 6-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Elemento decorativo: círculo de fundo -->
+        <circle cx="270" cy="100" r="64" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="rgba(43,127,255,0.03)"/>
+        <circle cx="270" cy="100" r="44" stroke="#2B7FFF" stroke-width="1" opacity="0.08" fill="none"/>
+        <!-- Linha de conexão decorativa -->
+        <path d="M240 76 Q280 60 290 120" stroke="#D446F7" stroke-width="1" stroke-dasharray="3 4" opacity="0.22" fill="none"/>
+      </svg>
+    </div>
+
+    <!-- Conteúdo: lado direito (60%) -->
+    <div class="section-content">
+      <p class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Funcionalidades
+      </p>
+      <h2 class="section-title">Tudo para atender com foco total</h2>
+      <p class="section-desc">Menos tempo administrando, mais tempo para o que importa.</p>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h3>Prontuários com sigilo real</h3>
+          <p>Seus registros ficam só com você, criptografados antes de sair do seu dispositivo.</p>
+        </div>
       </div>
-      <div class="feature-text">
-        <h3>Prontuários com sigilo real</h3>
-        <p>Seus registros ficam só com você, criptografados antes de sair do seu dispositivo.</p>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h3>Agenda inteligente</h3>
+          <p>Sessões recorrentes, remarcações e bloqueios sem complicação. Sua agenda sempre em dia.</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h3>Menos faltas via WhatsApp</h3>
+          <p>Confirmação automática com consentimento do paciente. Até 35% menos ausências.</p>
+        </div>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+          </svg>
+        </div>
+        <div class="feature-text">
+          <h3>Visão geral do consultório</h3>
+          <p>Acompanhe sua agenda e seu faturamento com clareza. Sem planilha manual.</p>
+        </div>
       </div>
     </div>
 
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="4" width="18" height="18" rx="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-        </svg>
-      </div>
-      <div class="feature-text">
-        <h3>Agenda inteligente</h3>
-        <p>Sessões recorrentes, remarcações e bloqueios sem complicação. Sua agenda sempre em dia.</p>
-      </div>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"></path>
-        </svg>
-      </div>
-      <div class="feature-text">
-        <h3>Menos faltas via WhatsApp</h3>
-        <p>Confirmação automática com consentimento do paciente. Até 35% menos ausências.</p>
-      </div>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line>
-        </svg>
-      </div>
-      <div class="feature-text">
-        <h3>Visão geral do consultório</h3>
-        <p>Acompanhe sua agenda e seu faturamento com clareza. Sem planilha manual.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2022,41 +2250,103 @@
 <section class="section-rotina">
   <div class="section-inner" style="position:relative;">
 
+    <!-- Conteúdo: lado esquerdo (60%) -->
+    <div class="section-content">
+      <p class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Como funciona
+      </p>
+      <h2 class="section-title">Comece em minutos</h2>
+      <p class="section-desc">Simples de configurar, rápido de adotar. Sem treinamento complicado.</p>
 
-
-    <p class="section-eyebrow">
-      <span class="eyebrow-dot"></span>
-      Como funciona
-    </p>
-    <h2 class="section-title">Comece em minutos</h2>
-    <p class="section-desc">Simples de configurar, rápido de adotar. Sem treinamento complicado.</p>
-
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <div class="step-text">
-        <h3>Criar sua conta</h3>
-        <p>Cadastro em menos de 2 minutos. Sem cartão de crédito para começar.</p>
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-text">
+          <h3>Criar sua conta</h3>
+          <p>Cadastro em menos de 2 minutos. Sem cartão de crédito para começar.</p>
+        </div>
       </div>
+
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-text">
+          <h3>Configurar sua agenda</h3>
+          <p>Importe pacientes, defina horários e personalize a sua forma de atender.</p>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-text">
+          <h3>Atenda com foco</h3>
+          <p>A gestão acontece sozinha. Você cuida de quem importa.</p>
+        </div>
+      </div>
+
+      <a href="#" class="btn-cta-white">Começar agora, é grátis</a>
+      <p class="cta-hint-white">7 dias grátis, sem cartão de crédito</p>
     </div>
 
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <div class="step-text">
-        <h3>Configurar sua agenda</h3>
-        <p>Importe pacientes, defina horários e personalize a sua forma de atender.</p>
-      </div>
+    <!-- Imagem: lado direito (40%) -->
+    <div class="section-visual section-visual--rotina">
+      <svg viewBox="0 0 280 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
+        <!-- Fluxo de onboarding em 3 etapas conectadas -->
+        <!-- Círculo decorativo de fundo -->
+        <circle cx="140" cy="180" r="120" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
+        <circle cx="140" cy="180" r="90" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
+
+        <!-- ETAPA 1 -->
+        <rect x="30" y="24" width="220" height="72" rx="14" stroke="rgba(255,255,255,0.22)" stroke-width="1.4" fill="rgba(255,255,255,0.06)"/>
+        <!-- Número -->
+        <circle cx="58" cy="60" r="18" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.30)" stroke-width="1.2"/>
+        <text x="58" y="65" text-anchor="middle" font-size="14" fill="white" font-family="system-ui" opacity="0.85">1</text>
+        <!-- Conteúdo -->
+        <rect x="86" y="50" width="72" height="8" rx="4" fill="white" opacity="0.55"/>
+        <rect x="86" y="64" width="120" height="5" rx="2.5" fill="white" opacity="0.25"/>
+        <rect x="86" y="74" width="100" height="5" rx="2.5" fill="white" opacity="0.18"/>
+        <!-- Check badge -->
+        <circle cx="232" cy="60" r="12" fill="rgba(212,70,247,0.55)" stroke="rgba(212,70,247,0.4)" stroke-width="1"/>
+        <path d="M227 60l3 3 6-6" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+
+        <!-- Linha conectora 1→2 -->
+        <line x1="140" y1="96" x2="140" y2="132" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <circle cx="140" cy="114" r="3" fill="rgba(255,255,255,0.30)"/>
+
+        <!-- ETAPA 2 -->
+        <rect x="30" y="132" width="220" height="72" rx="14" stroke="rgba(255,255,255,0.22)" stroke-width="1.4" fill="rgba(255,255,255,0.06)"/>
+        <circle cx="58" cy="168" r="18" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.30)" stroke-width="1.2"/>
+        <text x="58" y="173" text-anchor="middle" font-size="14" fill="white" font-family="system-ui" opacity="0.85">2</text>
+        <rect x="86" y="158" width="88" height="8" rx="4" fill="white" opacity="0.55"/>
+        <rect x="86" y="172" width="110" height="5" rx="2.5" fill="white" opacity="0.25"/>
+        <rect x="86" y="182" width="90" height="5" rx="2.5" fill="white" opacity="0.18"/>
+        <!-- Mini calendário inline -->
+        <rect x="196" y="152" width="44" height="36" rx="8" stroke="rgba(255,255,255,0.28)" stroke-width="1" fill="rgba(255,255,255,0.08)"/>
+        <circle cx="207" cy="166" r="2.5" fill="rgba(255,255,255,0.35)"/>
+        <circle cx="218" cy="166" r="2.5" fill="rgba(212,70,247,0.70)"/>
+        <circle cx="229" cy="166" r="2.5" fill="rgba(255,255,255,0.35)"/>
+        <circle cx="207" cy="177" r="2.5" fill="rgba(255,255,255,0.35)"/>
+        <circle cx="218" cy="177" r="2.5" fill="rgba(255,255,255,0.35)"/>
+        <circle cx="229" cy="177" r="2.5" fill="rgba(255,255,255,0.55)"/>
+
+        <!-- Linha conectora 2→3 -->
+        <line x1="140" y1="204" x2="140" y2="240" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <circle cx="140" cy="222" r="3" fill="rgba(255,255,255,0.30)"/>
+
+        <!-- ETAPA 3: destaque -->
+        <rect x="20" y="240" width="240" height="80" rx="16" stroke="rgba(212,70,247,0.55)" stroke-width="1.8" fill="rgba(212,70,247,0.10)"/>
+        <circle cx="56" cy="280" r="20" fill="rgba(212,70,247,0.22)" stroke="rgba(212,70,247,0.50)" stroke-width="1.4"/>
+        <text x="56" y="285" text-anchor="middle" font-size="14" fill="white" font-family="system-ui" opacity="0.90">3</text>
+        <rect x="86" y="268" width="64" height="8" rx="4" fill="white" opacity="0.70"/>
+        <rect x="86" y="282" width="130" height="5" rx="2.5" fill="white" opacity="0.30"/>
+        <rect x="86" y="293" width="100" height="5" rx="2.5" fill="white" opacity="0.22"/>
+        <!-- Ícone coração/foco -->
+        <path d="M224 272 C224 269 220 266 216 270 C212 266 208 269 208 272 C208 278 216 283 216 283 C216 283 224 278 224 272Z" stroke="rgba(212,70,247,0.80)" stroke-width="1.3" fill="rgba(212,70,247,0.20)"/>
+
+        <!-- Linha decorativa inferior -->
+        <path d="M60 336 Q140 348 220 336" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" fill="none"/>
+      </svg>
     </div>
 
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <div class="step-text">
-        <h3>Atenda com foco</h3>
-        <p>A gestão acontece sozinha. Você cuida de quem importa.</p>
-      </div>
-    </div>
-
-    <a href="#" class="btn-cta-white">Começar agora, é grátis</a>
-    <p class="cta-hint-white">7 dias grátis, sem cartão de crédito</p>
   </div>
 </section>
 
@@ -2146,7 +2436,7 @@
       <div class="security-item">
         <div class="security-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0110 0v4"></path>
+            <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
           </svg>
         </div>
         <h4>Proteção desde o seu dispositivo</h4>
@@ -2155,7 +2445,7 @@
       <div class="security-item">
         <div class="security-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
           </svg>
         </div>
         <h4>Conformidade CFP</h4>
@@ -2164,7 +2454,7 @@
       <div class="security-item">
         <div class="security-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle>
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
           </svg>
         </div>
         <h4>Histórico de acessos</h4>
@@ -2173,7 +2463,7 @@
       <div class="security-item">
         <div class="security-icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"></path>
+            <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
           </svg>
         </div>
         <h4>Backup automático</h4>
@@ -2184,8 +2474,8 @@
     <div class="security-badge-full">
       <div class="security-badge-full-icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-          <polyline points="9 12 11 14 15 10"></polyline>
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <polyline points="9 12 11 14 15 10"/>
         </svg>
       </div>
       <p><strong>Sigilo de ponta a ponta:</strong> seus prontuários são protegidos diretamente no seu dispositivo antes de chegarem aos nossos servidores. Nem os desenvolvedores do Therasoft conseguem ler seus registros. Só você acessa.</p>
@@ -2202,81 +2492,138 @@
 
 <section class="section-pricing" id="preco">
   <div class="section-inner">
-    <p class="section-eyebrow">
-      <span class="eyebrow-dot"></span>
-      Preço
-    </p>
-    <h2 class="section-title">Simples, sem surpresas</h2>
-    <p class="section-desc">Um plano único com tudo incluso. Sem categorias ou surpresas escondidas.</p>
 
-    <div class="pricing-card">
-      <!-- Bloco superior: info esquerda + preço direita — fundo escuro unificado -->
-      <div class="pricing-layout">
-        <div class="pricing-col-info">
-          <div class="pricing-name">Therasoft Pro</div>
-          <div class="pricing-desc">Tudo que você precisa para atender com foco e segurança.</div>
-        </div>
-        <div class="pricing-col-price">
-          <div class="pricing-price-eyebrow">valor</div>
-          <div class="pricing-price-badge">
-            <div class="pricing-price">
-              <div class="pricing-price-row">
-                <span class="pricing-currency">R$</span>
-                <span class="pricing-amount" data-val="59">59</span>
+    <!-- Conteúdo + preço: lado esquerdo (60%) -->
+    <div class="section-content">
+      <p class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Preço
+      </p>
+      <h2 class="section-title">Simples, sem surpresas</h2>
+      <p class="section-desc">Um plano único com tudo incluso. Sem categorias ou surpresas escondidas.</p>
+
+      <div class="pricing-card">
+        <!-- Bloco superior: info esquerda + preço direita — fundo escuro unificado -->
+        <div class="pricing-layout">
+          <div class="pricing-col-info">
+            <div class="pricing-name">Therasoft Pro</div>
+            <div class="pricing-desc">Tudo que você precisa para atender com foco e segurança.</div>
+          </div>
+          <div class="pricing-col-price">
+            <div class="pricing-price-eyebrow">valor</div>
+            <div class="pricing-price-badge">
+              <div class="pricing-price">
+                <div class="pricing-price-row">
+                  <span class="pricing-currency">R$</span>
+                  <span class="pricing-amount" data-val="59">59</span>
+                </div>
+                <span class="pricing-period">,90 / mês</span>
               </div>
-              <span class="pricing-period">,90 / mês</span>
             </div>
           </div>
         </div>
+
+        <!-- Features e CTA -->
+        <div class="pricing-bottom">
+          <ul class="pricing-features">
+          <li>
+            <span class="pricing-check">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Prontuários eletrônicos ilimitados
+          </li>
+          <li>
+            <span class="pricing-check">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Agenda com sessões recorrentes
+          </li>
+          <li>
+            <span class="pricing-check">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Confirmações automáticas via WhatsApp
+          </li>
+          <li>
+            <span class="pricing-check">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Resumo financeiro e de agenda
+          </li>
+          <li>
+            <span class="pricing-check">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Suporte via WhatsApp
+          </li>
+          <li>
+            <span class="pricing-check">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            + R$ 10/mês por usuário adicional
+          </li>
+        </ul>
+
+        <a href="#" class="btn-primary" style="display:flex; justify-content:center;">
+          Começar 7 dias grátis
+        </a>
+        <p class="pricing-extra">Sem cartão de crédito. Cancele quando quiser.<br><a href="#">Atende em clínica com mais de um profissional?</a></p>
+        </div><!-- /pricing-bottom -->
       </div>
-
-      <!-- Features e CTA -->
-      <div class="pricing-bottom">
-        <ul class="pricing-features">
-        <li>
-          <span class="pricing-check">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-          Prontuários eletrônicos ilimitados
-        </li>
-        <li>
-          <span class="pricing-check">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-          Agenda com sessões recorrentes
-        </li>
-        <li>
-          <span class="pricing-check">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-          Confirmações automáticas via WhatsApp
-        </li>
-        <li>
-          <span class="pricing-check">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-          Resumo financeiro e de agenda
-        </li>
-        <li>
-          <span class="pricing-check">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-          Suporte via WhatsApp
-        </li>
-        <li>
-          <span class="pricing-check">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-          + R$ 10/mês por usuário adicional
-        </li>
-      </ul>
-
-      <a href="#" class="btn-primary" style="display:flex; justify-content:center;">
-        Começar 7 dias grátis
-      </a>
-      <p class="pricing-extra">Sem cartão de crédito. Cancele quando quiser.<br><a href="#">Atende em clínica com mais de um profissional?</a></p>
-      </div><!-- /pricing-bottom -->
     </div>
+
+    <!-- Imagem: lado direito (40%) -->
+    <div class="section-visual section-visual--pricing">
+      <svg viewBox="0 0 260 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
+        <!-- Ilustração: tranquilidade financeira — camadas de confiança -->
+        <!-- Círculo de fundo grande -->
+        <circle cx="130" cy="160" r="110" stroke="#2B7FFF" stroke-width="1" opacity="0.07" fill="rgba(43,127,255,0.03)"/>
+        <circle cx="130" cy="160" r="80" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="none"/>
+
+        <!-- Escudo central -->
+        <path d="M130 50 L172 68 L172 108 C172 140 152 164 130 174 C108 164 88 140 88 108 L88 68 Z" stroke="#2B7FFF" stroke-width="1.8" fill="rgba(43,127,255,0.05)"/>
+        <!-- Checkmark no escudo -->
+        <path d="M114 110 l10 10 22-22" stroke="#2B7FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.60"/>
+
+        <!-- Linha divisória -->
+        <line x1="40" y1="196" x2="220" y2="196" stroke="#2B7FFF" stroke-width="1" opacity="0.10"/>
+
+        <!-- Card de plano -->
+        <rect x="30" y="208" width="200" height="96" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.04)"/>
+        <!-- Eyebrow do card -->
+        <rect x="46" y="222" width="40" height="5" rx="2.5" fill="#2B7FFF" opacity="0.22"/>
+        <!-- Preço -->
+        <rect x="46" y="234" width="88" height="18" rx="4" fill="#2B7FFF" opacity="0.12"/>
+        <rect x="48" y="238" width="72" height="10" rx="3" fill="#2B7FFF" opacity="0.22"/>
+        <!-- Badge "Tudo incluso" -->
+        <rect x="148" y="224" width="68" height="22" rx="11" stroke="#D446F7" stroke-width="1.2" fill="rgba(212,70,247,0.08)"/>
+        <rect x="158" y="231" width="48" height="6" rx="3" fill="#D446F7" opacity="0.40"/>
+        <!-- Itens de feature -->
+        <circle cx="50" cy="268" r="3" fill="#D446F7" opacity="0.60"/>
+        <rect x="60" y="265" width="80" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+        <circle cx="50" cy="282" r="3" fill="#D446F7" opacity="0.60"/>
+        <rect x="60" y="279" width="96" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+        <circle cx="160" cy="268" r="3" fill="#D446F7" opacity="0.60"/>
+        <rect x="170" y="265" width="48" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+        <circle cx="160" cy="282" r="3" fill="#D446F7" opacity="0.60"/>
+        <rect x="170" y="279" width="60" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+
+        <!-- Balão de 7 dias grátis -->
+        <rect x="64" y="318" width="132" height="28" rx="14" stroke="#D446F7" stroke-width="1.4" fill="rgba(212,70,247,0.07)"/>
+        <rect x="82" y="328" width="96" height="8" rx="4" fill="#D446F7" opacity="0.30"/>
+
+        <!-- Estrelas decorativas -->
+        <circle cx="36" cy="130" r="2.5" fill="#D446F7" opacity="0.45"/>
+        <circle cx="48" cy="148" r="1.5" fill="#2B7FFF" opacity="0.35"/>
+        <circle cx="214" cy="118" r="2" fill="#D446F7" opacity="0.40"/>
+        <circle cx="224" cy="138" r="1.5" fill="#2B7FFF" opacity="0.30"/>
+        <circle cx="42" cy="172" r="1.5" fill="#2B7FFF" opacity="0.30"/>
+
+        <!-- Arco de garantia decorativo -->
+        <path d="M70 186 Q130 174 190 186" stroke="#D446F7" stroke-width="1.2" opacity="0.22" fill="none" stroke-dasharray="3 4"/>
+      </svg>
+    </div>
+
   </div>
 </section>
 
@@ -2289,95 +2636,153 @@
 
 <section class="section-faq" id="faq">
   <div class="section-inner">
-    <p class="section-eyebrow">
-      <span class="eyebrow-dot"></span>
-      Dúvidas frequentes
-    </p>
-    <h2 class="section-title">Respostas rápidas</h2>
 
-    <div class="faq-list" id="faqList">
+    <!-- Imagem: lado esquerdo (40%) -->
+    <div class="section-visual section-visual--faq">
+      <svg viewBox="0 0 260 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
+        <!-- Ilustração: suporte e respostas — balões de diálogo em cascata -->
+        <!-- Fundo decorativo -->
+        <circle cx="130" cy="180" r="105" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="rgba(43,127,255,0.02)"/>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Preciso de cartão de crédito para testar?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Não. Os 7 dias de teste são completamente gratuitos, sem necessidade de cartão. Você só fornece dados de pagamento se decidir continuar após o período de avaliação.</p></div>
-      </div>
+        <!-- Balão 1 (pergunta) — esquerda -->
+        <rect x="20" y="36" width="168" height="56" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.05)"/>
+        <path d="M36 92 L28 108 L52 92" fill="rgba(43,127,255,0.05)" stroke="#2B7FFF" stroke-width="1.4" stroke-linejoin="round"/>
+        <!-- Interrogação dentro do balão -->
+        <circle cx="46" cy="64" r="12" fill="rgba(43,127,255,0.10)" stroke="#2B7FFF" stroke-width="1.2"/>
+        <text x="46" y="69" text-anchor="middle" font-size="13" fill="#2B7FFF" font-family="system-ui" opacity="0.55">?</text>
+        <!-- Linhas de texto no balão -->
+        <rect x="68" y="56" width="96" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
+        <rect x="68" y="68" width="72" height="5" rx="2.5" fill="#2B7FFF" opacity="0.13"/>
+        <rect x="68" y="78" width="84" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Funciona para atendimento online?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Sim. O Therasoft funciona pelo navegador, então você acessa de qualquer celular, tablet ou computador. Agenda e prontuários funcionam tanto para atendimentos presenciais quanto online.</p></div>
-      </div>
+        <!-- Balão 2 (resposta) — direita, abaixo -->
+        <rect x="72" y="128" width="168" height="64" rx="14" stroke="#D446F7" stroke-width="1.4" fill="rgba(212,70,247,0.05)"/>
+        <path d="M224 192 L232 208 L208 192" fill="rgba(212,70,247,0.05)" stroke="#D446F7" stroke-width="1.4" stroke-linejoin="round"/>
+        <!-- Check de resposta -->
+        <circle cx="96" cy="160" r="12" fill="rgba(212,70,247,0.15)" stroke="#D446F7" stroke-width="1.2"/>
+        <path d="M91 160l3 3 6-6" stroke="#D446F7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="118" y="152" width="104" height="6" rx="3" fill="#D446F7" opacity="0.28"/>
+        <rect x="118" y="164" width="84" height="5" rx="2.5" fill="#D446F7" opacity="0.16"/>
+        <rect x="118" y="174" width="96" height="5" rx="2.5" fill="#D446F7" opacity="0.12"/>
+        <rect x="118" y="184" width="72" height="5" rx="2.5" fill="#D446F7" opacity="0.10"/>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Posso migrar dados de outro sistema?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Sim. Nossa equipe auxilia na transferência dos seus dados de outro sistema para o Therasoft. A maioria das transferências é concluída em menos de uma tarde, sem perda de informações.</p></div>
-      </div>
+        <!-- Balão 3 (pergunta) — esquerda, abaixo -->
+        <rect x="20" y="228" width="156" height="52" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.05)"/>
+        <path d="M34 280 L26 296 L50 280" fill="rgba(43,127,255,0.05)" stroke="#2B7FFF" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="44" cy="254" r="12" fill="rgba(43,127,255,0.10)" stroke="#2B7FFF" stroke-width="1.2"/>
+        <text x="44" y="259" text-anchor="middle" font-size="13" fill="#2B7FFF" font-family="system-ui" opacity="0.55">?</text>
+        <rect x="66" y="246" width="84" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
+        <rect x="66" y="258" width="64" height="5" rx="2.5" fill="#2B7FFF" opacity="0.13"/>
+        <rect x="66" y="268" width="76" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Como o Therasoft me ajuda a reduzir faltas?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Com confirmações automáticas via WhatsApp, com consentimento explícito do paciente, conforme o CFP. Em média, profissionais relatam 35% menos ausências no primeiro mês de uso.</p></div>
-      </div>
+        <!-- Mini badge de resposta imediata -->
+        <rect x="100" y="316" width="120" height="30" rx="15" stroke="#D446F7" stroke-width="1.3" fill="rgba(212,70,247,0.07)"/>
+        <circle cx="120" cy="331" r="6" fill="rgba(212,70,247,0.25)" stroke="#D446F7" stroke-width="1"/>
+        <path d="M117 331l2 2 5-4" stroke="#D446F7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="132" y="327" width="76" height="6" rx="3" fill="#D446F7" opacity="0.32"/>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Meus dados são realmente privados?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Sim. Seus prontuários são protegidos diretamente no seu dispositivo antes de chegarem aos nossos servidores. Isso significa que nem nossa própria equipe consegue ler seus registros.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Funciona no celular?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Sim. O Therasoft funciona bem em qualquer smartphone. Acesse sua agenda, registre sessões e confirme atendimentos direto do celular, sem precisar instalar nada.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Posso cancelar quando quiser?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Sim, sem fidelidade e sem taxa de cancelamento. Você cancela em um clique, e seus dados ficam disponíveis para exportação por 30 dias após o cancelamento.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span class="faq-question-text">Posso ter recepcionista ou sócia no sistema?</span>
-          <span class="faq-chevron">
-            <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-          </span>
-        </div>
-        <div class="faq-answer"><p>Sim. Você pode adicionar outras pessoas por R$ 10/mês cada, com acesso separado por perfil. Recepcionistas podem gerenciar a agenda sem ter acesso aos prontuários dos pacientes.</p></div>
-      </div>
-
+        <!-- Pontos decorativos -->
+        <circle cx="214" cy="44" r="3" fill="#D446F7" opacity="0.30"/>
+        <circle cx="228" cy="56" r="2" fill="#2B7FFF" opacity="0.25"/>
+        <circle cx="24" cy="196" r="2.5" fill="#D446F7" opacity="0.28"/>
+        <circle cx="36" cy="212" r="1.8" fill="#2B7FFF" opacity="0.22"/>
+        <circle cx="222" cy="302" r="2.5" fill="#2B7FFF" opacity="0.25"/>
+      </svg>
     </div>
+
+    <!-- Conteúdo: lado direito (60%) -->
+    <div class="section-content">
+      <p class="section-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Dúvidas frequentes
+      </p>
+      <h2 class="section-title">Respostas rápidas</h2>
+
+      <div class="faq-list" id="faqList">
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Preciso de cartão de crédito para testar?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Não. Os 7 dias de teste são completamente gratuitos, sem necessidade de cartão. Você só fornece dados de pagamento se decidir continuar após o período de avaliação.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Funciona para atendimento online?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Sim. O Therasoft funciona pelo navegador, então você acessa de qualquer celular, tablet ou computador. Agenda e prontuários funcionam tanto para atendimentos presenciais quanto online.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Posso migrar dados de outro sistema?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Sim. Nossa equipe auxilia na transferência dos seus dados de outro sistema para o Therasoft. A maioria das transferências é concluída em menos de uma tarde, sem perda de informações.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Como o Therasoft me ajuda a reduzir faltas?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Com confirmações automáticas via WhatsApp, com consentimento explícito do paciente, conforme o CFP. Em média, profissionais relatam 35% menos ausências no primeiro mês de uso.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Meus dados são realmente privados?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Sim. Seus prontuários são protegidos diretamente no seu dispositivo antes de chegarem aos nossos servidores. Isso significa que nem nossa própria equipe consegue ler seus registros.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Funciona no celular?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Sim. O Therasoft funciona bem em qualquer smartphone. Acesse sua agenda, registre sessões e confirme atendimentos direto do celular, sem precisar instalar nada.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Posso cancelar quando quiser?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Sim, sem fidelidade e sem taxa de cancelamento. Você cancela em um clique, e seus dados ficam disponíveis para exportação por 30 dias após o cancelamento.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question">
+            <span class="faq-question-text">Posso ter recepcionista ou sócia no sistema?</span>
+            <span class="faq-chevron">
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
+          <div class="faq-answer"><p>Sim. Você pode adicionar outras pessoas por R$ 10/mês cada, com acesso separado por perfil. Recepcionistas podem gerenciar a agenda sem ter acesso aos prontuários dos pacientes.</p></div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -2427,44 +2832,5 @@
   </div>
 </footer>
 
-<!-- Code injected by live-server -->
-<script>
-	// <![CDATA[  <-- For SVG support
-	if ('WebSocket' in window) {
-		(function () {
-			function refreshCSS() {
-				var sheets = [].slice.call(document.getElementsByTagName("link"));
-				var head = document.getElementsByTagName("head")[0];
-				for (var i = 0; i < sheets.length; ++i) {
-					var elem = sheets[i];
-					var parent = elem.parentElement || head;
-					parent.removeChild(elem);
-					var rel = elem.rel;
-					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
-						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
-						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
-					}
-					parent.appendChild(elem);
-				}
-			}
-			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
-			var address = protocol + window.location.host + window.location.pathname + '/ws';
-			var socket = new WebSocket(address);
-			socket.onmessage = function (msg) {
-				if (msg.data == 'reload') window.location.reload();
-				else if (msg.data == 'refreshcss') refreshCSS();
-			};
-			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
-				console.log('Live reload enabled.');
-				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
-			}
-		})();
-	}
-	else {
-		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
-	}
-	// ]]>
-</script>
-
-
-</body></html>
+</body>
+</html>
