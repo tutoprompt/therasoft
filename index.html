@@ -204,7 +204,7 @@
     z-index: 1;
     max-width: 480px;
     margin: 0 auto;
-    padding: 40px 24px 20px;
+    padding: 20px 24px 0px;
   }
 
   /* Second hero-inner (below image) */
@@ -283,14 +283,14 @@
   }
 
   .hero-title {
-    max-width: 600px;
+    max-width: 700px;
     font-family: 'Comfortaa', cursive;
     font-size: 30px;
     font-weight: 700;
     line-height: 1.25;
     color: var(--text-dark);
     letter-spacing: -0.3px;
-    margin-bottom: 16px;
+  
     animation: fadeUp 0.55s ease both 0.15s;
   }
 
@@ -1626,6 +1626,41 @@
     .footer-nav { flex-direction: row; flex-wrap: wrap; gap: 12px 28px; }
     .footer-nav a { font-size: 14.5px; }
   }
+    /* BADGE POSITION */
+      .hero-placeholder .security-badge {
+      position: absolute;
+      /* Ajuste este valor para mover horizontalmente apenas no mobile */
+      left: 22%; 
+      transform: translateX(-50%);
+      
+      /* Ajuste vertical conforme necessário */
+      bottom: -15px; 
+      
+      z-index: 10;
+      white-space: nowrap;
+      font-size: 11px;
+      padding: 5px 12px 5px 8px;
+    }
+   
+     /* ── MOBILE: Centralização de Títulos e Hero ── */
+    
+    /* Centraliza texto do Hero */
+    .hero-inner {
+      text-align: center;
+    }
+
+    /* Centraliza o Eyebrow (ícone + texto) */
+    .section-eyebrow {
+      justify-content: center; /* Alinha flex items ao centro */
+      text-align: center;
+    }
+
+    /* Centraliza Títulos e Descrições das Seções */
+    .section-title,
+    .section-desc {
+      text-align: center;
+    }
+  
 
   /* ═══════════════════════════════════════════════
      DESKTOP — 1024px+
@@ -1658,7 +1693,7 @@
       position: relative;
       overflow: hidden;
       padding-top: 96px;
-      padding-bottom: 104px;
+    
       padding-left: 0;
       padding-right: 0;
     }
@@ -1694,7 +1729,7 @@
 
     /* Segundo hero-inner: desc + ctas + metrics — mesma grade 2 col */
     .hero > .hero-inner:last-of-type {
-      margin-top: 20px;
+      
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 0;
@@ -1718,14 +1753,15 @@
     /* Imagem: absoluta, ocupa metade direita da viewport
        ancora-se ao .hero (position:relative) */
     .hero-placeholder {
-      transform: translateY(-100px) scale(0.75);
+      transform: translateY(-40px) scale(0.85);
       position: absolute;
       right: 0;
       top: 0;
       bottom: 0;
       margin: 0;
       padding: 0;
-      overflow: hidden;
+      overflow: visible;
+      z-index: 1;
     }
 
     .hero-placeholder img {
@@ -1736,6 +1772,25 @@
       display: block;
     }
 
+     .hero-placeholder .security-badge {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%) translateY(50%);
+    z-index: 2;
+  }    /* Centraliza APENAS horizontalmente o badge no hero */
+    .hero-placeholder .security-badge {
+      position: absolute;
+      left: 30%;
+      transform: translateX(-50%);
+      /* O 'bottom' controla a altura. Ajuste este valor se precisar subir ou descer. 
+         Se quiser manter a posição original exata, remova a linha 'bottom' e use 'top' ou margens conforme necessário. */
+      bottom: -20px; 
+      z-index: 10;
+      white-space: nowrap; /* Garante que o texto não quebre linha ao centralizar */
+    }
+
+    
     /* Tipografia e botões desktop */
     .hero-title { font-size: clamp(32px, 2.8vw, 48px); }
     .hero-desc   { font-size: clamp(15px, 1.2vw, 17px); max-width: 100%; }
@@ -2040,7 +2095,13 @@
       <em>sem planilhas</em>, sem papel e sem bagunça.
     </h1>
 
-    <div class="security-badge">
+ 
+  </div>
+
+  <!-- Hero Image -->
+  <div class="hero-placeholder">
+    <img src="https://agora.facilresultado.com.br/meet/head.webp" alt="" />
+   <div class="security-badge">
       <span class="badge-icon">
         <svg width="12" height="13" viewBox="0 0 12 13" fill="none">
           <path d="M6 1L10.5 2.8V6.5C10.5 9 8.5 11.1 6 12C3.5 11.1 1.5 9 1.5 6.5V2.8L6 1Z" stroke="#D446F7" stroke-width="1.2" stroke-linejoin="round" fill="rgba(212,70,247,0.10)"/>
@@ -2049,11 +2110,7 @@
       </span>
       Seus prontuários ficam protegidos. Só você acessa.
     </div>
-  </div>
 
-  <!-- Hero Image -->
-  <div class="hero-placeholder">
-    <img src="https://agora.facilresultado.com.br/meet/head.webp" alt="" />
   </div>
 
   <div class="hero-inner">
@@ -2567,7 +2624,8 @@
         <a href="#" class="btn-primary" style="display:flex; justify-content:center;">
           Começar 7 dias grátis
         </a>
-        <p class="pricing-extra">Sem cartão de crédito. Cancele quando quiser.<br><a href="#">Atende em clínica com mais de um profissional?</a></p>
+        <p class="pricing-extra">Sem cartão de crédito. Cancele quando quiser.<br>
+        
         </div><!-- /pricing-bottom -->
       </div>
     </div>
