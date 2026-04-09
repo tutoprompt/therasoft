@@ -306,6 +306,7 @@
     color: var(--text-mid);
     margin-bottom: 16px;
     animation: fadeUp 0.55s ease both 0.25s;
+    
   }
 
   .hero-ctas {
@@ -1501,6 +1502,39 @@
   ═══════════════════════════════════════════════ */
   @media (min-width: 768px) {
 
+    .hero { padding-bottom: 0; }
+    .hero-inner {
+      max-width: 860px;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-left: 40px;
+      padding-right: 40px;
+      margin: 0 auto;
+    }
+    /* Primeiro hero-inner: recebe o padding-top da section (72px) */
+    .hero > .hero-inner:first-of-type { padding-top: 72px; }
+    /* Segundo hero-inner: recebe o padding-bottom da section (80px) */
+    .hero > .hero-inner:last-of-type  { padding-top: 20px; padding-bottom: 80px; }
+    .hero-placeholder + .hero-inner { padding-top: 20px; }
+    .hero-title { font-size: clamp(28px, 4vw, 40px); }
+    
+    /* CORREÇÃO AQUI: Altere o valor abaixo para controlar a largura no Tablet/Desktop */
+    .hero-desc { 
+      font-size: 17px; 
+      max-width: 400px !important; /* Usei !important para forçar, mas o ideal é apenas mudar o valor na linha original */
+    }
+
+ p.btn-hint {
+      max-width: 290px;
+      margin-left: auto;
+      margin-right: auto;
+      /* Opcional: se quiser garantir que ele quebre linha abaixo dos botões no tablet/desktop */
+      width: 100%; 
+      text-align: center;
+    }
+
+    .hero-ctas { flex-direction: row; gap: 14px; }
+
     /* NAV */
     header nav, nav.header-nav { padding: 12px 32px; }
     .nav-inner { max-width: 860px; padding: 0; }
@@ -1522,7 +1556,7 @@
     .hero > .hero-inner:last-of-type  { padding-top: 20px; padding-bottom: 80px; }
     .hero-placeholder + .hero-inner { padding-top: 20px; }
     .hero-title { font-size: clamp(28px, 4vw, 40px); }
-    .hero-desc { font-size: 17px; max-width: 560px; }
+    .hero-desc { font-size: 17px; max-width: 60px; }
     .hero-ctas { flex-direction: row; gap: 14px; }
     .btn-primary, .btn-secondary { flex: 0 0 auto; }
     .hero-metrics { grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -1640,28 +1674,61 @@
       white-space: nowrap;
       font-size: 11px;
       padding: 5px 12px 5px 8px;
+      
+    }
+      @media (max-width: 767px) {
+    
+    /* Remove a linha rosa do Hero Eyebrow no Mobile */
+    .hero-eyebrow::after {
+      display: none;
     }
    
-     /* ── MOBILE: Centralização de Títulos e Hero ── */
-    
-    /* Centraliza texto do Hero */
-    .hero-inner {
+        /* Centraliza o Hero Eyebrow */
+    .hero-eyebrow {
+      text-align: center;
+      display: block;
+      width: 100%;
+    }
+
+    /* Tamanho da fonte e centralização do Hero Title */
+    .hero-title {
+      font-size: 25px;
       text-align: center;
     }
 
-    /* Centraliza o Eyebrow (ícone + texto) */
+    /* Centraliza a Descrição do Hero */
+    .hero-desc {
+      text-align: center;
+    }
+
+    /* Centraliza o Eyebrow das seções */
     .section-eyebrow {
-      justify-content: center; /* Alinha flex items ao centro */
+      justify-content: center;
       text-align: center;
     }
 
-    /* Centraliza Títulos e Descrições das Seções */
-    .section-title,
+    /* Centraliza os Títulos das Seções */
+    .section-title {
+      text-align: center;
+    }
+
+    /* Centraliza as Descrições das Seções */
     .section-desc {
       text-align: center;
     }
-  
 
+    /* Ajuste do Badge no Mobile */
+    .hero-placeholder .security-badge {
+      position: absolute;
+      left: 12%; 
+      transform: translateX(-50%);
+      bottom: -15px; 
+      z-index: 10;
+      white-space: nowrap;
+      font-size: 11px;
+      padding: 5px 12px 5px 8px;
+    }
+  }
   /* ═══════════════════════════════════════════════
      DESKTOP — 1024px+
   ═══════════════════════════════════════════════ */
@@ -2091,8 +2158,8 @@
     <span class="hero-eyebrow">Para psicólogos</span>
 
     <h1 class="hero-title">
-      Rotina de consultório,<br>
-      <em>sem planilhas</em>, sem papel e sem bagunça.
+      Consultório,
+      sem planilhas, sem papel <br> e <em>sem bagunça.</em>
     </h1>
 
  
@@ -2624,8 +2691,7 @@
         <a href="#" class="btn-primary" style="display:flex; justify-content:center;">
           Começar 7 dias grátis
         </a>
-        <p class="pricing-extra">Sem cartão de crédito. Cancele quando quiser.<br>
-        
+        <p class="pricing-extra">Sem cartão de crédito. Cancele quando quiser.<br><a href="#">Atende em clínica com mais de um profissional?</a></p>
         </div><!-- /pricing-bottom -->
       </div>
     </div>
