@@ -1524,16 +1524,23 @@
       max-width: 400px !important; /* Usei !important para forçar, mas o ideal é apenas mudar o valor na linha original */
     }
 
- p.btn-hint {
-      max-width: 290px;
-      margin-left: auto;
-      margin-right: auto;
-      /* Opcional: se quiser garantir que ele quebre linha abaixo dos botões no tablet/desktop */
-      width: 100%; 
-      text-align: center;
-    }
+  p.btn-hint {
+    grid-column: 1; /* Força o hint a ficar na coluna 1 (abaixo do Primary) */
+    grid-row: 2;    /* Força o hint a ficar na linha 2 */
+    margin-top: 0;
+    width: 100%;
+    text-align: center; /* Centraliza o texto em relação à largura do botão primário */
+    max-width: none;
+  }
 
-    .hero-ctas { flex-direction: row; gap: 14px; }
+    .hero-ctas {
+    display: grid !important; /* Ativa o Grid */
+    grid-template-columns: auto auto; /* Cria duas colunas para os botões */
+    gap: 8px 14px; /* 8px de espaço vertical (pro hint) e 14px horizontal (entre botões) */
+    justify-content: start; /* Alinha o conjunto à esquerda */
+    align-items: start;
+  }
+
 
     /* NAV */
     header nav, nav.header-nav { padding: 12px 32px; }
@@ -1558,6 +1565,12 @@
     .hero-title { font-size: clamp(28px, 4vw, 40px); }
     .hero-desc { font-size: 17px; max-width: 60px; }
     .hero-ctas { flex-direction: row; gap: 14px; }
+
+ .btn-secondary { 
+    grid-column: 2; 
+    grid-row: 1; 
+  }
+
     .btn-primary, .btn-secondary { flex: 0 0 auto; }
     .hero-metrics { grid-template-columns: repeat(4, 1fr); gap: 12px; }
     .metric-val { font-size: 26px; }
@@ -1661,21 +1674,16 @@
     .footer-nav a { font-size: 14.5px; }
   }
     /* BADGE POSITION */
-      .hero-placeholder .security-badge {
-      position: absolute;
-      /* Ajuste este valor para mover horizontalmente apenas no mobile */
-      left: 22%; 
-      transform: translateX(-50%);
-      
-      /* Ajuste vertical conforme necessário */
-      bottom: -15px; 
-      
-      z-index: 10;
-      white-space: nowrap;
-      font-size: 11px;
-      padding: 5px 12px 5px 8px;
-      
-    }
+     .hero-placeholder .security-badge {
+    position: absolute;
+    left: 50% !important;        /* Alinha o início no meio */
+    transform: translateX(-50%); /* Puxa de volta metade da largura do badge */
+    bottom: -15px;               /* Altura em relação à base da imagem */
+    z-index: 10;
+    white-space: nowrap;         /* Impede que o texto quebre linha */
+    padding: 6px 14px 6px 8px;   /* Mantém o respiro interno */
+}
+    
       @media (max-width: 767px) {
     
     /* Remove a linha rosa do Hero Eyebrow no Mobile */
@@ -2167,7 +2175,7 @@
 
   <!-- Hero Image -->
   <div class="hero-placeholder">
-    <img src="https://agora.facilresultado.com.br/meet/head.webp" alt="" />
+    <img src="imgs/head.webp" alt="" />
    <div class="security-badge">
       <span class="badge-icon">
         <svg width="12" height="13" viewBox="0 0 12 13" fill="none">
@@ -2189,11 +2197,12 @@
       <a href="#" class="btn-primary">
         Quero organizar meu consultório
       </a>
-      <a href="#" class="btn-secondary">
+      <a href="#como-funciona" class="btn-secondary">
         Ver como funciona
       </a>
-    </div>
+      <!-- AGORA ELE ESTÁ AQUI DENTRO -->
     <p class="btn-hint">7 dias grátis, sem cartão de crédito</p>
+    </div>
 
     <div class="hero-metrics">
       <div class="metric-card">
@@ -2371,7 +2380,7 @@
 </section>
 
 <!-- COMO FUNCIONA -->
-<section class="section-rotina">
+<section class="section-rotina" id="como-funciona">
   <div class="section-inner" style="position:relative;">
 
     <!-- Conteúdo: lado esquerdo (60%) -->
