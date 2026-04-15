@@ -63,11 +63,16 @@
 
 <body>
 
+<!-- SVG Sprite de ícones (carrega 1x, reutilizável) -->
+<svg style="display:none;" class="icons-sprite">
+  <use href="assets/svg/icons-sprite.svg#"/>
+</svg>
+
 <!-- NAV -->
 <nav class="header-nav">
   <div class="nav-inner">
     <div class="logo-wrap">
-      <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjQ3IiB2aWV3Qm94PSIwIDAgMjAwIDQ3IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfODdfMzI0KSI+CjxwYXRoIGQ9Ik0zMi43MzY4IDBDMzIuNzM2OCAwIDMzLjA5MjMgMTQuNzQ0OCAyNC42MTIxIDE1Ljg1NDRDMjAuOTg1MyAxNi4zMzA4IDE1LjkyMTkgMTcuMTEzNCAxMS4zNzYgMTguNDUxOEM5LjA0NDEzIDE5LjEzOTkgOC4zMzQ5OSAxOS41Mzg4IDguMzM0OTkgMTkuNTM4OEM4LjMzNDk5IDE5LjUzODggOC4yMzkyMSA2LjU1NTc3IDE5LjIzIDUuMzYxMDZDMzEuNzM4NSAzLjk5MDU1IDMyLjczNjggMCAzMi43MzY4IDBaIiBmaWxsPSIjRDQ0NkY3Ii8+CjxwYXRoIGQ9Ik00My40MzY2IDE5Ljg3NzFDNDMuMjM1MyAxOS44NzcxIDQzLjA0MjMgMTkuNzk1MSA0Mi45IDE5LjY0OUM0Mi43NTc3IDE5LjUwMyA0Mi42Nzc3IDE5LjMwNDkgNDIuNjc3NyAxOS4wOTgzQzQyLjY3NzcgMTguODkxNyA0Mi43NTc3IDE4LjY5MzYgNDIuOSAxOC41NDc2QzQzLjA0MjMgMTguNDAxNSA0My4yMzUzIDE4LjMxOTUgNDMuNDM2NiAxOC4zMTk1SDUxLjA1M0M1MS4yNTQyIDE4LjMxOTUgNTEuNDQ3MyAxOC40MDE1IDUxLjU4OTYgMTguNTQ3NkM1MS43MzE5IDE4LjY5MzYgNTEuODExOCAxOC44OTE3IDUxLjgxMTggMTkuMDk4M0M1MS44MTE4IDE5LjMwNDkgNTEuNzMxOSAxOS41MDMgNTEuNTg5NiAxOS42NDlDNTEuNDQ3MyAxOS43OTUxIDUxLjI1NDIgMTkuODc3MSA1MS4wNTMgMTkuODc3MUg0My40MzY2Wk01MC45NDA2IDMzLjUxOTlDNDkuOTczNyAzMy41MTk4IDQ5LjAyMjggMzMuMjY2NyA0OC4xNzc3IDMyLjc4NDVDNDcuMzgzMSAzMi4zMjQ5IDQ2LjczMDcgMzEuNjQ0OSA0Ni4yOTUzIDMwLjgyMjNDNDUuODM3OSAyOS45NTE5IDQ1LjYwNTggMjguOTc1NiA0NS42MjExIDI3Ljk4NjhWMTMuNjEwNkM0NS42MTU3IDEzLjQ5MTQgNDUuNjM0MSAxMy4zNzI0IDQ1LjY3NTMgMTMuMjYwOUM0NS43MTY1IDEzLjE0OTQgNDUuNzc5NiAxMy4wNDc3IDQ1Ljg2MDYgMTIuOTYyMkM0NS45Mzk0IDEyLjg4MDggNDYuMDMzNyAxMi44MTY5IDQ2LjEzNzcgMTIuNzc0NkM0Ni4yNDE2IDEyLjczMjMgNDYuMzUzIDEyLjcxMjUgNDYuNDY0NyAxMi43MTY0QzQ2LjU4MTEgMTIuNzA5IDQ2LjY5NzcgMTIuNzI3IDQ2LjgwNjggMTIuNzY5M0M0Ni45MTU5IDEyLjgxMTYgNDcuMDE1IDEyLjg3NzEgNDcuMDk3NSAxMi45NjE3QzQ3LjE4MDEgMTMuMDQ2MiA0Ny4yNDQyIDEzLjE0NzggNDcuMjg1NiAxMy4yNTk2QzQ3LjMyNyAxMy4zNzE1IDQ3LjM0NDggMTMuNDkxMSA0Ny4zMzc4IDEzLjYxMDZWMjcuOTc3M0M0Ny4zMzc4IDI5LjA5MzkgNDcuNjc0OSAzMC4wMDI1IDQ4LjM0OSAzMC43MDMyQzQ5LjAyMzIgMzEuNDAzOSA0OS44OTYyIDMxLjc1NTUgNTAuOTY4MiAzMS43NThINTEuNTg3MUM1MS43MDM0IDMxLjc1MDkgNTEuODE5OCAzMS43NjkxIDUxLjkyODYgMzEuODExNUM1Mi4wMzc1IDMxLjg1MzkgNTIuMTM2NCAzMS45MTk1IDUyLjIxODcgMzIuMDA0QzUyLjMwMSAzMi4wODg1IDUyLjM2NSAzMi4xOSA1Mi40MDYzIDMyLjMwMTdDNTIuNDQ3NiAzMi40MTM0IDUyLjQ2NTMgMzIuNTMyOSA1Mi40NTg0IDMyLjY1MjJDNTIuNDYxNyAzMi43NjY4IDUyLjQ0MjIgMzIuODgxIDUyLjQwMTEgMzIuOTg3NkM1Mi4zNTk5IDMzLjA5NDIgNTIuMjk3OSAzMy4xOTExIDUyLjIxODkgMzMuMjcyMkM1Mi4xMzU1IDMzLjM1NTIgNTIuMDM2NCAzMy40MTk4IDUxLjkyNzcgMzMuNDYyQzUxLjgxOTEgMzMuNTA0MyA1MS43MDMyIDMzLjUyMzMgNTEuNTg3MSAzMy41MThMNTAuOTQwNiAzMy41MTk5WiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNNTguOTIzIDI2LjU5NzNDNTguODExNCAyNi42MDEgNTguNzAwMiAyNi41ODEyIDU4LjU5NjMgMjYuNTM4OUM1OC40OTI0IDI2LjQ5NjcgNTguMzk4MSAyNi40MzMgNTguMzE5MiAyNi4zNTE5QzU4LjI0MDMgMjYuMjcwNyA1OC4xNzg0IDI2LjE3MzcgNTguMTM3NSAyNi4wNjdDNTguMDk2NiAyNS45NjAzIDU4LjA3NzQgMjUuODQ2MiA1OC4wODEzIDI1LjczMTZWMTEuODU4MkM1OC4wNzUxIDExLjc0MTQgNTguMDkzIDExLjYyNDYgNTguMTM0IDExLjUxNTVDNTguMTc0OSAxMS40MDYzIDU4LjIzOCAxMS4zMDczIDU4LjMxODkgMTEuMjI0OUM1OC40ODI2IDExLjA2OSA1OC42OTk5IDEwLjk4NjEgNTguOTIzIDEwLjk5NDNDNTkuMDM2MiAxMC45ODM5IDU5LjE1MDIgMTAuOTk5MSA1OS4yNTcgMTEuMDM4OEM1OS4zNjM5IDExLjA3ODYgNTkuNDYwOSAxMS4xNDE4IDU5LjU0MTMgMTEuMjI0MkM1OS42MjE3IDExLjMwNjUgNTkuNjgzNiAxMS40MDYgNTkuNzIyNSAxMS41MTU1QzU5Ljc2MTUgMTEuNjI1MSA1OS43NzY1IDExLjc0MjEgNTkuNzY2NiAxMS44NTgyVjI1LjczMTZDNTkuNzc0NSAyNS45NjA2IDU5LjY5MzcgMjYuMTgzNSA1OS41NDE5IDI2LjM1MTZDNTkuNDYxOCAyNi40MzU1IDU5LjM2NTEgMjYuNTAwOCA1OS4yNTg0IDI2LjU0MzFDNTkuMTUxNiAyNi41ODU1IDU5LjAzNzMgMjYuNjA0IDU4LjkyMyAyNi41OTczWk01OC45MjMgMzMuNTE5OEM1OC44MTE0IDMzLjUyMzUgNTguNzAwMiAzMy41MDM2IDU4LjU5NjMgMzMuNDYxNEM1OC40OTI0IDMzLjQxOTIgNTguMzk4MSAzMy4zNTU1IDU4LjMxOTIgMzMuMjc0M0M1OC4yNDAzIDMzLjE5MzIgNTguMTc4NCAzMy4wOTYyIDU4LjEzNzUgMzIuOTg5NUM1OC4wOTY2IDMyLjg4MjggNTguMDc3NCAzMi43Njg3IDU4LjA4MTMgMzIuNjU0MVYxOC42MDg3QzU4LjA3NTEgMTguNDkxNiA1OC4wOTMxIDE4LjM3NDUgNTguMTM0MSAxOC4yNjUxQzU4LjE3NSAxOC4xNTU3IDU4LjIzOCAxOC4wNTYzIDU4LjMxODkgMTcuOTczNUM1OC40ODMgMTcuODE4MyA1OC43IDE3LjczNTUgNTguOTIzIDE3Ljc0MjlDNTkuMDM2NCAxNy43MzI1IDU5LjE1MDYgMTcuNzQ3NyA1OS4yNTc1IDE3Ljc4NzVDNTkuMzY0NSAxNy44Mjc0IDU5LjQ2MTYgMTcuODkwOCA1OS41NDIxIDE3Ljk3MzRDNTkuNjIyNiAxOC4wNTU5IDU5LjY4NDQgMTguMTU1NiA1OS43MjMyIDE4LjI2NTRDNTkuNzYyIDE4LjM3NTIgNTkuNzc2OCAxOC40OTI0IDU5Ljc2NjYgMTguNjA4N1YzMi42NTQxQzU5Ljc3NDUgMzIuODgzMSA1OS42OTM3IDMzLjEwNiA1OS41NDE5IDMzLjI3NDFDNTkuNDYxOCAzMy4zNTc5IDU5LjM2NTEgMzMuNDIzMyA1OS4yNTg0IDMzLjQ2NTZDNTkuMTUxNiAzMy41MDggNTkuMDM3MyAzMy41MjY1IDU4LjkyMyAzMy41MTk4Wk03MS4zNzQ1IDMzLjUxOThDNzEuMjYyOCAzMy41MjMyIDcxLjE1MTYgMzMuNTAzMiA3MS4wNDc4IDMzLjQ2MDlDNzAuOTQzOSAzMy40MTg2IDcwLjg0OTYgMzMuMzU0OSA3MC43NzA2IDMzLjI3MzhDNzAuNjkxNiAzMy4xOTI3IDcwLjYyOTYgMzMuMDk1OSA3MC41ODgzIDMyLjk4OTRDNzAuNTQ3MSAzMi44ODI4IDcwLjUyNzYgMzIuNzY4NyA3MC41MzA5IDMyLjY1NDFWMjQuOTAzNkM3MC41MzA5IDIzLjYzMzMgNzAuMjkyIDIyLjU4NTQgNjkuODE0NCAyMS43NTk5QzY5LjM2MjMgMjAuOTU1OSA2OC42ODcxIDIwLjMwODMgNjcuODc0OCAxOS44OTk4QzY3LjAxMzIgMTkuNDc1OSA2Ni4wNjczIDE5LjI2MzYgNjUuMTExOSAxOS4yNzk4QzY0LjE3MTYgMTkuMjYzOCA2My4yMzk5IDE5LjQ2NTQgNjIuMzg1OSAxOS44Njk2QzYxLjYyMDMgMjAuMjMwMyA2MC45NjEzIDIwLjc5MjUgNjAuNDc1OCAyMS40OTlDNjAuMDA5MiAyMi4xODMzIDU5Ljc2MzIgMjMuMDAwNCA1OS43NzIyIDIzLjgzNTVINTguMzY2OEM1OC40MjgzIDIyLjY4ODMgNTguNzg3NiAyMS41Nzg4IDU5LjQwNzUgMjAuNjIxOUM2MC4wMTc5IDE5LjY3NzIgNjAuODQ4NiAxOC45MDQgNjEuODI0MSAxOC4zNzI0QzYyLjgzNTQgMTcuODE5NSA2My45NjYxIDE3LjUzNjcgNjUuMTExOSAxNy41NTAxQzY2LjM3NDEgMTcuNTI5NCA2Ny42MjI2IDE3LjgyMTIgNjguNzUxNiAxOC40MDA3QzY5LjgxMDIgMTguOTU1OCA3MC42ODkzIDE5LjgxNCA3MS4yODI0IDIwLjg3MTRDNzEuODk2MyAyMS45NTkgNzIuMjAzMyAyMy4zMDA2IDcyLjIwMzMgMjQuODk2VjMyLjY0NjVDNzIuMjA3MiAzMi43NjExIDcyLjE4OCAzMi44NzUzIDcyLjE0NzEgMzIuOTgyQzcyLjEwNjIgMzMuMDg4NyA3Mi4wNDQ0IDMzLjE4NTYgNzEuOTY1NSAzMy4yNjY4QzcxLjg4NjUgMzMuMzQ4IDcxLjc5MjIgMzMuNDExNiA3MS42ODgzIDMzLjQ1MzlDNzEuNTg0NSAzMy40OTYxIDcxLjQ3MzIgMzMuNTE2IDcxLjM2MTYgMzMuNTEyM0w3MS4zNzQ1IDMzLjUxOThaIiBmaWxsPSIjRDQ0NkY3Ii8+CjxwYXRoIGQ9Ik04Ni4wODYzIDMzLjY2MzVDODQuNzA0NyAzMy42ODk1IDgzLjM0MTQgMzMuMzM2NCA4Mi4xMzcyIDMyLjY0MDhDODAuOTk2MSAzMS45NzAxIDgwLjA1NzggMzAuOTg4OCA3OS40MjU5IDI5LjgwNTNDNzguNzU0MiAyOC41MjkyIDc4LjQxNTMgMjcuMDk2NiA3OC40NDIzIDI1LjY0NjVDNzguNDEzIDI0LjIwMzggNzguNzI5MiAyMi43NzU3IDc5LjM2MzMgMjEuNDg3N0M3OS45NTExIDIwLjMyMjggODAuODM1MSAxOS4zNDMgODEuOTIxNyAxOC42NTIyQzgzLjA0NjcgMTcuOTc5OCA4NC4zMjM4IDE3LjYyMiA4NS42MjU3IDE3LjYxNDRDODYuOTI3NSAxNy42MDY3IDg4LjIwODYgMTcuOTQ5NiA4OS4zNDEgMTguNjA4N0M5MC40MDUyIDE5LjI2ODEgOTEuMjcwOSAyMC4yMTY3IDkxLjg0MjMgMjEuMzQ5N0M5Mi40NTk5IDIyLjU5NDMgOTIuNzY4NyAyMy45NzYgOTIuNzQxMiAyNS4zNzI0QzkyLjc0NjggMjUuNDgxNyA5Mi43Mjk2IDI1LjU5MTEgOTIuNjkwOSAyNS42OTMxQzkyLjY1MjIgMjUuNzk1MSA5Mi41OTI3IDI1Ljg4NzUgOTIuNTE2NSAyNS45NjQxQzkyLjM1NTEgMjYuMTEyNCA5Mi4xNDM0IDI2LjE4OTcgOTEuOTI3IDI2LjE3OTZINzkuNTcxNFYyNC42ODA1SDkyLjM4NzVMOTEuMTUxNiAyNS42MjU3QzkxLjIwODIgMjQuNDgzNyA5MC45OTQgMjMuMzQ0NiA5MC41MjcyIDIyLjMwNjJDOTAuMTA2MyAyMS4zNzc1IDg5LjQzNjkgMjAuNTkwOCA4OC41OTY4IDIwLjAzNzhDODcuNzE2NCAxOS40NzYxIDg2LjY5NTQgMTkuMTkwNCA4NS42NTkgMTkuMjE1NUM4NC42NTI1IDE5LjE5ODcgODMuNjYzMyAxOS40ODQ2IDgyLjgxMzIgMjAuMDM3OEM4MS45NjkzIDIwLjU5NyA4MS4yODkzIDIxLjM4MTEgODAuODQ2IDIyLjMwNjJDODAuMzQ5NCAyMy4zNDY2IDgwLjEwMzEgMjQuNDk0IDgwLjEyNzcgMjUuNjUyMkM4MC4xMDU0IDI2LjgwNTUgODAuMzY3MSAyNy45NDU5IDgwLjg4ODQgMjguOTY3OUM4MS4zNzI5IDI5LjkwOTQgODIuMTAyMyAzMC42OTQ2IDgyLjk5NTUgMzEuMjM2M0M4My45MzMyIDMxLjc5NTEgODUuMDAyMiAzMi4wNzk1IDg2LjA4NjMgMzIuMDU4NkM4Ni44MzkgMzIuMDU0OSA4Ny41ODU4IDMxLjkyMzQgODguMjk2NiAzMS42NjkyQzg4Ljk0NzcgMzEuNDYyMyA4OS41NDczIDMxLjExMjcgOTAuMDUzOCAzMC42NDQ2QzkwLjE5OTggMzAuNDkyMiA5MC4zOTgyIDMwLjQwNDcgOTAuNjA2NCAzMC40MDA3QzkwLjcwNjEgMzAuMzkyNyA5MC44MDY0IDMwLjQwNTMgOTAuOTAxMyAzMC40Mzc4QzkwLjk5NjMgMzAuNDcwMyA5MS4wODM5IDMwLjUyMTkgOTEuMTU5IDMwLjU4OThDOTEuMjUwMSAzMC42NTYzIDkxLjMyNjEgMzAuNzQyMiA5MS4zODE4IDMwLjg0MThDOTEuNDM3NCAzMC45NDEzIDkxLjQ3MTQgMzEuMDUyIDkxLjQ4MTMgMzEuMTY2M0M5MS40ODMxIDMxLjI3NzEgOTEuNDU5OSAzMS4zODY3IDkxLjQxMzYgMzEuNDg2N0M5MS4zNjczIDMxLjU4NjggOTEuMjk5IDMxLjY3NDQgOTEuMjE0MiAzMS43NDI5QzkwLjUyNTQgMzIuMzUzOCA4OS43Mjg4IDMyLjgyMzYgODguODY3NiAzMy4xMjY2Qzg3Ljk3OTIgMzMuNDc0NiA4Ny4wMzcyIDMzLjY1NjQgODYuMDg2MyAzMy42NjM1WiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNOTkuNzYyOCAzMy41MTk5Qzk5LjY1MTEgMzMuNTIzMyA5OS41Mzk5IDMzLjUwMzIgOTkuNDM2MSAzMy40NjA5Qzk5LjMzMjIgMzMuNDE4NiA5OS4yMzc5IDMzLjM1NDkgOTkuMTU4OSAzMy4yNzM5Qzk5LjA3OTkgMzMuMTkyOCA5OS4wMTc5IDMzLjA5NiA5OC45NzY2IDMyLjk4OTRDOTguOTM1NCAzMi44ODI4IDk4LjkxNTkgMzIuNzY4NyA5OC45MTkyIDMyLjY1NDFWMTguNjA4N0M5OC45MTI5IDE4LjQ5MTUgOTguOTMxIDE4LjM3NDIgOTguOTcyMyAxOC4yNjQ3Qzk5LjAxMzYgMTguMTU1MiA5OS4wNzcxIDE4LjA1NTkgOTkuMTU4NiAxNy45NzM2Qzk5LjMyMjQgMTcuODE3OCA5OS41Mzk2IDE3LjczNDkgOTkuNzYyOCAxNy43NDI5Qzk5Ljg3NiAxNy43MzI4IDk5Ljk4OTkgMTcuNzQ4MiAxMDAuMDk3IDE3Ljc4ODJDMTAwLjIwMyAxNy44MjgyIDEwMC4zIDE3Ljg5MTYgMTAwLjM4MSAxNy45NzQyQzEwMC40NjEgMTguMDU2NyAxMDAuNTIyIDE4LjE1NjMgMTAwLjU2MSAxOC4yNjU5QzEwMC42IDE4LjM3NTYgMTAwLjYxNSAxOC40OTI2IDEwMC42MDUgMTguNjA4N1YzMi42NTQxQzEwMC42MTQgMzIuODgxMiAxMDAuNTM1IDMzLjEwMjcgMTAwLjM4NSAzMy4yNzAzQzEwMC4zMDUgMzMuMzU1NSAxMDAuMjA4IDMzLjQyMTggMTAwLjEwMSAzMy40NjQ5Qzk5Ljk5MzIgMzMuNTA4IDk5Ljg3NzkgMzMuNTI2NyA5OS43NjI4IDMzLjUxOTlaTTk5LjQ4MSAyMy44NzlDOTkuNTY5NyAyMi43MjY2IDk5LjkwNTYgMjEuNjA4NiAxMDAuNDY1IDIwLjYwNDlDMTAwLjk3MyAxOS42OTAxIDEwMS42OTcgMTguOTIxNiAxMDIuNTcyIDE4LjM3MDVDMTAzLjQzNSAxNy44MzEgMTA0LjQyOSAxNy41NTA3IDEwNS40NCAxNy41NjE1QzEwNi4wMDMgMTcuNTM2NCAxMDYuNTY3IDE3LjYyNSAxMDcuMDk3IDE3LjgyMjNDMTA3LjI3NiAxNy44ODQgMTA3LjQyMyAxOC4wMTU2IDEwNy41MDcgMTguMTg4NUMxMDcuNTkyIDE4LjM2MTMgMTA3LjYwNiAxOC41NjEzIDEwNy41NDcgMTguNzQ0OEMxMDcuNTM4IDE4Ljg2MTcgMTA3LjQ5NiAxOC45NzMzIDEwNy40MjYgMTkuMDY1OEMxMDcuMzU2IDE5LjE1ODIgMTA3LjI2MSAxOS4yMjc0IDEwNy4xNTMgMTkuMjY0N0MxMDYuOTExIDE5LjMyMiAxMDYuNjYgMTkuMzI2NSAxMDYuNDE2IDE5LjI3NzlDMTA2LjA5NSAxOS4yMjgxIDEwNS43NzEgMTkuMjA0IDEwNS40NDcgMTkuMjA2MUMxMDQuNTc3IDE5LjE4OTcgMTAzLjcxNyAxOS4zOTc3IDEwMi45NDYgMTkuODExQzEwMi4yMzcgMjAuMTkzNyAxMDEuNjQ1IDIwLjc2NzYgMTAxLjIzMSAyMS40NzA3QzEwMC44MTEgMjIuMTk5MiAxMDAuNTk3IDIzLjAzMjkgMTAwLjYxMiAyMy44NzlIOTkuNDgxWiIgZmlsbD0iI0Q0NDZGNyIvPgo8cGF0aCBkPSJNMTE5LjYwOSAzMy42OTM4QzExOC4xOTcgMzMuNzE2NSAxMTYuODA1IDMzLjM1MzEgMTE1LjU3NSAzMi42NDA4QzExNC40MDIgMzEuOTU2MiAxMTMuNDMxIDMwLjk1OTYgMTEyLjc2NCAyOS43NTYxQzExMi4wOTEgMjguNDkxMSAxMTEuNzM4IDI3LjA3MjggMTExLjczOCAyNS42MzE0QzExMS43MzggMjQuMTkgMTEyLjA5MSAyMi43NzE2IDExMi43NjQgMjEuNTA2NkMxMTMuNDMxIDIwLjMwMzEgMTE0LjQwMiAxOS4zMDY1IDExNS41NzUgMTguNjIxOUMxMTYuODEgMTcuOTMxIDExOC4xOTUgMTcuNTY5IDExOS42MDIgMTcuNTY5QzEyMS4wMDggMTcuNTY5IDEyMi4zOTMgMTcuOTMxIDEyMy42MjggMTguNjIxOUMxMjQuNzk0IDE5LjMxMDggMTI1Ljc1OSAyMC4zMDY2IDEyNi40MjQgMjEuNTA2NkMxMjcuMTE4IDIyLjc2ODYgMTI3LjQ3MiAyNC4xOTc1IDEyNy40NSAyNS42NDY1TDEyNi43NDYgMjYuNzk5NkMxMjYuNzY0IDI4LjA0MDQgMTI2LjQzNyAyOS4yNjA4IDEyNS44MDMgMzAuMzE3NkMxMjUuMTggMzEuMzUzNCAxMjQuMzAzIDMyLjIwMzkgMTIzLjI2IDMyLjc4NDVDMTIyLjEzOSAzMy40MDMzIDEyMC44ODIgMzMuNzE2MyAxMTkuNjA5IDMzLjY5MzhaTTExOS42MDkgMzIuMDc3NUMxMjAuNjk2IDMyLjEwMDIgMTIxLjc2OSAzMS44MTg1IDEyMi43MTIgMzEuMjYyNkMxMjMuNjU1IDMwLjcwNjggMTI0LjQzMyAyOS44OTc4IDEyNC45NjIgMjguOTIyNUMxMjUuNDg4IDI3LjkxMDkgMTI1Ljc2MyAyNi43ODE4IDEyNS43NjMgMjUuNjM1MkMxMjUuNzYzIDI0LjQ4ODUgMTI1LjQ4OCAyMy4zNTk0IDEyNC45NjIgMjIuMzQ3OEMxMjQuNDMzIDIxLjM3MTggMTIzLjY1NiAyMC41NjIxIDEyMi43MTMgMjAuMDA1NUMxMjEuNzcgMTkuNDQ5IDEyMC42OTcgMTkuMTY2NyAxMTkuNjA5IDE5LjE4OUMxMTguNTIgMTkuMTczOCAxMTcuNDQ4IDE5LjQ1ODkgMTE2LjUwMyAyMC4wMTQ2QzExNS41NTkgMjAuNTcwMyAxMTQuNzc3IDIxLjM3NjEgMTE0LjI0IDIyLjM0NzhDMTEzLjcwNSAyMy4zNTY4IDExMy40MjYgMjQuNDg2OCAxMTMuNDI2IDI1LjYzNTJDMTEzLjQyNiAyNi43ODM1IDExMy43MDUgMjcuOTEzNSAxMTQuMjQgMjguOTIyNUMxMTQuNzc3IDI5Ljg5NDIgMTE1LjU1OSAzMC43IDExNi41MDMgMzEuMjU1N0MxMTcuNDQ4IDMxLjgxMTQgMTE4LjUyIDMyLjA5NjUgMTE5LjYwOSAzMi4wODEzVjMyLjA3NzVaTTEyNi42MDggMzMuNTE5OEMxMjYuNDk3IDMzLjUyMzIgMTI2LjM4NSAzMy41MDMyIDEyNi4yODIgMzMuNDYwOUMxMjYuMTc4IDMzLjQxODYgMTI2LjA4MyAzMy4zNTQ5IDEyNi4wMDQgMzMuMjczOEMxMjUuOTI1IDMzLjE5MjcgMTI1Ljg2MyAzMy4wOTU5IDEyNS44MjIgMzIuOTg5NEMxMjUuNzgxIDMyLjg4MjggMTI1Ljc2MSAzMi43Njg3IDEyNS43NjUgMzIuNjU0MVYyNy4zNzYyTDEyNi4yOTkgMjUuNjQ2NUgxMjcuNDUyVjMyLjY1NDFDMTI3LjQ2IDMyLjg4MzEgMTI3LjM3OSAzMy4xMDYgMTI3LjIyNyAzMy4yNzQxQzEyNy4xNDcgMzMuMzU3OSAxMjcuMDUgMzMuNDIzMiAxMjYuOTQzIDMzLjQ2NTVDMTI2LjgzNiAzMy41MDc5IDEyNi43MjEgMzMuNTI2NCAxMjYuNjA2IDMzLjUxOThIMTI2LjYwOFoiIGZpbGw9IiNENDQ2RjciLz4KPHBhdGggZD0iTTMwLjM3MzQgMjIuMTYyNkMzMC40NTA4IDMxLjkwMzYgMjkuMTg1NCAzOC4wNzU2IDE1LjIyMTcgNDIuMjAwNEM5LjY2NDYzIDQzLjgzOTMgMi43MzUzMSA0Ny4wMDM4IDIuNzM1MzEgNDcuMDAzOEMyLjczNTMxIDQ3LjAwMzggNS4zNTYzNyA0Mi4yODkyIDUuODI0MjIgNDAuMDMyMUM2LjI5MjA3IDM3Ljc3NSA2LjMzMjU5IDM3LjM0MDMgNi4zMzI1OSAzNy4zNDAzQzYuMzMyNTkgMzcuMzQwMyAtMy4zODM1NyAzOC42NTAzIDEuMjU0NCAyOC42MjU3QzQuNjcxMTcgMjEuMjQwMSAxNy4xNjEzIDE5LjE0NzQgMjQuNzI2MSAyMC4xMTkxQzI5LjgzOTMgMjAuNzc1IDMwLjM2MDUgMjAuNjE4MSAzMC4zNzM0IDIyLjE2MjZaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNDEuMTYgMzMuNzk5NkMxMzkuODU1IDMzLjgwNDQgMTM4LjU1NSAzMy42Mzc0IDEzNy4yOTIgMzMuMzAyNUMxMzYuMDY0IDMyLjk2OTggMTM1LjA3NiAzMi41NTMyIDEzNC4zMjggMzIuMDUyOUwxMzUuODI0IDI4LjcwODlDMTM2LjY0MiAyOS4xODMxIDEzNy41MTUgMjkuNTUyNiAxMzguNDIxIDI5LjgwOTFDMTM5LjM2OCAzMC4wOTM4IDE0MC4zNDggMzAuMjQwOCAxNDEuMzM1IDMwLjI0NThDMTQyLjM5MiAzMC4yNDU4IDE0My4xNDEgMzAuMTE1MyAxNDMuNTggMjkuODU0NEMxNDMuNzc4IDI5Ljc1NTYgMTQzLjk0NSAyOS42MDEzIDE0NC4wNjIgMjkuNDA5NEMxNDQuMTc5IDI5LjIxNzQgMTQ0LjI0IDI4Ljk5NTYgMTQ0LjI0IDI4Ljc2OTRDMTQ0LjI0NCAyOC41OTA5IDE0NC4xOTggMjguNDE0OCAxNDQuMTA3IDI4LjI2MjVDMTQ0LjAxNiAyOC4xMTAyIDE0My44ODQgMjcuOTg4MiAxNDMuNzI3IDI3LjkxMTJDMTQzLjMwMyAyNy42OTMyIDE0Mi44NDcgMjcuNTQ1OCAxNDIuMzc3IDI3LjQ3NDVDMTQxLjgyIDI3LjM3NDkgMTQxLjE5OSAyNy4yNzQ3IDE0MC41MTMgMjcuMTczOUMxMzkuODI2IDI3LjA3MjggMTM5LjE0NiAyNi45MzIgMTM4LjQ3NCAyNi43NTI0QzEzNy44MTkgMjYuNTc5MyAxMzcuMTg5IDI2LjMyMTQgMTM2LjU5NyAyNS45ODQ5QzEzNi4wMjggMjUuNjYxMiAxMzUuNTUyIDI1LjE4ODMgMTM1LjIxOCAyNC42MTQ0QzEzNC44NzUgMjQuMDMyMSAxMzQuNzA0IDIzLjI3NiAxMzQuNzA0IDIyLjM0NTlDMTM0LjY5MSAyMS4zNjE2IDEzNS4wMDEgMjAuNDAxNCAxMzUuNTg0IDE5LjYyQzEzNi4yMzQgMTguNzc5NSAxMzcuMDk3IDE4LjEzOTIgMTM4LjA3OCAxNy43Njk0QzEzOS4xNTQgMTcuMzI3IDE0MC40NTUgMTcuMTA1OSAxNDEuOTgxIDE3LjEwNTlDMTQzLjA5MiAxNy4xMDg5IDE0NC4xOTggMTcuMjM1NiAxNDUuMjgyIDE3LjQ4MzlDMTQ2LjI2MyAxNy42ODczIDE0Ny4yMSAxOC4wMzgyIDE0OC4wOTEgMTguNTI1NUwxNDYuNTM2IDIxLjg2NzdDMTQ1LjgyOCAyMS40NDEzIDE0NS4wNjEgMjEuMTI2NSAxNDQuMjYyIDIwLjkzMzhDMTQzLjUzNyAyMC43NTk4IDE0Mi43OTYgMjAuNjY5MSAxNDIuMDUxIDIwLjY2MzVDMTQwLjk5NCAyMC42NjM1IDE0MC4yMzEgMjAuODA0IDEzOS43NjIgMjEuMDg1MUMxMzkuMjkzIDIxLjM2NjEgMTM5LjA1OCAyMS43MjcyIDEzOS4wNTggMjIuMTY4MkMxMzkuMDUzIDIyLjM1NjcgMTM5LjA5OSAyMi41NDMgMTM5LjE5MyAyMi43MDU1QzEzOS4yODYgMjIuODY4IDEzOS40MjIgMjMuMDAwMiAxMzkuNTg1IDIzLjA4N0MxNDAuMDE0IDIzLjMyNDkgMTQwLjQ4MSAyMy40ODMgMTQwLjk2NSAyMy41NTM5QzE0MS41MzIgMjMuNjU2IDE0Mi4xNTggMjMuNzU2OCAxNDIuODQzIDIzLjg1NjNDMTQzLjUyNiAyMy45NTU4IDE0NC4yMDMgMjQuMDk2NSAxNDQuODY5IDI0LjI3NzlDMTQ1LjUxOSAyNC40NTE5IDE0Ni4xNDUgMjQuNzA5OCAxNDYuNzMyIDI1LjA0NTRDMTQ3LjMwMSAyNS4zNjkgMTQ3Ljc3OCAyNS44NDE5IDE0OC4xMTEgMjYuNDE1OUMxNDguNDU0IDI2Ljk5ODEgMTQ4LjYyNSAyNy43NTA1IDE0OC42MjUgMjguNjczQzE0OC42MzYgMjkuNjI5MSAxNDguMzI1IDMwLjU1OTcgMTQ3Ljc0NSAzMS4zMDgxQzE0Ny4xNTggMzIuMDgxOSAxNDYuMzEyIDMyLjY4OTQgMTQ1LjIwNyAzMy4xMzA0QzE0NC4xMDEgMzMuNTcxNSAxNDIuNzUyIDMzLjc5NDYgMTQxLjE2IDMzLjc5OTZaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNjEuMjc1IDMzLjc5OTZDMTU5LjcyOCAzMy44Mjc1IDE1OC4yIDMzLjQ1NDMgMTU2LjgzMSAzMi43MTQ2QzE1NS44ODMgMzIuMTY2OSAxNTUuMDUgMzEuNDMxMyAxNTQuMzgyIDMwLjU1MDVDMTUzLjcxMyAyOS42Njk3IDE1My4yMjIgMjguNjYxMyAxNTIuOTM3IDI3LjU4MzlDMTUyLjY1MSAyNi41MDY1IDE1Mi41NzggMjUuMzgxNyAxNTIuNzIgMjQuMjc0OEMxNTIuODYyIDIzLjE2NzkgMTUzLjIxNyAyMi4xMDEgMTUzLjc2NCAyMS4xMzYxQzE1NC41MDUgMTkuODg0MSAxNTUuNTY2IDE4Ljg2MzcgMTU2LjgzMSAxOC4xODUzQzE1OC4yMDMgMTcuNDU0OSAxNTkuNzMgMTcuMDg3MSAxNjEuMjc1IDE3LjExNTNDMTYyLjgzOCAxNy4wODQ3IDE2NC4zODMgMTcuNDUyMyAxNjUuNzczIDE4LjE4NTNDMTY3LjA0NSAxOC44NjA2IDE2OC4xMTEgMTkuODgxMyAxNjguODU1IDIxLjEzNjFDMTY5LjYwOCAyMi40NDMxIDE2OS45OSAyMy45Mzk2IDE2OS45NiAyNS40NTc1QzE2OS45OTcgMjYuOTQ4NiAxNjkuNjI0IDI4LjQyMDIgMTY4Ljg4MyAyOS43MDM3QzE2OC4xNDMgMzAuOTg3MiAxNjcuMDY1IDMyLjAzMDcgMTY1Ljc3MyAzMi43MTQ2QzE2NC4zODYgMzMuNDU2OSAxNjIuODQgMzMuODMgMTYxLjI3NSAzMy43OTk2Wk0xNjEuMjc1IDI5Ljk0MzNDMTYxLjk5OSAyOS45NTkyIDE2Mi43MTMgMjkuNzc3OCAxNjMuMzQ2IDI5LjQxNzhDMTYzLjk1NyAyOS4wNDg3IDE2NC40NTQgMjguNTExIDE2NC43ODIgMjcuODY1OEMxNjUuMTYyIDI3LjEyMzkgMTY1LjM1MiAyNi4yOTUzIDE2NS4zMzUgMjUuNDU3NUMxNjUuMzU3IDI0LjYxODYgMTY1LjE2NiAyMy43ODgyIDE2NC43ODIgMjMuMDQ3M0MxNjQuNDQ3IDIyLjQxODIgMTYzLjk1IDIxLjg5NTMgMTYzLjM0NiAyMS41MzVDMTYyLjcyMyAyMS4xNzY3IDE2Mi4wMTkgMjAuOTk0NyAxNjEuMzA1IDIxLjAwNzZDMTYwLjU4NyAyMC45OTU5IDE1OS44NzkgMjEuMTc3OCAxNTkuMjUxIDIxLjUzNUMxNTguNjQgMjEuODkwOSAxNTguMTM3IDIyLjQxNDUgMTU3LjggMjMuMDQ3M0MxNTcuNDE2IDIzLjc4ODIgMTU3LjIyNSAyNC42MTg2IDE1Ny4yNDcgMjUuNDU3NUMxNTcuMjMgMjYuMjk1MyAxNTcuNDIgMjcuMTIzOSAxNTcuOCAyNy44NjU4QzE1OC4xMjkgMjguNTE0NyAxNTguNjMzIDI5LjA1MzIgMTU5LjI1MSAyOS40MTc4QzE1OS44NyAyOS43NzE0IDE2MC41NjcgMjkuOTUyNiAxNjEuMjc1IDI5Ljk0MzNaIiBmaWxsPSIjMDAyQUREIi8+CjxwYXRoIGQ9Ik0xNzIuNzk5IDIxLjMzMDhWMTcuNzE4M0gxODMuNzQ0VjIxLjMzMDhIMTcyLjc5OVpNMTc1LjIzNCAzMy41NTc3VjE2Ljk5NDNDMTc1LjIzNCAxNS4xNDY4IDE3NS43NjIgMTMuNjgxOCAxNzYuODIgMTIuNTk5MkMxNzcuODc3IDExLjUxNjcgMTc5LjM4MyAxMC45NzE2IDE4MS4zMzggMTAuOTY0MUMxODEuOTc5IDEwLjk2NDIgMTgyLjYxOCAxMS4wMzUyIDE4My4yNDQgMTEuMTc1OEMxODMuODA1IDExLjI4OTggMTg0LjM0MiAxMS41MDM0IDE4NC44MyAxMS44MDcyTDE4My42MjggMTUuMjQwMUMxODMuMzY1IDE1LjA1NzggMTgzLjA3OSAxNC45MTU4IDE4Mi43NzcgMTQuODE4NUMxODIuNDUzIDE0LjcxNzEgMTgyLjExNiAxNC42NjY4IDE4MS43NzggMTQuNjY5MkMxODEuMTEzIDE0LjY2OTIgMTgwLjU5OSAxNC44NTgyIDE4MC4yMzggMTUuMjM2M0MxNzkuODc3IDE1LjYxNDQgMTc5LjY5NiAxNi4yMTY4IDE3OS42OTUgMTcuMDQzNVYxOC41NTU4TDE3OS44NDIgMjAuNTQyNVYzMy41NTJMMTc1LjIzNCAzMy41NTc3WiIgZmlsbD0iIzAwMkFERCIvPgo8cGF0aCBkPSJNMTg3Ljk2OSAyMS4zMzA4VjE3LjcxODNIMTk4LjkxM1YyMS4zMzA4SDE4Ny45NjlaTTE5Ni4zMDIgMzMuODA3MkMxOTQuNDQ0IDMzLjgwNzIgMTkyLjk5NyAzMy4zMjAxIDE5MS45NiAzMi4zNDU5QzE5MC45MjQgMzEuMzcxOCAxOTAuNDA1IDI5LjkyMjUgMTkwLjQwNCAyNy45OTgxVjEzLjc3MzJIMTk1LjAwOVYyNy44OTZDMTk1LjAwOSAyOC41NzkxIDE5NS4xOCAyOS4xMTE1IDE5NS41MjIgMjkuNDkzNEMxOTUuNzAyIDI5LjY4NDkgMTk1LjkxOSAyOS44MzQ2IDE5Ni4xNiAyOS45MzI0QzE5Ni40IDMwLjAzMDMgMTk2LjY1OCAzMC4wNzM5IDE5Ni45MTcgMzAuMDYwNUMxOTcuNTkxIDMwLjA4MjYgMTk4LjI1MyAyOS44NzA4IDE5OC43OTYgMjkuNDU5NEwxOTkuOTk4IDMyLjc3MTNDMTk5LjUgMzMuMTM1NCAxOTguOTM3IDMzLjM5NjEgMTk4LjM0MSAzMy41Mzg4QzE5Ny42NzQgMzMuNzEyMiAxOTYuOTg5IDMzLjc5OTggMTk2LjMwMiAzMy43OTk2VjMzLjgwNzJaIiBmaWxsPSIjMDAyQUREIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfODdfMzI0Ij4KPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSI0NyIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Therasoft" />
+      <img src="assets/svg/logo.svg" alt="Therasoft" />
     </div>
     <a href="#" class="nav-cta">Começar grátis</a>
   </div>
@@ -91,13 +96,10 @@
 
   <!-- Hero Image -->
   <div class="hero-placeholder">
-    <img src="imgs/head.webp" alt="" />
+    <img src="assets/images/head.webp" alt="" />
    <div class="security-badge">
       <span class="badge-icon">
-        <svg width="12" height="13" viewBox="0 0 12 13" fill="none">
-          <path d="M6 1L10.5 2.8V6.5C10.5 9 8.5 11.1 6 12C3.5 11.1 1.5 9 1.5 6.5V2.8L6 1Z" stroke="#D446F7" stroke-width="1.2" stroke-linejoin="round" fill="rgba(212,70,247,0.10)"/>
-          <path d="M4 6.5L5.3 7.8L8 5" stroke="#D446F7" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg width="12" height="13"><use href="assets/svg/icons-sprite.svg#icon-badge-security"/></svg>
       </span>
       Seus prontuários ficam protegidos. Só você acessa.
     </div>
@@ -122,22 +124,22 @@
 
     <div class="hero-metrics">
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><use href="assets/svg/icons-sprite.svg#icon-metric-smiley"/></svg>
         <div class="metric-val">97%</div>
         <div class="metric-label">satisfação nos primeiros 30 dias</div>
       </div>
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><use href="assets/svg/icons-sprite.svg#icon-metric-check"/></svg>
         <div class="metric-val">35%</div>
         <div class="metric-label">menos faltas com confirmação automática</div>
       </div>
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><use href="assets/svg/icons-sprite.svg#icon-metric-clock"/></svg>
         <div class="metric-val">2 min</div>
         <div class="metric-label">para o primeiro agendamento</div>
       </div>
       <div class="metric-card">
-        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+        <svg class="metric-watermark" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.5"><use href="assets/svg/icons-sprite.svg#icon-metric-map"/></svg>
         <div class="metric-val">8+</div>
         <div class="metric-label">estados com profissionais ativos</div>
       </div>
@@ -158,80 +160,7 @@
 
     <!-- Imagem: lado esquerdo (40%) -->
     <div class="section-visual section-visual--features">
-      <svg viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
-        <!-- Interface clínica abstrata: prontuário + agenda + métricas -->
-        <!-- Janela principal -->
-        <rect x="20" y="24" width="220" height="280" rx="14" stroke="#2B7FFF" stroke-width="1.5" fill="none"/>
-        <!-- Barra de título -->
-        <rect x="20" y="24" width="220" height="36" rx="14" fill="rgba(43,127,255,0.06)" stroke="none"/>
-        <rect x="20" y="44" width="220" height="16" rx="0" fill="rgba(43,127,255,0.06)" stroke="none"/>
-        <!-- Dots da janela -->
-        <circle cx="38" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
-        <circle cx="52" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
-        <circle cx="66" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
-        <!-- Título da janela -->
-        <rect x="88" y="38" width="60" height="8" rx="4" fill="#2B7FFF" opacity="0.18"/>
-        <!-- Sidebar -->
-        <rect x="20" y="60" width="52" height="244" rx="0" stroke="none" fill="rgba(43,127,255,0.04)"/>
-        <rect x="19" y="60" width="1.5" height="244" rx="0" fill="rgba(43,127,255,0.0)" stroke="none"/>
-        <!-- Ícones sidebar -->
-        <rect x="32" y="76" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
-        <rect x="32" y="90" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
-        <rect x="32" y="110" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
-        <rect x="32" y="124" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
-        <rect x="32" y="144" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
-        <rect x="32" y="158" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
-        <!-- Divisor sidebar -->
-        <line x1="72" y1="60" x2="72" y2="304" stroke="#2B7FFF" stroke-width="1" opacity="0.12"/>
-        <!-- Área de conteúdo: linhas de prontuário -->
-        <rect x="84" y="76" width="80" height="7" rx="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <rect x="84" y="91" width="120" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-        <rect x="84" y="103" width="100" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-        <rect x="84" y="115" width="110" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-        <!-- Divider -->
-        <line x1="84" y1="130" x2="228" y2="130" stroke="#2B7FFF" stroke-width="1" opacity="0.10"/>
-        <!-- Mini calendário -->
-        <rect x="84" y="140" width="64" height="56" rx="8" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
-        <rect x="84" y="140" width="64" height="16" rx="8" fill="rgba(43,127,255,0.07)" stroke="none"/>
-        <rect x="84" y="148" width="64" height="8" rx="0" fill="rgba(43,127,255,0.07)" stroke="none"/>
-        <!-- Células do calendário -->
-        <circle cx="99" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <circle cx="112" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <circle cx="125" cy="170" r="3.5" fill="#D446F7" opacity="0.55"/>
-        <circle cx="138" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <circle cx="99" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <circle cx="112" cy="183" r="3.5" fill="#2B7FFF" opacity="0.40"/>
-        <circle cx="125" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <circle cx="138" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
-        <!-- Barra de métricas -->
-        <rect x="160" y="140" width="76" height="56" rx="8" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
-        <rect x="168" y="152" width="12" height="32" rx="3" fill="#2B7FFF" opacity="0.15"/>
-        <rect x="184" y="162" width="12" height="22" rx="3" fill="#2B7FFF" opacity="0.15"/>
-        <rect x="200" y="148" width="12" height="36" rx="3" fill="#D446F7" opacity="0.40"/>
-        <rect x="216" y="158" width="12" height="26" rx="3" fill="#2B7FFF" opacity="0.15"/>
-        <!-- Tag de status -->
-        <rect x="84" y="208" width="50" height="18" rx="9" stroke="#D446F7" stroke-width="1.2" fill="rgba(212,70,247,0.06)"/>
-        <rect x="92" y="214" width="34" height="6" rx="3" fill="#D446F7" opacity="0.35"/>
-        <!-- Mais linhas de texto -->
-        <rect x="84" y="238" width="90" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-        <rect x="84" y="250" width="110" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-        <rect x="84" y="262" width="70" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-        <!-- Janela flutuante de confirmação -->
-        <rect x="160" y="230" width="108" height="72" rx="12" stroke="#D446F7" stroke-width="1.4" fill="white" fill-opacity="0.7"/>
-        <rect x="160" y="230" width="108" height="20" rx="12" fill="rgba(212,70,247,0.08)" stroke="none"/>
-        <rect x="160" y="242" width="108" height="8" rx="0" fill="rgba(212,70,247,0.08)" stroke="none"/>
-        <rect x="172" y="236" width="50" height="6" rx="3" fill="#D446F7" opacity="0.30"/>
-        <rect x="172" y="258" width="84" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
-        <rect x="172" y="269" width="64" height="5" rx="2.5" fill="#2B7FFF" opacity="0.12"/>
-        <!-- Check badge -->
-        <circle cx="249" cy="230" r="11" fill="#D446F7" opacity="0.85"/>
-        <path d="M244 230l3 3 6-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Elemento decorativo: círculo de fundo -->
-        <circle cx="270" cy="100" r="64" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="rgba(43,127,255,0.03)"/>
-        <circle cx="270" cy="100" r="44" stroke="#2B7FFF" stroke-width="1" opacity="0.08" fill="none"/>
-        <!-- Linha de conexão decorativa -->
-        <path d="M240 76 Q280 60 290 120" stroke="#D446F7" stroke-width="1" stroke-dasharray="3 4" opacity="0.22" fill="none"/>
-      </svg>
+      <img src="assets/svg/illustrations/features.svg" alt="Interface com funcionalidades" loading="lazy" style="width:100%; height:auto;" />
     </div>
 
     <!-- Conteúdo: lado direito (60%) -->
@@ -245,9 +174,7 @@
 
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10,9 9,9 8,9"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="assets/svg/icons-sprite.svg#icon-feat-doc"/></svg>
         </div>
         <div class="feature-text">
           <h3>Prontuários com sigilo real</h3>
@@ -257,9 +184,7 @@
 
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="assets/svg/icons-sprite.svg#icon-feat-calendar"/></svg>
         </div>
         <div class="feature-text">
           <h3>Agenda inteligente</h3>
@@ -269,9 +194,7 @@
 
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="assets/svg/icons-sprite.svg#icon-feat-chat"/></svg>
         </div>
         <div class="feature-text">
           <h3>Menos faltas via WhatsApp</h3>
@@ -281,9 +204,7 @@
 
       <div class="feature-card">
         <div class="feature-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-          </svg>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><use href="assets/svg/icons-sprite.svg#icon-feat-chart"/></svg>
         </div>
         <div class="feature-text">
           <h3>Visão geral do consultório</h3>
@@ -338,62 +259,7 @@
 
     <!-- Imagem: lado direito (40%) -->
     <div class="section-visual section-visual--rotina">
-      <svg viewBox="0 0 280 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
-        <!-- Fluxo de onboarding em 3 etapas conectadas -->
-        <!-- Círculo decorativo de fundo -->
-        <circle cx="140" cy="180" r="120" stroke="rgba(255,255,255,0.08)" stroke-width="1.5" fill="none"/>
-        <circle cx="140" cy="180" r="90" stroke="rgba(255,255,255,0.06)" stroke-width="1" fill="none"/>
-
-        <!-- ETAPA 1 -->
-        <rect x="30" y="24" width="220" height="72" rx="14" stroke="rgba(255,255,255,0.22)" stroke-width="1.4" fill="rgba(255,255,255,0.06)"/>
-        <!-- Número -->
-        <circle cx="58" cy="60" r="18" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.30)" stroke-width="1.2"/>
-        <text x="58" y="65" text-anchor="middle" font-size="14" fill="white" font-family="system-ui" opacity="0.85">1</text>
-        <!-- Conteúdo -->
-        <rect x="86" y="50" width="72" height="8" rx="4" fill="white" opacity="0.55"/>
-        <rect x="86" y="64" width="120" height="5" rx="2.5" fill="white" opacity="0.25"/>
-        <rect x="86" y="74" width="100" height="5" rx="2.5" fill="white" opacity="0.18"/>
-        <!-- Check badge -->
-        <circle cx="232" cy="60" r="12" fill="rgba(212,70,247,0.55)" stroke="rgba(212,70,247,0.4)" stroke-width="1"/>
-        <path d="M227 60l3 3 6-6" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-
-        <!-- Linha conectora 1→2 -->
-        <line x1="140" y1="96" x2="140" y2="132" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <circle cx="140" cy="114" r="3" fill="rgba(255,255,255,0.30)"/>
-
-        <!-- ETAPA 2 -->
-        <rect x="30" y="132" width="220" height="72" rx="14" stroke="rgba(255,255,255,0.22)" stroke-width="1.4" fill="rgba(255,255,255,0.06)"/>
-        <circle cx="58" cy="168" r="18" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.30)" stroke-width="1.2"/>
-        <text x="58" y="173" text-anchor="middle" font-size="14" fill="white" font-family="system-ui" opacity="0.85">2</text>
-        <rect x="86" y="158" width="88" height="8" rx="4" fill="white" opacity="0.55"/>
-        <rect x="86" y="172" width="110" height="5" rx="2.5" fill="white" opacity="0.25"/>
-        <rect x="86" y="182" width="90" height="5" rx="2.5" fill="white" opacity="0.18"/>
-        <!-- Mini calendário inline -->
-        <rect x="196" y="152" width="44" height="36" rx="8" stroke="rgba(255,255,255,0.28)" stroke-width="1" fill="rgba(255,255,255,0.08)"/>
-        <circle cx="207" cy="166" r="2.5" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="218" cy="166" r="2.5" fill="rgba(212,70,247,0.70)"/>
-        <circle cx="229" cy="166" r="2.5" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="207" cy="177" r="2.5" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="218" cy="177" r="2.5" fill="rgba(255,255,255,0.35)"/>
-        <circle cx="229" cy="177" r="2.5" fill="rgba(255,255,255,0.55)"/>
-
-        <!-- Linha conectora 2→3 -->
-        <line x1="140" y1="204" x2="140" y2="240" stroke="rgba(255,255,255,0.20)" stroke-width="1.5" stroke-dasharray="4 4"/>
-        <circle cx="140" cy="222" r="3" fill="rgba(255,255,255,0.30)"/>
-
-        <!-- ETAPA 3: destaque -->
-        <rect x="20" y="240" width="240" height="80" rx="16" stroke="rgba(212,70,247,0.55)" stroke-width="1.8" fill="rgba(212,70,247,0.10)"/>
-        <circle cx="56" cy="280" r="20" fill="rgba(212,70,247,0.22)" stroke="rgba(212,70,247,0.50)" stroke-width="1.4"/>
-        <text x="56" y="285" text-anchor="middle" font-size="14" fill="white" font-family="system-ui" opacity="0.90">3</text>
-        <rect x="86" y="268" width="64" height="8" rx="4" fill="white" opacity="0.70"/>
-        <rect x="86" y="282" width="130" height="5" rx="2.5" fill="white" opacity="0.30"/>
-        <rect x="86" y="293" width="100" height="5" rx="2.5" fill="white" opacity="0.22"/>
-        <!-- Ícone coração/foco -->
-        <path d="M224 272 C224 269 220 266 216 270 C212 266 208 269 208 272 C208 278 216 283 216 283 C216 283 224 278 224 272Z" stroke="rgba(212,70,247,0.80)" stroke-width="1.3" fill="rgba(212,70,247,0.20)"/>
-
-        <!-- Linha decorativa inferior -->
-        <path d="M60 336 Q140 348 220 336" stroke="rgba(255,255,255,0.12)" stroke-width="1.2" fill="none"/>
-      </svg>
+      <img src="assets/svg/illustrations/rotina.svg" alt="Fluxo de onboarding" loading="lazy" style="width:100%; height:auto;" />
     </div>
 
   </div>
@@ -486,7 +352,7 @@
         <div class="security-item-header">
           <div class="security-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
+              <use href="assets/svg/icons-sprite.svg#icon-sec-lock"/>
             </svg>
           </div>
           <h4>Proteção desde o seu dispositivo</h4>
@@ -497,7 +363,7 @@
         <div class="security-item-header">
           <div class="security-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <use href="assets/svg/icons-sprite.svg#icon-sec-shield"/>
             </svg>
           </div>
           <h4>Conformidade CFP</h4>
@@ -508,7 +374,7 @@
         <div class="security-item-header">
           <div class="security-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              <use href="assets/svg/icons-sprite.svg#icon-sec-eye"/>
             </svg>
           </div>
           <h4>Histórico de acessos</h4>
@@ -519,7 +385,7 @@
         <div class="security-item-header">
           <div class="security-icon">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/>
+              <use href="assets/svg/icons-sprite.svg#icon-sec-undo"/>
             </svg>
           </div>
           <h4>Backup automático</h4>
@@ -644,37 +510,37 @@
           <ul class="pricing-features">
           <li>
             <span class="pricing-check">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-check"/></svg>
             </span>
             Prontuários eletrônicos ilimitados
           </li>
           <li>
             <span class="pricing-check">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-check"/></svg>
             </span>
             Agenda com sessões recorrentes
           </li>
           <li>
             <span class="pricing-check">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-check"/></svg>
             </span>
             Confirmações automáticas via WhatsApp
           </li>
           <li>
             <span class="pricing-check">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-check"/></svg>
             </span>
             Resumo financeiro e de agenda
           </li>
           <li>
             <span class="pricing-check">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-check"/></svg>
             </span>
             Suporte via WhatsApp
           </li>
           <li>
             <span class="pricing-check">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-check"/></svg>
             </span>
             + R$ 10/mês por usuário adicional
           </li>
@@ -690,54 +556,7 @@
 
     <!-- Imagem: lado direito (40%) -->
     <div class="section-visual section-visual--pricing">
-      <svg viewBox="0 0 260 340" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
-        <!-- Ilustração: tranquilidade financeira — camadas de confiança -->
-        <!-- Círculo de fundo grande -->
-        <circle cx="130" cy="160" r="110" stroke="#2B7FFF" stroke-width="1" opacity="0.07" fill="rgba(43,127,255,0.03)"/>
-        <circle cx="130" cy="160" r="80" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="none"/>
-
-        <!-- Escudo central -->
-        <path d="M130 50 L172 68 L172 108 C172 140 152 164 130 174 C108 164 88 140 88 108 L88 68 Z" stroke="#2B7FFF" stroke-width="1.8" fill="rgba(43,127,255,0.05)"/>
-        <!-- Checkmark no escudo -->
-        <path d="M114 110 l10 10 22-22" stroke="#2B7FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.60"/>
-
-        <!-- Linha divisória -->
-        <line x1="40" y1="196" x2="220" y2="196" stroke="#2B7FFF" stroke-width="1" opacity="0.10"/>
-
-        <!-- Card de plano -->
-        <rect x="30" y="208" width="200" height="96" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.04)"/>
-        <!-- Eyebrow do card -->
-        <rect x="46" y="222" width="40" height="5" rx="2.5" fill="#2B7FFF" opacity="0.22"/>
-        <!-- Preço -->
-        <rect x="46" y="234" width="88" height="18" rx="4" fill="#2B7FFF" opacity="0.12"/>
-        <rect x="48" y="238" width="72" height="10" rx="3" fill="#2B7FFF" opacity="0.22"/>
-        <!-- Badge "Tudo incluso" -->
-        <rect x="148" y="224" width="68" height="22" rx="11" stroke="#D446F7" stroke-width="1.2" fill="rgba(212,70,247,0.08)"/>
-        <rect x="158" y="231" width="48" height="6" rx="3" fill="#D446F7" opacity="0.40"/>
-        <!-- Itens de feature -->
-        <circle cx="50" cy="268" r="3" fill="#D446F7" opacity="0.60"/>
-        <rect x="60" y="265" width="80" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
-        <circle cx="50" cy="282" r="3" fill="#D446F7" opacity="0.60"/>
-        <rect x="60" y="279" width="96" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
-        <circle cx="160" cy="268" r="3" fill="#D446F7" opacity="0.60"/>
-        <rect x="170" y="265" width="48" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
-        <circle cx="160" cy="282" r="3" fill="#D446F7" opacity="0.60"/>
-        <rect x="170" y="279" width="60" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
-
-        <!-- Balão de 7 dias grátis -->
-        <rect x="64" y="318" width="132" height="28" rx="14" stroke="#D446F7" stroke-width="1.4" fill="rgba(212,70,247,0.07)"/>
-        <rect x="82" y="328" width="96" height="8" rx="4" fill="#D446F7" opacity="0.30"/>
-
-        <!-- Estrelas decorativas -->
-        <circle cx="36" cy="130" r="2.5" fill="#D446F7" opacity="0.45"/>
-        <circle cx="48" cy="148" r="1.5" fill="#2B7FFF" opacity="0.35"/>
-        <circle cx="214" cy="118" r="2" fill="#D446F7" opacity="0.40"/>
-        <circle cx="224" cy="138" r="1.5" fill="#2B7FFF" opacity="0.30"/>
-        <circle cx="42" cy="172" r="1.5" fill="#2B7FFF" opacity="0.30"/>
-
-        <!-- Arco de garantia decorativo -->
-        <path d="M70 186 Q130 174 190 186" stroke="#D446F7" stroke-width="1.2" opacity="0.22" fill="none" stroke-dasharray="3 4"/>
-      </svg>
+      <img src="assets/svg/illustrations/pricing.svg" alt="Tranquilidade financeira" loading="lazy" style="width:100%; height:auto;" />
     </div>
 
   </div>
@@ -755,55 +574,7 @@
 
     <!-- Imagem: lado esquerdo (40%) -->
     <div class="section-visual section-visual--faq">
-      <svg viewBox="0 0 260 360" fill="none" xmlns="http://www.w3.org/2000/svg" class="section-svg">
-        <!-- Ilustração: suporte e respostas — balões de diálogo em cascata -->
-        <!-- Fundo decorativo -->
-        <circle cx="130" cy="180" r="105" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="rgba(43,127,255,0.02)"/>
-
-        <!-- Balão 1 (pergunta) — esquerda -->
-        <rect x="20" y="36" width="168" height="56" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.05)"/>
-        <path d="M36 92 L28 108 L52 92" fill="rgba(43,127,255,0.05)" stroke="#2B7FFF" stroke-width="1.4" stroke-linejoin="round"/>
-        <!-- Interrogação dentro do balão -->
-        <circle cx="46" cy="64" r="12" fill="rgba(43,127,255,0.10)" stroke="#2B7FFF" stroke-width="1.2"/>
-        <text x="46" y="69" text-anchor="middle" font-size="13" fill="#2B7FFF" font-family="system-ui" opacity="0.55">?</text>
-        <!-- Linhas de texto no balão -->
-        <rect x="68" y="56" width="96" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
-        <rect x="68" y="68" width="72" height="5" rx="2.5" fill="#2B7FFF" opacity="0.13"/>
-        <rect x="68" y="78" width="84" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-
-        <!-- Balão 2 (resposta) — direita, abaixo -->
-        <rect x="72" y="128" width="168" height="64" rx="14" stroke="#D446F7" stroke-width="1.4" fill="rgba(212,70,247,0.05)"/>
-        <path d="M224 192 L232 208 L208 192" fill="rgba(212,70,247,0.05)" stroke="#D446F7" stroke-width="1.4" stroke-linejoin="round"/>
-        <!-- Check de resposta -->
-        <circle cx="96" cy="160" r="12" fill="rgba(212,70,247,0.15)" stroke="#D446F7" stroke-width="1.2"/>
-        <path d="M91 160l3 3 6-6" stroke="#D446F7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="118" y="152" width="104" height="6" rx="3" fill="#D446F7" opacity="0.28"/>
-        <rect x="118" y="164" width="84" height="5" rx="2.5" fill="#D446F7" opacity="0.16"/>
-        <rect x="118" y="174" width="96" height="5" rx="2.5" fill="#D446F7" opacity="0.12"/>
-        <rect x="118" y="184" width="72" height="5" rx="2.5" fill="#D446F7" opacity="0.10"/>
-
-        <!-- Balão 3 (pergunta) — esquerda, abaixo -->
-        <rect x="20" y="228" width="156" height="52" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.05)"/>
-        <path d="M34 280 L26 296 L50 280" fill="rgba(43,127,255,0.05)" stroke="#2B7FFF" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle cx="44" cy="254" r="12" fill="rgba(43,127,255,0.10)" stroke="#2B7FFF" stroke-width="1.2"/>
-        <text x="44" y="259" text-anchor="middle" font-size="13" fill="#2B7FFF" font-family="system-ui" opacity="0.55">?</text>
-        <rect x="66" y="246" width="84" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
-        <rect x="66" y="258" width="64" height="5" rx="2.5" fill="#2B7FFF" opacity="0.13"/>
-        <rect x="66" y="268" width="76" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
-
-        <!-- Mini badge de resposta imediata -->
-        <rect x="100" y="316" width="120" height="30" rx="15" stroke="#D446F7" stroke-width="1.3" fill="rgba(212,70,247,0.07)"/>
-        <circle cx="120" cy="331" r="6" fill="rgba(212,70,247,0.25)" stroke="#D446F7" stroke-width="1"/>
-        <path d="M117 331l2 2 5-4" stroke="#D446F7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="132" y="327" width="76" height="6" rx="3" fill="#D446F7" opacity="0.32"/>
-
-        <!-- Pontos decorativos -->
-        <circle cx="214" cy="44" r="3" fill="#D446F7" opacity="0.30"/>
-        <circle cx="228" cy="56" r="2" fill="#2B7FFF" opacity="0.25"/>
-        <circle cx="24" cy="196" r="2.5" fill="#D446F7" opacity="0.28"/>
-        <circle cx="36" cy="212" r="1.8" fill="#2B7FFF" opacity="0.22"/>
-        <circle cx="222" cy="302" r="2.5" fill="#2B7FFF" opacity="0.25"/>
-      </svg>
+      <img src="assets/svg/illustrations/faq.svg" alt="Suporte e respostas" loading="lazy" style="width:100%; height:auto;" />
     </div>
 
     <!-- Conteúdo: lado direito (60%) -->
@@ -820,7 +591,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Preciso de cartão de crédito para testar?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Não. Os 7 dias de teste são completamente gratuitos, sem necessidade de cartão. Você só fornece dados de pagamento se decidir continuar após o período de avaliação.</p></div>
@@ -830,7 +601,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Funciona para atendimento online?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Sim. O Therasoft funciona pelo navegador, então você acessa de qualquer celular, tablet ou computador. Agenda e prontuários funcionam tanto para atendimentos presenciais quanto online.</p></div>
@@ -840,7 +611,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Posso migrar dados de outro sistema?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Sim. Nossa equipe auxilia na transferência dos seus dados de outro sistema para o Therasoft. A maioria das transferências é concluída em menos de uma tarde, sem perda de informações.</p></div>
@@ -850,7 +621,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Como o Therasoft me ajuda a reduzir faltas?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Com confirmações automáticas via WhatsApp, com consentimento explícito do paciente, conforme o CFP. Em média, profissionais relatam 35% menos ausências no primeiro mês de uso.</p></div>
@@ -860,7 +631,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Meus dados são realmente privados?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Sim. Seus prontuários são protegidos diretamente no seu dispositivo antes de chegarem aos nossos servidores. Isso significa que nem nossa própria equipe consegue ler seus registros.</p></div>
@@ -870,7 +641,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Funciona no celular?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Sim. O Therasoft funciona bem em qualquer smartphone. Acesse sua agenda, registre sessões e confirme atendimentos direto do celular, sem precisar instalar nada.</p></div>
@@ -880,7 +651,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Posso cancelar quando quiser?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Sim, sem fidelidade e sem taxa de cancelamento. Você cancela em um clique, e seus dados ficam disponíveis para exportação por 30 dias após o cancelamento.</p></div>
@@ -890,7 +661,7 @@
           <div class="faq-question">
             <span class="faq-question-text">Posso ter recepcionista ou sócia no sistema?</span>
             <span class="faq-chevron">
-              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 4l4 4 4-4" stroke="#D446F7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><use href="assets/svg/icons-sprite.svg#icon-chevron-down"/></svg>
             </span>
           </div>
           <div class="faq-answer"><p>Sim. Você pode adicionar outras pessoas por R$ 10/mês cada, com acesso separado por perfil. Recepcionistas podem gerenciar a agenda sem ter acesso aos prontuários dos pacientes.</p></div>
@@ -940,5 +711,3 @@
 
 </body>
 </html>
- 
- 

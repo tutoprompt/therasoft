@@ -1,0 +1,74 @@
+<svg viewBox="0 0 320 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Interface clínica abstrata: prontuário + agenda + métricas -->
+  <!-- Janela principal -->
+  <rect x="20" y="24" width="220" height="280" rx="14" stroke="#2B7FFF" stroke-width="1.5" fill="none"/>
+  <!-- Barra de título -->
+  <rect x="20" y="24" width="220" height="36" rx="14" fill="rgba(43,127,255,0.06)" stroke="none"/>
+  <rect x="20" y="44" width="220" height="16" rx="0" fill="rgba(43,127,255,0.06)" stroke="none"/>
+  <!-- Dots da janela -->
+  <circle cx="38" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+  <circle cx="52" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+  <circle cx="66" cy="42" r="4" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+  <!-- Título da janela -->
+  <rect x="88" y="38" width="60" height="8" rx="4" fill="#2B7FFF" opacity="0.18"/>
+  <!-- Sidebar -->
+  <rect x="20" y="60" width="52" height="244" rx="0" stroke="none" fill="rgba(43,127,255,0.04)"/>
+  <rect x="19" y="60" width="1.5" height="244" rx="0" fill="rgba(43,127,255,0.0)" stroke="none"/>
+  <!-- Ícones sidebar -->
+  <rect x="32" y="76" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
+  <rect x="32" y="90" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+  <rect x="32" y="110" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+  <rect x="32" y="124" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+  <rect x="32" y="144" width="28" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+  <rect x="32" y="158" width="20" height="6" rx="3" fill="#2B7FFF" opacity="0.12"/>
+  <!-- Divisor sidebar -->
+  <line x1="72" y1="60" x2="72" y2="304" stroke="#2B7FFF" stroke-width="1" opacity="0.12"/>
+  <!-- Área de conteúdo: linhas de prontuário -->
+  <rect x="84" y="76" width="80" height="7" rx="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <rect x="84" y="91" width="120" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+  <rect x="84" y="103" width="100" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+  <rect x="84" y="115" width="110" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+  <!-- Divider -->
+  <line x1="84" y1="130" x2="228" y2="130" stroke="#2B7FFF" stroke-width="1" opacity="0.10"/>
+  <!-- Mini calendário -->
+  <rect x="84" y="140" width="64" height="56" rx="8" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+  <rect x="84" y="140" width="64" height="16" rx="8" fill="rgba(43,127,255,0.07)" stroke="none"/>
+  <rect x="84" y="148" width="64" height="8" rx="0" fill="rgba(43,127,255,0.07)" stroke="none"/>
+  <!-- Células do calendário -->
+  <circle cx="99" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <circle cx="112" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <circle cx="125" cy="170" r="3.5" fill="#D446F7" opacity="0.55"/>
+  <circle cx="138" cy="170" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <circle cx="99" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <circle cx="112" cy="183" r="3.5" fill="#2B7FFF" opacity="0.40"/>
+  <circle cx="125" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <circle cx="138" cy="183" r="3.5" fill="#2B7FFF" opacity="0.20"/>
+  <!-- Barra de métricas -->
+  <rect x="160" y="140" width="76" height="56" rx="8" stroke="#2B7FFF" stroke-width="1.2" fill="none"/>
+  <rect x="168" y="152" width="12" height="32" rx="3" fill="#2B7FFF" opacity="0.15"/>
+  <rect x="184" y="162" width="12" height="22" rx="3" fill="#2B7FFF" opacity="0.15"/>
+  <rect x="200" y="148" width="12" height="36" rx="3" fill="#D446F7" opacity="0.40"/>
+  <rect x="216" y="158" width="12" height="26" rx="3" fill="#2B7FFF" opacity="0.15"/>
+  <!-- Tag de status -->
+  <rect x="84" y="208" width="50" height="18" rx="9" stroke="#D446F7" stroke-width="1.2" fill="rgba(212,70,247,0.06)"/>
+  <rect x="92" y="214" width="34" height="6" rx="3" fill="#D446F7" opacity="0.35"/>
+  <!-- Mais linhas de texto -->
+  <rect x="84" y="238" width="90" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+  <rect x="84" y="250" width="110" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+  <rect x="84" y="262" width="70" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+  <!-- Janela flutuante de confirmação -->
+  <rect x="160" y="230" width="108" height="72" rx="12" stroke="#D446F7" stroke-width="1.4" fill="white" fill-opacity="0.7"/>
+  <rect x="160" y="230" width="108" height="20" rx="12" fill="rgba(212,70,247,0.08)" stroke="none"/>
+  <rect x="160" y="242" width="108" height="8" rx="0" fill="rgba(212,70,247,0.08)" stroke="none"/>
+  <rect x="172" y="236" width="50" height="6" rx="3" fill="#D446F7" opacity="0.30"/>
+  <rect x="172" y="258" width="84" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+  <rect x="172" y="269" width="64" height="5" rx="2.5" fill="#2B7FFF" opacity="0.12"/>
+  <!-- Check badge -->
+  <circle cx="249" cy="230" r="11" fill="#D446F7" opacity="0.85"/>
+  <path d="M244 230l3 3 6-6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Elemento decorativo: círculo de fundo -->
+  <circle cx="270" cy="100" r="64" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="rgba(43,127,255,0.03)"/>
+  <circle cx="270" cy="100" r="44" stroke="#2B7FFF" stroke-width="1" opacity="0.08" fill="none"/>
+  <!-- Linha de conexão decorativa -->
+  <path d="M240 76 Q280 60 290 120" stroke="#D446F7" stroke-width="1" stroke-dasharray="3 4" opacity="0.22" fill="none"/>
+</svg>

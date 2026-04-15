@@ -1,4 +1,4 @@
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
     --blue-primary:   #2B7FFF;
@@ -1026,7 +1026,7 @@
   }
 
   .transmission-node-icon {
-    width: 68px; height: 68px;
+    width: 54px; height: 54px;
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
     position: relative;
@@ -1040,7 +1040,7 @@
   }
 
   .transmission-node-icon--lock {
-    width: 60px; height: 60px;
+    width: 48px; height: 48px;
     border-radius: 50%;
     background: rgba(168,53,240,0.10);
     border: 1.5px solid rgba(168,53,240,0.32);
@@ -1130,7 +1130,7 @@
     margin-bottom: 2px;
   }
 
-  /* ── ANIMAÇÕES DA TRANSMISSÃO (JS-controlled via classes) ── */
+  /* ── ANIMAÇÕES DA TRANSMISSION (JS-controlled via classes) ── */
 
   /* sweep — luz difusa que banha a bolinha ao passar */
   .icon-sweep {
@@ -1297,10 +1297,10 @@
   /* ── LINHAS DE TRANSMISSÃO ── */
   .transmission-line {
     flex: 1;
-    height: 40px;
+    height: 54px; /* igual ao transmission-node-icon no mobile (54px) */
     position: relative;
     overflow: hidden;
-    margin: 0 12px;
+    margin: 0 8px;
     margin-bottom: 22px;
     display: flex;
     align-items: center;
@@ -1334,7 +1334,7 @@
   .line-text-scroll--plain {
     color: var(--blue-primary);
     font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
+    font-size: 12px;
     opacity: 0.85;
     /* borda opaca ao redor das letras — mesma lógica do halo dos ícones */
     text-shadow:
@@ -1349,7 +1349,7 @@
   .line-text-scroll--cipher {
     color: var(--rose);
     font-family: monospace;
-    font-size: 14px;
+    font-size: 11px;
     letter-spacing: 0.06em;
     opacity: 0.90;
     /* mesma borda mas em tom rosa para combinar */
@@ -1885,137 +1885,63 @@
       font-size: 11px;
       padding: 5px 12px 5px 8px;
     }
+
+    /* ── TRANSMISSION MOBILE: minimalismo ── */
+
+    /* Esconde device e server — só o cadeado fica */
+    .tnode-device,
+    .tnode-server {
+      display: none !important;
+    }
+
+    /* Linhas se expandem até as bordas do .transmission-visual */
+    .transmission-line {
+      margin: 0 0 22px 0;
+      /* Remove a máscara de dissolve nas bordas — o texto entra/sai pela tela */
+      -webkit-mask-image: none !important;
+      mask-image: none !important;
+    }
+
+    /* Aumenta ~20% a altura — mais rows de LED automaticamente via JS */
+    .transmission-line {
+      height: 66px;
+    }
+
+    /* Visual sem max-width para ocupar 100% */
+    .transmission-visual {
+      max-width: 100%;
+    }
   }
 
-  /* ═══════════════════════════════════════════════
-     LANDSCAPE — tablet deitado + desktop + 1920px+
-     Sistema único e fluido. clamp() para tudo.
-     max-width generoso: 1440px.
-  ═══════════════════════════════════════════════ */
-  @media (orientation: landscape) {
+  /* ═══════════════════════════════════════════════════════════════════════════════
+     TIER 2: TABLET (768px - 1023px) — Breakpoint intermediário
+     Início dos layouts 2-coluna, spacing moderado, tipografia crescendo.
+  ═══════════════════════════════════════════════════════════════════════════════ */
+  @media (min-width: 768px) {
 
     /* ── NAV ──
-       Padding lateral ZERO na <nav> — fica só no nav-inner, igual ao hero-inner.
-       Isso alinha o logo com o H1 no mesmo eixo vertical. */
+       Padding lateral ZERO na <nav> — fica só no nav-inner.
+       Alinha o logo com o H1 no mesmo eixo vertical. */
     header nav, nav.header-nav {
-      padding-top:    clamp(12px, 1vw, 16px);
-      padding-bottom: clamp(12px, 1vw, 16px);
+      padding-top:    12px;
+      padding-bottom: 12px;
       padding-left:   0;
       padding-right:  0;
     }
     .nav-inner {
-      max-width:     1440px;
-      padding-left:  clamp(32px, 5vw, 80px);
-      padding-right: clamp(32px, 5vw, 80px);
+      max-width:     100%;
+      padding-left:  32px;
+      padding-right: 32px;
     }
-    .nav-cta { font-size: clamp(13px, 1vw, 15px); padding: clamp(9px, 0.7vw, 11px) clamp(20px, 1.8vw, 28px); }
-
-    /* ── HERO — grid de duas colunas, estrutura unificada ──
-     * texto esquerda | imagem direita
-     * hero-inner age como section-inner para alinhamento exato com as seções
-     */
-    .hero {
-      position: relative;
-      overflow: hidden;
-      padding-top: clamp(60px, 7vw, 104px);
-      padding-bottom: 0;
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    /* hero-inner espelha section-inner: mesmo max-width, mesmo padding lateral */
-    .hero-inner {
-      max-width: 1440px;
-      margin: 0 auto;
-      padding-left:  clamp(32px, 5vw, 80px);
-      padding-right: clamp(32px, 5vw, 80px);
-      position: relative;
-      z-index: 1;
-    }
-
-    /* Primeiro hero-inner: grid 2 col — conteúdo esq | imagem dir */
-    .hero > .hero-inner:first-of-type {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 0;
-      row-gap: 0;
-      align-items: start;
-    }
-
-    /* Eyebrow e H1: coluna esquerda */
-    .hero > .hero-inner:first-of-type > .hero-eyebrow,
-    .hero > .hero-inner:first-of-type > .hero-title,
-    .hero > .hero-inner:first-of-type > .security-badge {
-      grid-column: 1;
-    }
-
-    /* Segundo hero-inner: desc + ctas + metrics — mesma grade 2 col */
-    .hero > .hero-inner:last-of-type {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 0;
-      align-items: start;
-    }
-    .hero > .hero-inner:last-of-type > .hero-desc,
-    .hero > .hero-inner:last-of-type > .hero-ctas,
-    .hero > .hero-inner:last-of-type > .btn-hint,
-    .hero > .hero-inner:last-of-type > .hero-metrics { grid-column: 1; }
-
-    /* Imagem hero: absoluta, ocupa metade direita */
-    .hero-placeholder {
-      transform: translateY(-40px) scale(0.85);
-      position: absolute;
-      right: 0; top: 0; bottom: 0;
-      margin: 0; padding: 0;
-      overflow: visible;
-      z-index: 1;
-    }
-    .hero-placeholder img {
-      object-fit: cover;
-      object-position: top center;
-      display: block;
-    }
-
-    /* Badge: posição landscape */
-    .hero-placeholder .security-badge {
-      position: absolute;
-      left: 30%;
-      transform: translateX(-50%);
-      bottom: -20px;
-      z-index: 10;
-      white-space: nowrap;
-    }
-
-    /* ── HERO: tipografia e botões ── */
-    .hero-title { font-size: clamp(28px, 3.2vw, 52px); }
-    .hero-desc  { font-size: clamp(15px, 1.2vw, 17px); max-width: 100%; }
-    .hero-ctas  {
-      display: grid;
-      grid-template-columns: auto auto;
-      gap: 8px 14px;
-      justify-content: start;
-      align-items: start;
-    }
-    p.btn-hint { grid-column: 1; grid-row: 2; margin-top: 0; width: 100%; text-align: center; max-width: none; }
-    .btn-secondary { grid-column: 2; grid-row: 1; }
-    .btn-primary, .btn-secondary { flex: 0 0 auto; }
-    .metric-val  { font-size: clamp(20px, 1.6vw, 26px); }
-    .metric-card { padding: 16px 14px; }
-    .hero-metrics { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 36px; }
-
-    /* ── DIVIDERS ── */
-    .section-divider {
-      max-width: 1440px;
-      padding: 0 clamp(32px, 5vw, 80px);
-    }
+    .nav-cta { font-size: 13px; padding: 9px 20px; }
 
     /* ── SECTION INNER ──
        Padding lateral aqui (não na <section>) para espelhar o hero-inner.
        Isso garante que o H2 de qualquer seção começa no mesmo eixo que o H1 do hero. */
     .section-inner {
-      max-width:     1440px;
-      padding-left:  clamp(32px, 5vw, 80px);
-      padding-right: clamp(32px, 5vw, 80px);
+      max-width:     100%;
+      padding-left:  32px;
+      padding-right: 32px;
     }
 
     /* ── SECTIONS padding — só vertical, sem lateral ── */
@@ -2025,26 +1951,340 @@
     .section-pricing,
     .section-faq,
     .section-rotina {
-      padding-top:    clamp(60px, 8vw, 104px);
-      padding-bottom: clamp(60px, 8vw, 104px);
+      padding-top:    60px;
+      padding-bottom: 60px;
       padding-left:   0;
       padding-right:  0;
     }
 
-    /* ── TIPOGRAFIA FLUIDA ── */
-    .section-title { font-size: clamp(22px, 2.8vw, 42px); }
-    .section-desc  { font-size: clamp(15px, 1.2vw, 16px); line-height: 1.7; }
+    /* ── TIPOGRAFIA ──
+       No tablet intermediário: fonts ainda compactas, sem clamp extremo.
+       Crescem linearmente com viewport. */
+    .section-title { font-size: 26px; }
+    .section-desc  { font-size: 15px; line-height: 1.6; }
+    .hero-title { font-size: 28px; text-align: left; }
 
-    /* ── GRID 60/40 — sistema compartilhado pelas 4 seções ──────────────
-     * Cada section-inner vira grid de 2 colunas: visual(40%) + content(60%)
-     * A ordem das colunas varia por seção (alternância visual).
-     * ─────────────────────────────────────────────────────────────────── */
-
-    /* Mostrar o visual e ativar section-content como bloco */
+    /* ── SEÇÕES: display flex → display block (portrait mantém contents) ── */
     .section-visual { display: flex; align-items: center; justify-content: center; }
     .section-content { display: flex; flex-direction: column; }
 
-    /* ── FUNCIONALIDADES — imagem esq (40%) | conteúdo dir (60%) ── */
+    /* ── HERO: layout responsivo simples ── */
+    .hero {
+      padding-top: 60px;
+      padding-bottom: 0;
+      padding-left: 0;
+      padding-right: 0;
+      overflow: visible;
+    }
+
+    .hero-inner {
+      max-width: 100%;
+      padding-left:  32px;
+      padding-right: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Primeiro hero-inner: grid 2 col — conteúdo esq | imagem dir */
+    .hero > .hero-inner:first-of-type {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 32px;
+      row-gap: 0;
+      align-items: start;
+    }
+
+    .hero > .hero-inner:first-of-type > .hero-eyebrow,
+    .hero > .hero-inner:first-of-type > .hero-title {
+      grid-column: 1;
+      text-align: left;
+    }
+    .hero > .hero-inner:first-of-type > .hero-eyebrow::after { display: block; }
+    .hero > .hero-inner:first-of-type > .hero-eyebrow { text-align: left; display: inline-block; width: auto; }
+
+    .hero > .hero-inner:last-of-type {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 32px;
+      align-items: start;
+    }
+    .hero > .hero-inner:last-of-type > .hero-desc,
+    .hero > .hero-inner:last-of-type > .hero-ctas,
+    .hero > .hero-inner:last-of-type > .btn-hint,
+    .hero > .hero-inner:last-of-type > .hero-metrics { grid-column: 1; }
+
+    .hero-placeholder {
+      transform: translateY(-30px) translateX(10px) scale(0.8);
+      position: absolute;
+      right: 0; top: 0; bottom: 0;
+      margin: 0; padding: 0;
+      overflow: visible;
+      z-index: 1;
+    }
+
+    .hero-placeholder .security-badge {
+      position: absolute;
+      left: 30%;
+      transform: translateX(-50%);
+      bottom: -110px;
+      z-index: 10;
+    }
+
+    .hero-ctas {
+      display: grid;
+      grid-template-columns: auto auto;
+      gap: 8px 12px;
+      justify-content: start;
+      align-items: start;
+    }
+    p.btn-hint { grid-column: 1; grid-row: 2; margin-top: 0; width: 100%; text-align: center; }
+    .btn-secondary { grid-column: 2; grid-row: 1; }
+
+    .hero-metrics { grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 24px; }
+    .metric-val  { font-size: 22px; }
+
+    /* ── DIVIDERS ── */
+    .section-divider {
+      max-width: 100%;
+      padding: 0 32px;
+    }
+
+    /* ── FEATURES: 2-coluna layout ── */
+    .section-features .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 32px;
+      align-items: center;
+    }
+    .section-features .section-visual {
+      order: -1;
+      min-height: 280px;
+    }
+    .section-features .section-content {
+      order: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .section-features .section-content .section-eyebrow { text-align: left; justify-content: flex-start; }
+    .section-features .section-content .section-title { text-align: left; }
+    .section-features .section-content .section-desc { text-align: left; }
+
+    /* Features cards: 1 coluna no tablet */
+    .section-features .section-content .feature-card {
+      margin-bottom: 12px;
+    }
+
+    /* ── COMO FUNCIONA: 2-coluna ── */
+    .section-rotina .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 32px;
+      align-items: center;
+    }
+    .section-rotina .section-content {
+      order: -1;
+      display: flex;
+      flex-direction: column;
+    }
+    .section-rotina .section-visual {
+      order: 1;
+      min-height: 280px;
+    }
+    .section-rotina .section-content .step-card {
+      flex-direction: row;
+      gap: 16px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      align-items: flex-start;
+    }
+    .step-num { width: 40px; height: 40px; font-size: 15px; flex-shrink: 0; }
+    .step-text h3 { font-size: 15px; }
+    .step-text p { font-size: 13px; }
+    .section-rotina .section-content .btn-cta-white {
+      margin-top: 28px;
+      max-width: 280px;
+    }
+    .section-rotina .section-content .cta-hint-white { text-align: left; }
+
+    /* ── PREÇO: 2-coluna ── */
+    .section-pricing .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 32px;
+      align-items: center;
+    }
+    .section-pricing .section-content {
+      order: -1;
+      display: flex;
+      flex-direction: column;
+    }
+    .section-pricing .section-visual {
+      order: 1;
+      min-height: 280px;
+    }
+    .pricing-col-price { width: 150px; }
+    .pricing-amount { font-size: clamp(58px, 5vw, 80px); }
+
+    /* ── FAQ: 2-coluna ── */
+    .section-faq .section-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 32px;
+      align-items: start;
+    }
+    .section-faq .section-visual {
+      order: -1;
+      min-height: 280px;
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    .section-faq .section-content {
+      order: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .section-faq .section-content .section-eyebrow { text-align: left; justify-content: flex-start; }
+    .section-faq .section-content .section-title { text-align: left; }
+    .section-faq .section-content .section-desc { text-align: left; }
+
+    /* ── DEPOIMENTOS: 1 coluna (lista vertical) ── */
+    .section-testimonials .section-inner {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-testimonials .section-inner > .section-eyebrow { text-align: center; }
+    .section-testimonials .section-inner > .section-title { text-align: center; }
+    .section-testimonials .section-inner > .section-desc { text-align: center; }
+    .section-testimonials .testimonial-card { padding: 0 0 24px; margin-bottom: 0; }
+    .section-testimonials .testimonial-card + .testimonial-card {
+      border-top: none;
+      padding-top: 0;
+      border-left: 1px solid rgba(43,127,255,0.08);
+      padding-left: 40px;
+    }
+
+    /* ── SEGURANÇA: 1 coluna (meio intermediário) ── */
+    .section-security .section-inner {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-security .section-inner > .section-eyebrow { text-align: center; }
+    .section-security .section-inner > .section-title { text-align: center; }
+    .section-security .section-inner > .section-desc { text-align: center; }
+    .security-grid { margin-top: 20px; gap: 12px; grid-template-columns: 1fr 1fr; }
+
+    /* ── CTA FINAL ── */
+    .section-cta-final { padding: 60px 32px; }
+    .cta-final-inner { max-width: 100%; }
+    .cta-final-title { font-size: 32px; }
+    .cta-final-desc { font-size: 15px; }
+    .section-cta-final .btn-cta-white {
+      max-width: 320px;
+      margin: 20px auto 0;
+      font-size: 15px;
+      padding: 16px 28px;
+    }
+
+    /* ── FOOTER ── */
+    .footer-top {
+      max-width: 100%;
+      padding: 36px 32px 28px;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-nav { flex-wrap: wrap; gap: 12px; justify-content: center; }
+    .footer-nav a { font-size: 13px; }
+    .footer-bottom {
+      max-width: 100%;
+      padding: 20px 32px 32px;
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+    .footer-divider { margin: 16px 32px; }
+
+  } /* fim @media (min-width: 768px) TABLET */
+
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+     TIER 3: DESKTOP (1024px - 1439px) — Breakpoint principal
+     Layouts 60/40 completo, grids refinados, spacing generoso com clamp().
+  ═══════════════════════════════════════════════════════════════════════════════ */
+  @media (min-width: 1024px) {
+
+    /* ── NAV: volta aos clamp() fluidos ── */
+    header nav, nav.header-nav {
+      padding-top:    clamp(12px, 1vw, 16px);
+      padding-bottom: clamp(12px, 1vw, 16px);
+    }
+    .nav-inner {
+      max-width:     1440px;
+      padding-left:  clamp(32px, 5vw, 80px);
+      padding-right: clamp(32px, 5vw, 80px);
+    }
+    .nav-cta { font-size: clamp(13px, 1vw, 15px); padding: clamp(9px, 0.7vw, 11px) clamp(20px, 1.8vw, 28px); }
+
+    /* ── HERO: volta ao layout full grid 2-col ── */
+    .hero {
+      padding-top: 30px;
+      padding-bottom: 0;
+      overflow: visible;
+    }
+
+    .hero-inner {
+      max-width: 1440px;
+      padding-left:  clamp(32px, 5vw, 80px);
+      padding-right: clamp(32px, 5vw, 80px);
+    }
+
+    .hero-title { font-size: clamp(28px, 3.2vw, 52px); }
+    .hero-desc  { font-size: clamp(15px, 1.2vw, 17px); max-width: 100%; }
+
+    .hero-placeholder {
+      transform: translateY(-65px) translateX(135px) scale(0.70);
+    }
+
+    .hero-placeholder .security-badge {
+      position: absolute;
+      left: 30%;
+      transform: translateX(-50%);
+      bottom: -225px;
+    }
+
+    .metric-val  { font-size: clamp(20px, 1.6vw, 26px); }
+
+    /* ── DIVIDERS ── */
+    .section-divider {
+      max-width: 1440px;
+      padding: 0 clamp(32px, 5vw, 80px);
+    }
+
+    /* ── SECTION INNER: max-width + clamp padding ── */
+    .section-inner {
+      max-width:     1440px;
+      padding-left:  clamp(32px, 5vw, 80px);
+      padding-right: clamp(32px, 5vw, 80px);
+    }
+
+    /* ── SECTIONS padding fluído ── */
+    .section-features,
+    .section-testimonials,
+    .section-security,
+    .section-pricing,
+    .section-faq,
+    .section-rotina {
+      padding-top:    clamp(60px, 8vw, 104px);
+      padding-bottom: clamp(60px, 8vw, 104px);
+    }
+
+    /* ── TIPOGRAFIA FLUIDA COM CLAMP ── */
+    .section-title { font-size: clamp(22px, 2.8vw, 42px); }
+    .section-desc  { font-size: clamp(15px, 1.2vw, 16px); line-height: 1.7; }
+
+    /* ── FEATURES: imagem esq (40%) | conteúdo dir (60%) — 2x2 grid ── */
     .section-features .section-inner {
       display: grid;
       grid-template-columns: 2fr 3fr;
@@ -2052,26 +2292,11 @@
       align-items: center;
     }
     .section-features .section-visual {
-      order: -1; /* imagem à esquerda */
+      order: -1;
       min-height: 360px;
     }
     .section-features .section-content {
       order: 1;
-    }
-    /* Cards dentro do conteúdo: grid 2 colunas */
-    .section-features .section-content .feature-card {
-      margin-bottom: 12px;
-    }
-    .section-features .section-content .section-title {
-      max-width: 100%;
-      margin-bottom: 12px;
-    }
-    .section-features .section-content .section-desc {
-      max-width: 100%;
-      margin-bottom: 28px;
-    }
-    /* 2 cards por linha dentro da coluna de conteúdo */
-    .section-features .section-content {
       display: grid;
       grid-template-columns: 1fr 1fr;
       column-gap: 16px;
@@ -2080,14 +2305,14 @@
     }
     .section-features .section-content > .section-eyebrow { grid-column: 1 / -1; }
     .section-features .section-content > .section-title   { grid-column: 1 / -1; }
-    .section-features .section-content > .section-desc    { grid-column: 1 / -1; }
+    .section-features .section-content > .section-desc    { grid-column: 1 / -1; margin-bottom: 28px; }
     .feature-card { padding: 20px 18px; }
-    .feature-icon { width: 48px; height: 48px; border-radius: 14px; flex-shrink: 0; }
+    .feature-icon { width: 48px; height: 48px; flex-shrink: 0; }
     .feature-icon svg { width: 22px; height: 22px; }
     .feature-text h3 { font-size: 14.5px; }
     .feature-text p { font-size: 13px; }
 
-    /* ── COMO FUNCIONA — conteúdo esq (60%) | imagem dir (40%) ── */
+    /* ── COMO FUNCIONA: conteúdo esq (60%) | imagem dir (40%) ── */
     .section-rotina .section-inner {
       display: grid;
       grid-template-columns: 3fr 2fr;
@@ -2095,7 +2320,7 @@
       align-items: center;
     }
     .section-rotina .section-content {
-      order: -1; /* conteúdo à esquerda */
+      order: -1;
       display: flex;
       flex-direction: column;
     }
@@ -2117,11 +2342,9 @@
       margin-top: 28px;
       max-width: 280px;
     }
-    .section-rotina .section-content .cta-hint-white {
-      text-align: left;
-    }
+    .section-rotina .section-content .cta-hint-white { text-align: left; }
 
-    /* ── PREÇO — conteúdo+preço esq (60%) | imagem dir (40%) ── */
+    /* ── PREÇO: conteúdo+preço esq (60%) | imagem dir (40%) ── */
     .section-pricing .section-inner {
       display: grid;
       grid-template-columns: 3fr 2fr;
@@ -2137,9 +2360,7 @@
       order: 1;
       min-height: 340px;
     }
-    .section-pricing .section-content .pricing-card {
-      width: 100%;
-    }
+    .section-pricing .section-content .pricing-card { width: 100%; }
     .pricing-col-price { width: 190px; }
     .pricing-amount { font-size: clamp(58px, 5vw, 80px); }
     .pricing-features { display: grid; grid-template-columns: 1fr 1fr; column-gap: 32px; }
@@ -2147,7 +2368,7 @@
     .pricing-col-info { padding: 32px 28px 30px; }
     .pricing-bottom { padding: 22px 26px 28px; }
 
-    /* ── FAQ — imagem esq (40%) | conteúdo dir (60%) ── */
+    /* ── FAQ: imagem esq (40%) | conteúdo dir (60%) ── */
     .section-faq .section-inner {
       display: grid;
       grid-template-columns: 2fr 3fr;
@@ -2155,7 +2376,7 @@
       align-items: start;
     }
     .section-faq .section-visual {
-      order: -1; /* imagem à esquerda */
+      order: -1;
       min-height: 340px;
       position: sticky;
       top: 80px;
@@ -2171,7 +2392,7 @@
     .faq-item { transition: box-shadow 0.22s, border-color 0.22s, transform 0.22s; }
     .faq-item:hover { transform: translateX(2px); }
 
-    /* DEPOIMENTOS — 3 colunas */
+    /* ── DEPOIMENTOS: 3 colunas ── */
     .section-testimonials .section-inner {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
@@ -2179,19 +2400,10 @@
       column-gap: 40px;
       row-gap: 0;
     }
-    .section-testimonials .section-inner > .section-eyebrow {
-      grid-column: 1 / -1;
-    }
-    .section-testimonials .section-inner > .section-title {
-      grid-column: 1 / -1;
-    }
-    .section-testimonials .section-inner > .section-desc {
-      grid-column: 1 / -1;
-      margin-bottom: 40px;
-    }
-    .section-testimonials .testimonial-card {
-      padding-bottom: 0;
-    }
+    .section-testimonials .section-inner > .section-eyebrow { grid-column: 1 / -1; }
+    .section-testimonials .section-inner > .section-title { grid-column: 1 / -1; }
+    .section-testimonials .section-inner > .section-desc { grid-column: 1 / -1; margin-bottom: 40px; }
+    .section-testimonials .testimonial-card { padding-bottom: 0; }
     .section-testimonials .testimonial-card + .testimonial-card {
       border-top: none;
       padding-top: 0;
@@ -2200,7 +2412,7 @@
     }
     .testimonial-text { font-size: 14.5px; }
 
-    /* SEGURANÇA — 2 colunas: header | grid */
+    /* ── SEGURANÇA: 2 colunas ── */
     .section-security .section-inner {
       display: grid;
       grid-template-columns: 1fr 1.2fr;
@@ -2217,12 +2429,18 @@
     .security-transmission { margin-top: 14px; }
     .security-transmission .transmission-visual { max-width: none; width: 100%; justify-content: space-between; margin-bottom: 12px; }
     .security-transmission .transmission-line { max-width: none; }
-    .security-transmission .transmission-text { max-width: none; text-align: center; padding: 14px 0 0; }
     .security-transmission .transmission-label { text-align: center; padding-bottom: 14px; }
     .security-item h4 { font-size: 13px; }
     .security-item p { font-size: 12px; }
 
-    /* CTA FINAL */
+    /* restaura tamanhos originais acima do mobile */
+    .transmission-node-icon { width: 68px; height: 68px; }
+    .transmission-node-icon--lock { width: 60px; height: 60px; }
+    .transmission-line { margin: 0 12px; margin-bottom: 22px; height: 40px; }
+    .line-text-scroll--plain { font-size: 15px; }
+    .line-text-scroll--cipher { font-size: 14px; }
+
+    /* ── CTA FINAL ── */
     .section-cta-final { padding: 96px 48px; }
     .cta-final-inner { max-width: 760px; }
     .cta-final-title { font-size: clamp(28px, 3vw, 44px); }
@@ -2256,6 +2474,69 @@
     .footer-copyright { font-size: clamp(12px, 0.9vw, 13px); }
     .footer-disclaimer { font-size: clamp(11px, 0.8vw, 12px); }
 
-  } /* fim @media (orientation: landscape) */
+  } /* fim @media (min-width: 1024px) DESKTOP */
+
+
+  /* ═══════════════════════════════════════════════════════════════════════════════
+     TIER 4: LARGE (1440px+) — Breakpoint de refinamento
+     Ajustes finais: max-width, spacing máximo, tipografia otimizada.
+  ═══════════════════════════════════════════════════════════════════════════════ */
+  @media (min-width: 1440px) {
+
+    /* Tudo já vem do TIER 3 com clamp() bem calibrados.
+       Este tier aplica refinamentos finais para telas muito grandes. */
+
+    .hero {
+      padding-top: 30px !important;
+    }
+
+    .hero-placeholder .security-badge {
+      bottom: -36px;
+    }
+
+    .hero-title { font-size: 52px; }
+    .section-title { font-size: 42px; }
+    .section-desc  { font-size: 16px; }
+
+    .section-cta-final { padding: 120px 64px; }
+    .cta-final-title { font-size: 48px; }
+    .cta-final-desc { font-size: 17px; }
+
+    .hero-placeholder {
+      transform: translateY(-13px) translateX(10px) scale(0.95);
+      /* ou */
+      max-width: 780px;
+    }
+
+  } /* fim @media (min-width: 1440px) LARGE */
+
+  @media (min-width: 1920px) {
+
+    /* Tudo já vem do TIER 3 com clamp() bem calibrados.
+       Este tier aplica refinamentos finais para telas muito grandes. */
+
+    .hero {
+      padding-top: 30px !important;
+    }
+
+    .hero-placeholder .security-badge {
+      bottom: -36px;
+    }
+
+    .hero-title { font-size: 52px; }
+    .section-title { font-size: 42px; }
+    .section-desc  { font-size: 16px; }
+
+    .section-cta-final { padding: 120px 64px; }
+    .cta-final-title { font-size: 48px; }
+    .cta-final-desc { font-size: 17px; }
+
+    .hero-placeholder {
+      transform: translateY(-13px) translateX(-210px) scale(0.95);
+      /* ou */
+      max-width: 780px;
+    }
+
+  } /* fim @media (min-width: 1440px) LARGE */
 
 

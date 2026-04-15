@@ -129,10 +129,11 @@
 // ─────────────────────────────────────────────────────────────
 (function () {
 
-  var PLAIN_TEXT   = 'informações confidenciais do paciente';
-  var CIPHER_TEXT  = 'aX7#Km2$qR9!pL4&Zv8@nW3%eJ6*fT1^bY5';
-  var CHAR_PLAIN   = 28;
-  var CHAR_CIPHER  = 22;
+  var _isMobile    = window.innerWidth < 768;
+  var PLAIN_TEXT   = _isMobile ? 'dados do paciente'            : 'informações confidenciais do paciente';
+  var CIPHER_TEXT  = _isMobile ? 'xK9#mP2$qR7!bL4&Zv8'         : 'aX7#Km2$qR9!pL4&Zv8@nW3%eJ6*fT1^bY5';
+  var CHAR_PLAIN   = _isMobile ? 14                             : 28;
+  var CHAR_CIPHER  = _isMobile ? 14                             : 22;
   var ALIVE_MS     = 1600;
   var DISSOLVE_MS  = 480;
 

@@ -1,0 +1,49 @@
+<svg viewBox="0 0 260 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ilustração: suporte e respostas — balões de diálogo em cascata -->
+  <!-- Fundo decorativo -->
+  <circle cx="130" cy="180" r="105" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="rgba(43,127,255,0.02)"/>
+
+  <!-- Balão 1 (pergunta) — esquerda -->
+  <rect x="20" y="36" width="168" height="56" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.05)"/>
+  <path d="M36 92 L28 108 L52 92" fill="rgba(43,127,255,0.05)" stroke="#2B7FFF" stroke-width="1.4" stroke-linejoin="round"/>
+  <!-- Interrogação dentro do balão -->
+  <circle cx="46" cy="64" r="12" fill="rgba(43,127,255,0.10)" stroke="#2B7FFF" stroke-width="1.2"/>
+  <text x="46" y="69" text-anchor="middle" font-size="13" fill="#2B7FFF" font-family="system-ui" opacity="0.55">?</text>
+  <!-- Linhas de texto no balão -->
+  <rect x="68" y="56" width="96" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
+  <rect x="68" y="68" width="72" height="5" rx="2.5" fill="#2B7FFF" opacity="0.13"/>
+  <rect x="68" y="78" width="84" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+
+  <!-- Balão 2 (resposta) — direita, abaixo -->
+  <rect x="72" y="128" width="168" height="64" rx="14" stroke="#D446F7" stroke-width="1.4" fill="rgba(212,70,247,0.05)"/>
+  <path d="M224 192 L232 208 L208 192" fill="rgba(212,70,247,0.05)" stroke="#D446F7" stroke-width="1.4" stroke-linejoin="round"/>
+  <!-- Check de resposta -->
+  <circle cx="96" cy="160" r="12" fill="rgba(212,70,247,0.15)" stroke="#D446F7" stroke-width="1.2"/>
+  <path d="M91 160l3 3 6-6" stroke="#D446F7" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="118" y="152" width="104" height="6" rx="3" fill="#D446F7" opacity="0.28"/>
+  <rect x="118" y="164" width="84" height="5" rx="2.5" fill="#D446F7" opacity="0.16"/>
+  <rect x="118" y="174" width="96" height="5" rx="2.5" fill="#D446F7" opacity="0.12"/>
+  <rect x="118" y="184" width="72" height="5" rx="2.5" fill="#D446F7" opacity="0.10"/>
+
+  <!-- Balão 3 (pergunta) — esquerda, abaixo -->
+  <rect x="20" y="228" width="156" height="52" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.05)"/>
+  <path d="M34 280 L26 296 L50 280" fill="rgba(43,127,255,0.05)" stroke="#2B7FFF" stroke-width="1.4" stroke-linejoin="round"/>
+  <circle cx="44" cy="254" r="12" fill="rgba(43,127,255,0.10)" stroke="#2B7FFF" stroke-width="1.2"/>
+  <text x="44" y="259" text-anchor="middle" font-size="13" fill="#2B7FFF" font-family="system-ui" opacity="0.55">?</text>
+  <rect x="66" y="246" width="84" height="6" rx="3" fill="#2B7FFF" opacity="0.22"/>
+  <rect x="66" y="258" width="64" height="5" rx="2.5" fill="#2B7FFF" opacity="0.13"/>
+  <rect x="66" y="268" width="76" height="5" rx="2.5" fill="#2B7FFF" opacity="0.10"/>
+
+  <!-- Mini badge de resposta imediata -->
+  <rect x="100" y="316" width="120" height="30" rx="15" stroke="#D446F7" stroke-width="1.3" fill="rgba(212,70,247,0.07)"/>
+  <circle cx="120" cy="331" r="6" fill="rgba(212,70,247,0.25)" stroke="#D446F7" stroke-width="1"/>
+  <path d="M117 331l2 2 5-4" stroke="#D446F7" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="132" y="327" width="76" height="6" rx="3" fill="#D446F7" opacity="0.32"/>
+
+  <!-- Pontos decorativos -->
+  <circle cx="214" cy="44" r="3" fill="#D446F7" opacity="0.30"/>
+  <circle cx="228" cy="56" r="2" fill="#2B7FFF" opacity="0.25"/>
+  <circle cx="24" cy="196" r="2.5" fill="#D446F7" opacity="0.28"/>
+  <circle cx="36" cy="212" r="1.8" fill="#2B7FFF" opacity="0.22"/>
+  <circle cx="222" cy="302" r="2.5" fill="#2B7FFF" opacity="0.25"/>
+</svg>

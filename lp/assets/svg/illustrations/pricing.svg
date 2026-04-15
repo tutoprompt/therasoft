@@ -1,0 +1,48 @@
+<svg viewBox="0 0 260 340" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Ilustração: tranquilidade financeira — camadas de confiança -->
+  <!-- Círculo de fundo grande -->
+  <circle cx="130" cy="160" r="110" stroke="#2B7FFF" stroke-width="1" opacity="0.07" fill="rgba(43,127,255,0.03)"/>
+  <circle cx="130" cy="160" r="80" stroke="#2B7FFF" stroke-width="1" opacity="0.06" fill="none"/>
+
+  <!-- Escudo central -->
+  <path d="M130 50 L172 68 L172 108 C172 140 152 164 130 174 C108 164 88 140 88 108 L88 68 Z" stroke="#2B7FFF" stroke-width="1.8" fill="rgba(43,127,255,0.05)"/>
+  <!-- Checkmark no escudo -->
+  <path d="M114 110 l10 10 22-22" stroke="#2B7FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.60"/>
+
+  <!-- Linha divisória -->
+  <line x1="40" y1="196" x2="220" y2="196" stroke="#2B7FFF" stroke-width="1" opacity="0.10"/>
+
+  <!-- Card de plano -->
+  <rect x="30" y="208" width="200" height="96" rx="14" stroke="#2B7FFF" stroke-width="1.4" fill="rgba(43,127,255,0.04)"/>
+  <!-- Eyebrow do card -->
+  <rect x="46" y="222" width="40" height="5" rx="2.5" fill="#2B7FFF" opacity="0.22"/>
+  <!-- Preço -->
+  <rect x="46" y="234" width="88" height="18" rx="4" fill="#2B7FFF" opacity="0.12"/>
+  <rect x="48" y="238" width="72" height="10" rx="3" fill="#2B7FFF" opacity="0.22"/>
+  <!-- Badge "Tudo incluso" -->
+  <rect x="148" y="224" width="68" height="22" rx="11" stroke="#D446F7" stroke-width="1.2" fill="rgba(212,70,247,0.08)"/>
+  <rect x="158" y="231" width="48" height="6" rx="3" fill="#D446F7" opacity="0.40"/>
+  <!-- Itens de feature -->
+  <circle cx="50" cy="268" r="3" fill="#D446F7" opacity="0.60"/>
+  <rect x="60" y="265" width="80" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+  <circle cx="50" cy="282" r="3" fill="#D446F7" opacity="0.60"/>
+  <rect x="60" y="279" width="96" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+  <circle cx="160" cy="268" r="3" fill="#D446F7" opacity="0.60"/>
+  <rect x="170" y="265" width="48" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+  <circle cx="160" cy="282" r="3" fill="#D446F7" opacity="0.60"/>
+  <rect x="170" y="279" width="60" height="5" rx="2.5" fill="#2B7FFF" opacity="0.18"/>
+
+  <!-- Balão de 7 dias grátis -->
+  <rect x="64" y="318" width="132" height="28" rx="14" stroke="#D446F7" stroke-width="1.4" fill="rgba(212,70,247,0.07)"/>
+  <rect x="82" y="328" width="96" height="8" rx="4" fill="#D446F7" opacity="0.30"/>
+
+  <!-- Estrelas decorativas -->
+  <circle cx="36" cy="130" r="2.5" fill="#D446F7" opacity="0.45"/>
+  <circle cx="48" cy="148" r="1.5" fill="#2B7FFF" opacity="0.35"/>
+  <circle cx="214" cy="118" r="2" fill="#D446F7" opacity="0.40"/>
+  <circle cx="224" cy="138" r="1.5" fill="#2B7FFF" opacity="0.30"/>
+  <circle cx="42" cy="172" r="1.5" fill="#2B7FFF" opacity="0.30"/>
+
+  <!-- Arco de garantia decorativo -->
+  <path d="M70 186 Q130 174 190 186" stroke="#D446F7" stroke-width="1.2" opacity="0.22" fill="none" stroke-dasharray="3 4"/>
+</svg>

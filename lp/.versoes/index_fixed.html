@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Therasoft — Snapshot: Animação de Transmissão</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-primary: #2B7FFF;
+    --rose:         #D446F7;
+    --text-dark:    #0F1B2D;
+    --text-mid:     #3A4F6A;
+    --text-soft:    #7A90AD;
+    --warm-white:   #F7F8FA;
+    --blue-pale:    #EBF2FF;
+  }
+
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #dce9f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .security-wrap {
+    width: 100%;
+    max-width: 760px;
+    background: linear-gradient(160deg, #EBF4FF 0%, #DAECff 60%, #EEF5FF 100%);
+    border-radius: 24px;
+    padding: 48px 32px 40px;
+    box-shadow: 0 8px 48px rgba(43,127,255,0.12);
+  }
+
+  .transmission-label {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .transmission-label span {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--rose);
+  }
+
+  .transmission-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 24px;
+  }
+
+  .transmission-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .transmission-node-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.72);
+    border: 1.5px solid rgba(43,127,255,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 2px 12px rgba(43,127,255,0.10);
+  }
+
+  .transmission-node-icon--lock {
+    border-color: rgba(212,70,247,0.30);
+    box-shadow: 0 2px 16px rgba(212,70,247,0.12);
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+  .transmission-node-icon--lock.processing {
+    background:   rgba(43,127,255,0.18);
+    border-color: rgba(43,127,255,0.55);
+    box-shadow:   0 0 0 8px rgba(43,127,255,0.08);
+  }
+
+  .transmission-node-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text-mid);
+    text-align: center;
+    line-height: 1.4;
+    white-space: nowrap;
+  }
+
+  .transmission-line {
+    flex: 1;
+    height: 40px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 12px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+
+  .led-strip {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+
+  .led-dot {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #2B7FFF;
+    opacity: 0.18;
+    margin-left: -1.5px;
+    margin-top: -1.5px;
+  }
+
+  .line-text-scroll {
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    white-space: nowrap;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    pointer-events: none;
+    max-width: calc(100% - 8px);
+    overflow: hidden;
+    will-change: transform, opacity;
+    z-index: 2;
+  }
+
+  .line-text-scroll--plain {
+    color: var(--blue-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    opacity: 0.85;
+  }
+
+  .line-text-scroll--cipher {
+    color: var(--rose);
+    font-family: monospace;
+    font-size: 14px;
+    letter-spacing: 0.06em;
+    opacity: 0.90;
+  }
+
+  .tw-cursor {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background: currentColor;
+    margin-left: 2px;
+    vertical-align: middle;
+    opacity: 0;
+  }
+  .tw-cursor.active {
+    animation: cursorBlink 0.6s ease-in-out infinite;
+  }
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  .tnode-device .transmission-node-icon.anim-push {
+    animation: devicePush 0.7s cubic-bezier(0.42,0,0.58,1) forwards;
+  }
+  @keyframes devicePush {
+    0%   { transform: translateX(0)   scale(1); }
+    45%  { transform: translateX(8px) scale(1.10); }
+    75%  { transform: translateX(4px) scale(1.04); }
+    100% { transform: translateX(0)   scale(1); }
+  }
+
+  .tnode-lock .lock-svg.anim-process {
+    animation: lockProcess 0.9s ease-in-out forwards;
+    transform-origin: center;
+  }
+  @keyframes lockProcess {
+    0%,100% { transform: rotate(0deg)   scale(1);    }
+    30%     { transform: rotate(-12deg) scale(1.18); }
+    55%     { transform: rotate(12deg)  scale(1.18); }
+    78%     { transform: rotate(0deg)   scale(1);    }
+  }
+
+  .lock-pulse {
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(212,70,247,0.40);
+    pointer-events: none;
+    opacity: 0;
+    transition: border-color 0.5s ease;
+  }
+  .lock-pulse.anim-ring {
+    animation: lockRing 0.9s ease-in-out forwards;
+  }
+  .lock-pulse.processing { border-color: rgba(43,127,255,0.50); }
+  @keyframes lockRing {
+    0%   { transform: scale(1);    opacity: 0; }
+    40%  { transform: scale(1.35); opacity: 1; }
+    100% { transform: scale(1.85); opacity: 0; }
+  }
+
+  .tnode-server .transmission-node-icon.anim-receive {
+    animation: serverReceive 0.6s cubic-bezier(0.42,0,0.58,1) forwards;
+  }
+  @keyframes serverReceive {
+    0%   { transform: translateY(0)    scale(1);    }
+    35%  { transform: translateY(-7px) scale(1.12); }
+    60%  { transform: translateY(2px)  scale(0.96); }
+    100% { transform: translateY(0)    scale(1);    }
+  }
+
+  .transmission-text {
+    text-align: center;
+    padding: 0 8px;
+  }
+  .transmission-text p {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+  .transmission-text strong {
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+</style>
+</head>
+<body>
+
+<div class="security-wrap">
+
+  <div class="transmission-label">
+    <span>Sigilo de ponta a ponta</span>
+  </div>
+
+  <div class="transmission-visual">
+
+    <div class="transmission-node tnode-device">
+      <div class="transmission-node-icon transmission-node-icon--device">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+          <rect x="5" y="2" width="14" height="20" rx="2"/>
+          <circle cx="12" cy="17" r="1"/>
+        </svg>
+      </div>
+      <span class="transmission-node-label">Seu<br>dispositivo</span>
+    </div>
+
+    <div class="transmission-line transmission-line--left">
+      <div class="led-strip" id="svg-line-left"></div>
+      <span class="line-text-scroll line-text-scroll--plain" id="tw-plain"><span class="tw-cursor"></span></span>
+    </div>
+
+    <div class="transmission-node tnode-lock">
+      <div class="transmission-node-icon transmission-node-icon--lock">
+        <svg class="lock-svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D446F7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="11" width="18" height="11" rx="2"/>
+          <path d="M7 11V7a5 5 0 0110 0v4"/>
+          <circle cx="12" cy="16" r="1" fill="#D446F7"/>
+        </svg>
+        <span class="lock-pulse"></span>
+      </div>
+      <span class="transmission-node-label">Criptografado</span>
+    </div>
+
+    <div class="transmission-line transmission-line--right">
+      <div class="led-strip" id="svg-line-right"></div>
+      <span class="line-text-scroll line-text-scroll--cipher" id="tw-cipher"><span class="tw-cursor"></span></span>
+    </div>
+
+    <div class="transmission-node tnode-server">
+      <div class="transmission-node-icon transmission-node-icon--server">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2B7FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.65">
+          <rect x="2" y="3" width="20" height="5" rx="1.5"/>
+          <rect x="2" y="10" width="20" height="5" rx="1.5"/>
+          <circle cx="18" cy="5.5" r="1" fill="#2B7FFF" opacity="0.5"/>
+          <circle cx="18" cy="12.5" r="1" fill="#2B7FFF" opacity="0.5"/>
+        </svg>
+      </div>
+      <span class="transmission-node-label">Nossos<br>servidores</span>
+    </div>
+
+  </div>
+
+  <div class="transmission-text">
+    <p><strong>Nem nós conseguimos ler seus registros.</strong> Seus prontuários são protegidos antes mesmo de sair do seu dispositivo — só você acessa.</p>
+  </div>
+
+</div>
+
+<script>
+  // ── LED STRIP ──────────────────────────────────────────────
+  (function () {
+    var DOT    = 3;
+    var GAP    = 3;
+    var SLOT   = DOT + GAP;
+    var ROW_Y  = SLOT;
+    var BASE   = 0.18;
+    var PEAK   = 0.85;
+    var RISE   = 0.18;
+    var DECAY  = 0.016;
+    var SPREAD = 2;
+    var LAG    = 10;
+
+    function makeLedLine(id) {
+      var wrap = document.getElementById(id);
+      if (!wrap) return { move: function(){}, reset: function(){} };
+
+      var W    = wrap.offsetWidth || 300;
+      var N    = Math.floor(W / SLOT);
+      var cx0  = (W - (N - 1) * SLOT) / 2;
+      var midY = 20;
+      var y1   = midY - ROW_Y / 2;
+      var y2   = midY + ROW_Y / 2;
+
+      var op  = [], top = [], bot = [];
+      var cur = -1;
+
+      for (var i = 0; i < N; i++) {
+        op.push(BASE);
+        var x = cx0 + i * SLOT;
+
+        var d1 = document.createElement('div');
+        d1.className = 'led-dot';
+        d1.style.left = x + 'px';
+        d1.style.top  = y1 + 'px';
+        wrap.appendChild(d1);
+        top.push(d1);
+
+        var d2 = document.createElement('div');
+        d2.className = 'led-dot';
+        d2.style.left = x + 'px';
+        d2.style.top  = y2 + 'px';
+        wrap.appendChild(d2);
+        bot.push(d2);
+      }
+
+      (function loop() {
+        var trail = cur >= 0 ? cur - LAG : -1;
+        for (var i = 0; i < N; i++) {
+          var target = BASE;
+          if (trail >= 0) {
+            var d = i - trail;
+            if (d >= -SPREAD && d <= SPREAD) {
+              var g = Math.exp(-0.5 * Math.pow(d / (SPREAD * 0.6), 2));
+              target = BASE + (PEAK - BASE) * g;
+            }
+          }
+          op[i] = op[i] < target
+            ? Math.min(op[i] + RISE, target)
+            : Math.max(op[i] - DECAY, BASE);
+          var v = op[i].toFixed(3);
+          top[i].style.opacity = v;
+          bot[i].style.opacity = v;
+        }
+        requestAnimationFrame(loop);
+      })();
+
+      function pxToIdx(xPx) {
+        return Math.min(Math.max(Math.round((xPx - cx0) / SLOT), 0), N - 1);
+      }
+
+      return {
+        move:  function(xPx) { cur = pxToIdx(xPx); },
+        reset: function()    { cur = -1; }
+      };
+    }
+
+    function init() {
+      window._lineLeft  = makeLedLine('svg-line-left');
+      window._lineRight = makeLedLine('svg-line-right');
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else { init(); }
+  })();
+
+  // ── TRANSMISSÃO ───────────────────────────────────────────
+  (function () {
+    var PLAIN_TEXT   = 'informações confidenciais do paciente';
+    var CIPHER_TEXT  = 'aX7#Km2$qR9!pL4&Zv8@nW3%eJ6*fT1^bY5';
+    var CHAR_PLAIN   = 28;
+    var CHAR_CIPHER  = 22;
+    var ALIVE_MS     = 1600;
+    var DISSOLVE_MS  = 480;
+    var PROCESS_MS   = 900;
+
+    // Guarda o rAF de tracking ativo para poder cancelar
+    var _trackingRaf = null;
+
+    function qs(sel) { return document.querySelector(sel); }
+
+    function textNode(el, cursor) {
+      var n = null;
+      el.childNodes.forEach(function(c) { if (c.nodeType === 3) n = c; });
+      if (!n) { n = document.createTextNode(''); el.insertBefore(n, cursor); }
+      return n;
+    }
+
+    function triggerAnim(el, cls, ms, cb) {
+      if (!el) { cb && cb(); return; }
+      el.classList.remove(cls);
+      void el.offsetWidth;
+      el.classList.add(cls);
+      setTimeout(function() { el.classList.remove(cls); cb && cb(); }, ms);
+    }
+
+    // Lê a translação X atual do elemento via matrix
+    function getCurrentTranslateX(el) {
+      var style = window.getComputedStyle(el);
+      var matrix = style.transform || style.webkitTransform;
+      if (!matrix || matrix === 'none') return 0;
+      var vals = matrix.match(/matrix.*\((.+)\)/);
+      if (!vals) return 0;
+      var parts = vals[1].split(',');
+      return parseFloat(parts[4]) || 0;
+    }
+
+    // Inicia tracking contínuo via rAF: lê a posição real do texto a cada frame
+    // e passa para o lineCtrl. Retorna função de parada.
+    function startTracking(el, lineEl, lineCtrl) {
+      if (_trackingRaf) cancelAnimationFrame(_trackingRaf);
+      var lineRect  = lineEl ? lineEl.getBoundingClientRect() : null;
+      var lineLeft  = lineRect ? lineRect.left : 0;
+      var lineW     = lineEl  ? lineEl.offsetWidth : 200;
+      var running   = true;
+
+      function loop() {
+        if (!running) return;
+        var elRect = el.getBoundingClientRect();
+        // Centro do texto relativo à linha
+        var cx = (elRect.left + elRect.right) / 2 - lineLeft;
+        // Clamp dentro da linha
+        cx = Math.max(0, Math.min(lineW, cx));
+        lineCtrl.move(cx);
+        _trackingRaf = requestAnimationFrame(loop);
+      }
+      _trackingRaf = requestAnimationFrame(loop);
+
+      return function stop() {
+        running = false;
+        cancelAnimationFrame(_trackingRaf);
+        _trackingRaf = null;
+      };
+    }
+
+    function typeAndCenter(elId, text, charMs, lineCtrl, cb) {
+      var el     = document.getElementById(elId);
+      if (!el) { cb && cb(); return; }
+
+      var lineEl = el.closest('.transmission-line');
+      var lineW  = lineEl ? lineEl.offsetWidth : 200;
+      var cursor = el.querySelector('.tw-cursor');
+      var tn     = textNode(el, cursor);
+
+      tn.textContent = text;
+      var fullW = el.offsetWidth;
+      tn.textContent = '';
+
+      var startX  = 4;
+      var centerX = (lineW - fullW) / 2;
+      var typeMs  = text.length * charMs;
+
+      el._centerX = centerX;
+      el._lineW   = lineW;
+
+      el.style.opacity    = '1';
+      el.style.transition = 'none';
+      el.style.left       = '0';
+      el.style.transform  = 'translateY(-50%) translateX(' + startX + 'px) scale(1)';
+      void el.offsetWidth;
+
+      el.style.transition = 'transform ' + typeMs + 'ms cubic-bezier(0.25, 0, 0.58, 1)';
+      el.style.transform  = 'translateY(-50%) translateX(' + centerX + 'px) scale(1.15)';
+
+      // Inicia tracking contínuo já aqui — acompanha a animação CSS de ida
+      var stopTracking = startTracking(el, lineEl, lineCtrl);
+
+      cursor.classList.add('active');
+      var i = 0;
+      function step() {
+        if (i < text.length) {
+          tn.textContent += text[i++];
+          setTimeout(step, charMs);
+        } else {
+          cursor.classList.remove('active');
+          setTimeout(function() {
+            el.style.transition = 'none';
+            el.style.transform  = 'translateY(-50%) translateX(' + centerX + 'px) scale(1.15)';
+            void el.offsetWidth;
+            stopTracking(); // para o tracking aqui; stayAlive reinicia
+            cb && cb();
+          }, 80);
+        }
+      }
+      step();
+    }
+
+    function stayAlive(elId, lineCtrl, cb) {
+      var el = document.getElementById(elId);
+      if (!el) { setTimeout(cb, ALIVE_MS); return; }
+
+      var lineEl  = el.closest('.transmission-line');
+      var centerX = el._centerX || 0;
+      var lineW   = el._lineW   || 200;
+      var driftX  = centerX + lineW * 0.03;
+
+      el._driftX = driftX;
+
+      el.style.transition = 'transform ' + ALIVE_MS + 'ms cubic-bezier(0.25, 0, 0.58, 1)';
+      el.style.transform  = 'translateY(-50%) translateX(' + driftX + 'px) scale(1.15)';
+
+      // Tracking contínuo durante o drift
+      var stopTracking = startTracking(el, lineEl, lineCtrl);
+
+      setTimeout(function() {
+        stopTracking();
+        cb && cb();
+      }, ALIVE_MS);
+    }
+
+    function dissolveRight(elId, lineCtrl, cb) {
+      var el = document.getElementById(elId);
+      if (!el) { cb && cb(); return; }
+
+      var lineEl  = el.closest('.transmission-line');
+      var fromX   = el._driftX !== undefined ? el._driftX : (el._centerX || 0);
+      var elLineW = el._lineW  || 200;
+      var destX   = fromX + elLineW * 0.45;
+
+      el.style.transition = 'none';
+      el.style.transform  = 'translateY(-50%) translateX(' + fromX + 'px) scale(1.15)';
+      el.style.opacity    = '1';
+      void el.offsetWidth;
+
+      el.style.transition = 'transform ' + DISSOLVE_MS + 'ms cubic-bezier(0.42, 0, 1, 1),'
+                          + 'opacity '   + DISSOLVE_MS + 'ms cubic-bezier(0.42, 0, 1, 1)';
+      el.style.transform  = 'translateY(-50%) translateX(' + destX + 'px) scale(1)';
+      el.style.opacity    = '0';
+
+      // Tracking contínuo durante o dissolve — o LED segue o texto até sumir
+      var stopTracking = startTracking(el, lineEl, lineCtrl);
+
+      setTimeout(function() {
+        stopTracking();
+        lineCtrl.reset();
+
+        el.style.transition = 'none';
+        el.style.opacity    = '1';
+        el.style.transform  = 'translateY(-50%) translateX(0px) scale(1)';
+        el._centerX = undefined;
+        el._driftX  = undefined;
+        var cursor = el.querySelector('.tw-cursor');
+        textNode(el, cursor).textContent = '';
+        void el.offsetWidth;
+        cb && cb();
+      }, DISSOLVE_MS + 60);
+    }
+
+    function lockProcess(cb) {
+      var icon  = qs('.transmission-node-icon--lock');
+      var svg   = qs('.tnode-lock .lock-svg');
+      var pulse = qs('.lock-pulse');
+
+      icon.classList.add('processing');
+      pulse.classList.add('processing');
+      triggerAnim(svg,   'anim-process', PROCESS_MS, null);
+      triggerAnim(pulse, 'anim-ring',    PROCESS_MS, null);
+
+      setTimeout(function() {
+        icon.classList.remove('processing');
+        pulse.classList.remove('processing');
+      }, PROCESS_MS * 0.55);
+
+      setTimeout(cb, PROCESS_MS + 100);
+    }
+
+    function cipherSequence(cb) {
+      typeAndCenter('tw-cipher', CIPHER_TEXT, CHAR_CIPHER, window._lineRight, function() {
+        stayAlive('tw-cipher', window._lineRight, function() {
+          dissolveRight('tw-cipher', window._lineRight, cb);
+        });
+      });
+    }
+
+    function run() {
+      typeAndCenter('tw-plain', PLAIN_TEXT, CHAR_PLAIN, window._lineLeft, function() {
+        stayAlive('tw-plain', window._lineLeft, function() {
+          triggerAnim(qs('.tnode-device .transmission-node-icon'), 'anim-push', 700, null);
+          dissolveRight('tw-plain', window._lineLeft, function() {
+            lockProcess(function() {
+              cipherSequence(function() {
+                triggerAnim(qs('.tnode-server .transmission-node-icon'), 'anim-receive', 600, null);
+                setTimeout(run, 500);
+              });
+            });
+          });
+        });
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() { setTimeout(run, 50); });
+    } else {
+      setTimeout(run, 50);
+    }
+  })();
+</script>
+</body>
+</html>
